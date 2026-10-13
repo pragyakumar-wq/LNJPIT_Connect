@@ -1,14 +1,24 @@
 {
+  "id": "./",
   "name": "LNJPIT 1st Semester Timetable 2026",
   "short_name": "LNJPIT Timetable",
-  "description": "Lok Nayak Jai Prakash Institute of Technology, Chapra \u2014 1st Semester July\u2013December 2026 revised timetable.",
+  "description": "Official-style student timetable companion for LNJPIT 1st Semester, July–December 2026. Check class schedules and stay updated.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait-primary",
   "background_color": "#f4f7fb",
   "theme_color": "#1d4ed8",
   "lang": "en-IN",
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icons/icon-192.png",

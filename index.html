@@ -332,6 +332,13 @@
       padding: 20px
     }
 
+    footer .credit {
+      display: block;
+      margin-top: 6px;
+      color: #4b5563;
+      font-weight: 600
+    }
+
     #toast,
     #inst {
       position: fixed;
@@ -404,7 +411,10 @@
     </div>
     <div id="ag"></div>
   </main>
-  <footer>Live status and reminders follow your device clock. Reminders fire only while the app is open.</footer>
+  <footer>
+    Live status and reminders follow your device clock. Reminders fire only while the app is open.
+    <span class="credit">Developed by Pragya Kumar · MNC ’18</span>
+  </footer>
   <div id="toast" role="status"></div>
   <div id="inst"><strong>📲 Install LNJPIT Timetable</strong>
     <p>Add it to your home screen for quick, offline access.</p>
@@ -560,7 +570,11 @@
     /* ---- Init ---- */
     BRANCHES.forEach((b, i) => $('br').add(new Option(b.name, i)));
     try { const s = localStorage.getItem('tt-branch'); if (s !== null && BRANCHES[s]) $('br').value = s } catch (e) { }
-    $('br').onchange = () => { try { localStorage.setItem('tt-branch', $('br').value) } catch (e) { } render() };
+    $('br').onchange = () => {
+      try { localStorage.setItem('tt-branch', $('br').value) } catch (e) { }
+      render();
+      dispatchEvent(new Event('timetable-branch-changed'));
+    };
     $('perm').onclick = askPerm;
     $('test').onclick = async () => { if (Notification.permission === 'default') await askPerm(); notify('⏰ Class reminder', 'Your PPS Lab class starts in 5 minutes!') };
     let lastMin = -1;
@@ -578,6 +592,8 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
     import { getMessaging, getToken, isSupported, onMessage } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+    import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-functions.js";
 
     // Firebase Web app configuration is public client configuration. Do not put a
     // service-account JSON, server key, or private VAPID key in this file.
@@ -593,11 +609,17 @@
     // Firebase Console → Project settings → Cloud Messaging → Web Push certificates.
     // Paste only the *public* VAPID key here before deploying.
     const VAPID_PUBLIC_KEY = "BJCMjMtR-goDJA3VSb7El9HJRJ9te7VoR0LTwNpM2gHjOp1sbr9zqEn_8lFjlFqVX_pQp4rSljur47OcTHRaA3k";
+    const FUNCTIONS_REGION = "asia-south1";
 
     const $ = id => document.getElementById(id);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const functions = getFunctions(app, FUNCTIONS_REGION);
+    const registerReminderDevice = httpsCallable(functions, "registerReminderDevice");
     let messaging = null;
     let serviceWorkerRegistration = null;
     let setupPromise = null;
+    let authPromise = null;
     let fcmToken = "";
 
     const hasVapidKey = () => VAPID_PUBLIC_KEY.trim().length > 0;
@@ -617,7 +639,7 @@
         // and Firebase Messaging at this GitHub Pages-safe relative scope.
         serviceWorkerRegistration = await navigator.serviceWorker.register('./sw.js');
         await navigator.serviceWorker.ready;
-        messaging = getMessaging(initializeApp(firebaseConfig));
+        messaging = getMessaging(app);
         onMessage(messaging, payload => {
           const notification = payload.notification || {};
           const data = payload.data || {};
@@ -635,6 +657,37 @@
       });
 
       return setupPromise;
+    }
+
+    async function ensureAnonymousUser() {
+      if (auth.currentUser) return auth.currentUser;
+      if (!authPromise) {
+        authPromise = signInAnonymously(auth)
+          .then(credential => credential.user)
+          .catch(error => {
+            authPromise = null;
+            throw error;
+          });
+      }
+      return authPromise;
+    }
+
+    async function syncReminderDevice({ quiet = false } = {}) {
+      if (!fcmToken) return false;
+      try {
+        await ensureAnonymousUser();
+        await registerReminderDevice({
+          token: fcmToken,
+          branchIndex: Number($('br').value)
+        });
+        return true;
+      } catch (error) {
+        // The PWA remains usable if the server has not been deployed yet. Never
+        // store the token directly from the browser in Firestore.
+        console.warn('Could not register this device for scheduled reminders.', error);
+        if (!quiet) setStatus('Notifications are enabled. Scheduled closed-app reminders will activate after the Firebase backend is deployed.');
+        return false;
+      }
     }
 
     async function refreshFcmToken({ quiet = false } = {}) {
@@ -655,6 +708,12 @@
 
       fcmToken = token;
       updateTokenButton();
+      const scheduled = await syncReminderDevice({ quiet });
+      if (!quiet) {
+        setStatus(scheduled
+          ? 'Notifications enabled. This device is registered for 5-minute class reminders.'
+          : 'Notifications enabled. Copy the FCM token for a Firebase Console test; scheduled reminders need the backend deployment.');
+      }
       return token;
     }
 
@@ -663,7 +722,6 @@
       button.disabled = true;
       try {
         await refreshFcmToken();
-        if (fcmToken) setStatus('Notifications enabled. Copy the FCM token, then use it in Firebase Console → Messaging → Send test message.');
       } catch (error) {
         setStatus(`Browser notifications are enabled, but Firebase token setup failed: ${error.message}`);
       } finally {
@@ -682,6 +740,7 @@
     }
 
     addEventListener('fcm-permission-granted', () => { void enableFirebaseNotifications() });
+    addEventListener('timetable-branch-changed', () => { void syncReminderDevice({ quiet: true }) });
     $('copyToken').addEventListener('click', copyFcmToken);
 
     if ('Notification' in window && Notification.permission === 'granted') {
