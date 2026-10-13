@@ -33,11 +33,30 @@ Open the HTTPS website in Chrome → menu `⋮` → **Install app** / **Add to H
 
 The app requests notification permission only from the button click. It receives foreground FCM messages in the page and background data messages through the unified service worker. The token flow is included specifically for Firebase Console testing; production sending should use a trusted backend, not browser code.
 
-## Class reminders
+## Automatic class reminders
 
-While the app/page is running, it can show a reminder 5 minutes before the selected branch's class.
+The project now includes a trusted Firebase backend in `functions/`:
 
-**Important:** A static GitHub Pages site cannot reliably send a scheduled push notification when the app is completely closed. Firebase Messaging enables delivery, but a trusted backend scheduler (for example, Cloud Functions/Run plus Cloud Scheduler) must still calculate and send each 5-minute reminder. This package does not pretend otherwise.
+- `registerReminderDevice` is a callable function. The PWA uses anonymous Firebase Authentication and sends the device's FCM token plus selected branch to this function; it never writes tokens directly to Firestore.
+- `sendClassReminders` is a second-generation scheduled function in `asia-south1`. It runs each minute in `Asia/Kolkata`, detects classes beginning in roughly five minutes, sends data-only FCM pushes, removes invalid tokens, and uses Firestore idempotency records to prevent duplicate reminders.
+
+The server stores only an anonymous Firebase UID, the FCM token, the selected branch index, and an update timestamp in the private `reminderDevices` collection. Keep that collection and `reminderLocks` inaccessible to browser clients in your Firestore rules; the Admin SDK used by Cloud Functions does not need client access.
+
+### Deploying the backend
+
+Scheduled Cloud Functions require the Firebase **Blaze** plan. Cloud Scheduler has a monthly charge after the three-job free allowance, and Cloud Functions/Firestore/FCM usage can also incur charges. No billing change is made by the source code alone.
+
+After billing is enabled for `lnjpit-timetable`, deploy from the project root:
+
+```powershell
+cd functions
+npm install
+cd ..
+firebase login
+firebase deploy --only functions
+```
+
+Before deploying, verify that Anonymous authentication remains enabled. If Firebase Authentication requires it for your project, add `pragyakumar-wq.github.io` to Authentication → Settings → Authorized domains. The current client will continue to give in-page reminders until this backend is deployed; it registers for closed-app reminders automatically once the callable function is live.
 
 ## Branding
 The included icon is an **LNJPIT-style app icon**, not an official institute logo. Replace it with the official logo only if you have permission/right to use it.
