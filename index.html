@@ -393,7 +393,8 @@
     </section>
     <div class="card controls">
       <div><label for="br">Select branch / section</label><select id="br"></select></div>
-      <button id="perm">🔔 Enable reminders</button>
+      <button id="perm">🔔 Enable notifications</button>
+      <button id="copyToken" class="alt" hidden>Copy FCM token</button>
       <button id="test" class="alt">Test alert</button>
     </div>
     <div class="meta"><span class="badge" id="room"></span><span class="badge" id="today"></span><span
@@ -519,16 +520,20 @@
     const sent = new Set();
     function toast(title, body) { const t = $('toast'); t.innerHTML = `<b></b><span></span>`; t.firstChild.textContent = title; t.lastChild.textContent = body; t.style.display = 'block'; clearTimeout(toast.id); toast.id = setTimeout(() => t.style.display = 'none', 10000); if (navigator.vibrate) navigator.vibrate([200, 100, 200]) }
     $('toast').onclick = () => $('toast').style.display = 'none';
-    async function notify(title, body) {
+    async function notify(title, body, url = './') {
       toast(title, body);
       if (!('Notification' in window) || Notification.permission !== 'granted') return;
-      const o = { body, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: 'class-reminder', renotify: true, vibrate: [200, 100, 200] };
+      const o = { body, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: 'class-reminder', renotify: true, vibrate: [200, 100, 200], data: { url } };
       try { // Android Chrome needs the service worker to show notifications
         const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration();
         if (reg) { await reg.showNotification(title, o); return }
       } catch (e) { }
       try { new Notification(title, o) } catch (e) { }
     }
+    addEventListener('fcm-message', event => {
+      const payload = event.detail || {};
+      notify(payload.title || 'LNJPIT Timetable', payload.body || 'You have a new timetable notification.', payload.url || './');
+    });
     function checkUpcoming() {
       const { n, m, di, sun } = nowInfo(); if (sun) return;
       const soon = cur().d[di].filter(e => e.s - m === 5); if (!soon.length) return;
@@ -539,21 +544,28 @@
       const b = $('perm'), nt = $('notice');
       if (!('Notification' in window)) { b.style.display = 'none'; nt.textContent = 'System notifications unsupported — on-screen reminders will be used.'; return }
       const p = Notification.permission;
-      b.textContent = p === 'granted' ? '🔔 Reminders on' : '🔔 Enable reminders';
-      nt.textContent = p === 'granted' ? 'System reminders enabled.' : p === 'denied' ? 'Notifications blocked in browser settings — on-screen reminders only.' : '';
+      b.textContent = p === 'granted' ? '🔔 Notifications on' : '🔔 Enable notifications';
+      nt.textContent = p === 'granted' ? 'Browser notifications enabled.' : p === 'denied' ? 'Notifications blocked in browser settings — on-screen reminders only.' : '';
       if (location.protocol === 'file:') nt.textContent = 'Opened as a local file: only on-screen reminders work. Host it on HTTPS for system notifications.';
     }
-    function askPerm() { if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission().then(permUI, permUI); else permUI() }
+    async function askPerm() {
+      if (!('Notification' in window)) { permUI(); return }
+      let permission = Notification.permission;
+      if (permission === 'default') permission = await Notification.requestPermission();
+      if (permission !== 'granted') { permUI(); return }
+      permUI();
+      dispatchEvent(new Event('fcm-permission-granted'));
+    }
 
     /* ---- Init ---- */
     BRANCHES.forEach((b, i) => $('br').add(new Option(b.name, i)));
     try { const s = localStorage.getItem('tt-branch'); if (s !== null && BRANCHES[s]) $('br').value = s } catch (e) { }
     $('br').onchange = () => { try { localStorage.setItem('tt-branch', $('br').value) } catch (e) { } render() };
     $('perm').onclick = askPerm;
-    $('test').onclick = () => { askPerm(); notify('⏰ Class reminder', 'Your PPS Lab class starts in 5 minutes!') };
+    $('test').onclick = async () => { if (Notification.permission === 'default') await askPerm(); notify('⏰ Class reminder', 'Your PPS Lab class starts in 5 minutes!') };
     let lastMin = -1;
     function loop() { live(); const mn = new Date().getMinutes(); if (mn !== lastMin) { lastMin = mn; render(); checkUpcoming() } }
-    render(); permUI(); askPerm(); loop(); setInterval(loop, 1000);
+    render(); permUI(); loop(); setInterval(loop, 1000);
 
     /* ---- PWA ---- */
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('./sw.js').catch(() => { });
@@ -562,6 +574,121 @@
     $('instBtn').onclick = async () => { if (dp) { dp.prompt(); await dp.userChoice; dp = null } $('inst').style.display = 'none' };
     $('instNo').onclick = () => $('inst').style.display = 'none';
     addEventListener('appinstalled', () => $('inst').style.display = 'none');
+  </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+    import { getMessaging, getToken, isSupported, onMessage } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging.js";
+
+    // Firebase Web app configuration is public client configuration. Do not put a
+    // service-account JSON, server key, or private VAPID key in this file.
+    const firebaseConfig = {
+      apiKey: "AIzaSyD1VQ6LxMrKaMl0AuxEA9mRc1SpdDopck4",
+      authDomain: "lnjpit-timetable.firebaseapp.com",
+      projectId: "lnjpit-timetable",
+      storageBucket: "lnjpit-timetable.firebasestorage.app",
+      messagingSenderId: "983687695923",
+      appId: "1:983687695923:web:de769b16368a1a34d51d46"
+    };
+
+    // Firebase Console → Project settings → Cloud Messaging → Web Push certificates.
+    // Paste only the *public* VAPID key here before deploying.
+    const VAPID_PUBLIC_KEY = "BJCMjMtR-goDJA3VSb7El9HJRJ9te7VoR0LTwNpM2gHjOp1sbr9zqEn_8lFjlFqVX_pQp4rSljur47OcTHRaA3k";
+
+    const $ = id => document.getElementById(id);
+    let messaging = null;
+    let serviceWorkerRegistration = null;
+    let setupPromise = null;
+    let fcmToken = "";
+
+    const hasVapidKey = () => VAPID_PUBLIC_KEY.trim().length > 0;
+    const setStatus = message => { $('notice').textContent = message };
+    const updateTokenButton = () => { $('copyToken').hidden = !fcmToken };
+
+    async function setupMessaging() {
+      if (messaging) return;
+      if (setupPromise) return setupPromise;
+
+      setupPromise = (async () => {
+        if (!('serviceWorker' in navigator) || !('Notification' in window) || !await isSupported()) {
+          throw new Error('Firebase Messaging is not supported in this browser.');
+        }
+
+        // Pass the existing PWA worker explicitly so one worker owns both cache
+        // and Firebase Messaging at this GitHub Pages-safe relative scope.
+        serviceWorkerRegistration = await navigator.serviceWorker.register('./sw.js');
+        await navigator.serviceWorker.ready;
+        messaging = getMessaging(initializeApp(firebaseConfig));
+        onMessage(messaging, payload => {
+          const notification = payload.notification || {};
+          const data = payload.data || {};
+          dispatchEvent(new CustomEvent('fcm-message', {
+            detail: {
+              title: notification.title || data.title || 'LNJPIT Timetable',
+              body: notification.body || data.body || 'You have a new timetable notification.',
+              url: data.url || payload.fcmOptions?.link || './'
+            }
+          }));
+        });
+      })().catch(error => {
+        setupPromise = null;
+        throw error;
+      });
+
+      return setupPromise;
+    }
+
+    async function refreshFcmToken({ quiet = false } = {}) {
+      if (Notification.permission !== 'granted') return null;
+      if (!hasVapidKey()) {
+        if (!quiet) setStatus('Browser notifications are enabled. Add the public Web Push VAPID key to enable Firebase messages.');
+        return null;
+      }
+
+      await setupMessaging();
+      // getToken is retained for the Firebase Console registration-token test.
+      // Do not combine it with the newer FID register()/onRegistered() API.
+      const token = await getToken(messaging, {
+        vapidKey: VAPID_PUBLIC_KEY,
+        serviceWorkerRegistration
+      });
+      if (!token) throw new Error('Firebase did not return a registration token.');
+
+      fcmToken = token;
+      updateTokenButton();
+      return token;
+    }
+
+    async function enableFirebaseNotifications() {
+      const button = $('perm');
+      button.disabled = true;
+      try {
+        await refreshFcmToken();
+        if (fcmToken) setStatus('Notifications enabled. Copy the FCM token, then use it in Firebase Console → Messaging → Send test message.');
+      } catch (error) {
+        setStatus(`Browser notifications are enabled, but Firebase token setup failed: ${error.message}`);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function copyFcmToken() {
+      if (!fcmToken) { setStatus('Enable notifications first to create an FCM token.'); return }
+      try {
+        await navigator.clipboard.writeText(fcmToken);
+        setStatus('FCM token copied. Paste it only into the Firebase Console test-message field.');
+      } catch (error) {
+        setStatus('The token is ready, but the browser could not copy it. Open the deployed HTTPS site and try again.');
+      }
+    }
+
+    addEventListener('fcm-permission-granted', () => { void enableFirebaseNotifications() });
+    $('copyToken').addEventListener('click', copyFcmToken);
+
+    if ('Notification' in window && Notification.permission === 'granted') {
+      refreshFcmToken({ quiet: true }).then(() => {
+        if (fcmToken) setStatus('Notifications enabled. FCM token ready for testing.');
+      }).catch(() => { });
+    }
   </script>
 </body>
 
