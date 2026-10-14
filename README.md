@@ -26,24 +26,6 @@ A modern, offline-first Progressive Web App for the **LNJPIT Chapra 1st Semester
 - `icons/` & `public/icons/` — High-resolution anti-aliased `192x192` and `512x512` PWA icons
 - `functions/` — Firebase Cloud Functions v2 backend (`registerReminderDevice`, `unregisterReminderDevice`, and scheduled `sendClassReminders`)
 
-## 🚀 Deploy Free with GitHub Pages
-1. Create a **Public** repository on GitHub.
-2. Upload all root files (`index.html`, `404.html`, `manifest.webmanifest`, `sw.js`, `firebase-messaging-sw.js`, and the `icons/` folder).
-3. Open **Settings → Pages** → choose **Deploy from a branch** → select `main` and `/ (root)`, then **Save**.
-4. Open your HTTPS URL (`https://YOUR-USERNAME.github.io/REPOSITORY-NAME/`) in Chrome to install the PWA and enable notifications.
-
-## 🔥 Firebase Notifications & Backend Deployment
-1. In **Firebase Console → Project settings → Cloud Messaging → Web Push certificates**, copy your **public VAPID key** and set `VAPID_PUBLIC_KEY` in `index.html`.
-2. Deploy the frontend or backend from the project root:
-   ```bash
-   cd functions
-   npm install
-   npm run check
-   cd ..
-   firebase login
-   firebase deploy
-   ```
-3. Ensure **Anonymous Authentication** is enabled in Firebase Console → Authentication.
 
 ## 👤 Credits
 Developed by **Pragya Kumar · MNC 18** · Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra, Bihar.
