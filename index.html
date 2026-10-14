@@ -1,120 +1,297 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>LNJPIT 1st Semester Timetable 2026</title>
+  <meta name="description" content="Interactive 1st Semester Timetable Companion for Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra, Bihar. Live class status, lab group filter, and notifications.">
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1d4ed8">
+  <meta name="theme-color" content="#1e40af" id="themeMeta">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="LNJPIT Timetable">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" type="image/png" href="icons/icon-192.png">
   <style>
+    :root {
+      --bg: #f1f5f9;
+      --bg-accent: radial-gradient(1200px 500px at 50% -120px, rgba(37, 99, 235, 0.12), transparent 70%);
+      --surface: #ffffff;
+      --surface-subtle: #f8fafc;
+      --surface-hover: #f1f5f9;
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-text: #1e40af;
+      --header-bg: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #4338ca 100%);
+      --live-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 30px -10px rgba(15, 23, 42, 0.08), 0 4px 10px -4px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 20px 40px -12px rgba(15, 23, 42, 0.18);
+
+      /* Category tokens */
+      --lec-bg: #f8fafc;
+      --lec-border: #cbd5e1;
+      --lec-text: #1e293b;
+      --lec-tag-bg: #e2e8f0;
+      --lec-tag-text: #334155;
+
+      --lab-bg: #f0fdfa;
+      --lab-border: #99f6e4;
+      --lab-text: #0f766e;
+      --lab-tag-bg: #ccfbf1;
+      --lab-tag-text: #115e59;
+
+      --rem-bg: #f5f3ff;
+      --rem-border: #ddd6fe;
+      --rem-text: #5b21b6;
+      --rem-tag-bg: #ede9fe;
+      --rem-tag-text: #4c1d95;
+
+      --act-bg: #fffbeb;
+      --act-border: #fde68a;
+      --act-text: #92400e;
+      --act-tag-bg: #fef3c7;
+      --act-tag-text: #78350f;
+
+      --on-bg: #ecfdf5;
+      --on-border: #10b981;
+      --on-text: #065f46;
+      --on-cell: rgba(16, 185, 129, 0.08);
+
+      --brk-bg: #fff7ed;
+      --brk-text: #9a3412;
+      --brk-border: #fed7aa;
+      --today-row: rgba(37, 99, 235, 0.035);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --bg-accent: radial-gradient(1200px 500px at 50% -120px, rgba(59, 130, 246, 0.16), transparent 70%);
+      --surface: #131c31;
+      --surface-subtle: #19243d;
+      --surface-hover: #1e293b;
+      --text: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+      --border-strong: #334155;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --primary-soft: rgba(59, 130, 246, 0.15);
+      --primary-text: #93c5fd;
+      --header-bg: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #312e81 100%);
+      --live-bg: linear-gradient(135deg, #172554 0%, #1e1b4b 100%);
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 12px 32px -8px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.65);
+
+      --lec-bg: #19243d;
+      --lec-border: #334155;
+      --lec-text: #f1f5f9;
+      --lec-tag-bg: #334155;
+      --lec-tag-text: #cbd5e1;
+
+      --lab-bg: rgba(13, 148, 136, 0.15);
+      --lab-border: rgba(45, 212, 191, 0.35);
+      --lab-text: #5eead4;
+      --lab-tag-bg: rgba(13, 148, 136, 0.3);
+      --lab-tag-text: #99f6e4;
+
+      --rem-bg: rgba(124, 58, 237, 0.16);
+      --rem-border: rgba(167, 139, 250, 0.35);
+      --rem-text: #ddd6fe;
+      --rem-tag-bg: rgba(124, 58, 237, 0.32);
+      --rem-tag-text: #ede9fe;
+
+      --act-bg: rgba(217, 119, 6, 0.16);
+      --act-border: rgba(251, 191, 36, 0.35);
+      --act-text: #fde68a;
+      --act-tag-bg: rgba(217, 119, 6, 0.3);
+      --act-tag-text: #fef3c7;
+
+      --on-bg: rgba(16, 185, 129, 0.2);
+      --on-border: #34d399;
+      --on-text: #a7f3d0;
+      --on-cell: rgba(16, 185, 129, 0.12);
+
+      --brk-bg: rgba(154, 52, 18, 0.22);
+      --brk-text: #fdba74;
+      --brk-border: rgba(251, 146, 60, 0.3);
+      --today-row: rgba(59, 130, 246, 0.08);
+    }
+
     * {
-      box-sizing: border-box
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f4f7fb;
-      color: #172033
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      background-image: var(--bg-accent);
+      background-repeat: no-repeat;
+      color: var(--text);
+      line-height: 1.5;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
+    /* ---- Header ---- */
     header {
-      background: linear-gradient(135deg, #1d4ed8, #4338ca);
-      color: #fff;
-      text-align: center;
-      padding: 24px 14px
+      background: var(--header-bg);
+      color: #ffffff;
+      padding: 22px 16px 26px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    h1 {
-      margin: 0 0 6px;
-      font-size: clamp(21px, 5.5vw, 32px)
+    .header-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
 
-    header p {
-      margin: 3px;
-      opacity: .92;
-      font-size: .95rem
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      flex-shrink: 0;
+      background: #1e40af;
+    }
+
+    .brand-text h1 {
+      margin: 0;
+      font-size: clamp(1.25rem, 3.8vw, 1.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      margin: 3px 0 0;
+      opacity: 0.9;
+      font-size: 0.88rem;
+    }
+
+    .session-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(6px);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 13px;
+      min-height: 40px;
+      width: auto;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.24);
+      transform: translateY(-1px);
+    }
+
+    /* ---- Layout & Cards ---- */
     main {
-      max-width: 1150px;
-      margin: auto;
-      padding: 14px
+      max-width: 1220px;
+      margin: -14px auto 0;
+      padding: 0 14px 28px;
+      position: relative;
+      z-index: 2;
     }
 
     .card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 6px 22px #0000001a
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow-md);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
-    .controls {
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 10px;
-      margin-bottom: 12px;
-      align-items: end
-    }
-
-    label {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 6px;
-      font-size: .9rem
-    }
-
-    select,
-    button {
-      font: inherit;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
-      background: #fff;
-      color: #172033;
-      width: 100%;
-      min-height: 46px
-    }
-
-    button {
-      background: #2563eb;
-      color: #fff;
-      border: 0;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap
-    }
-
-    button.alt {
-      background: #e8eefc;
-      color: #1d4ed8
-    }
-
-    button:focus-visible,
-    select:focus-visible {
-      outline: 3px solid #f59e0b;
-      outline-offset: 2px
-    }
-
+    /* ---- Live Status Banner ---- */
     .live {
-      padding: 14px;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #151922, #202633);
-      color: #fff
+      padding: 18px;
+      margin-bottom: 14px;
+      background: var(--live-bg);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 14px 34px -10px rgba(15, 23, 42, 0.35);
     }
 
     .lh {
       display: flex;
       align-items: center;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 10px;
       font-weight: 800;
-      margin-bottom: 10px
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #86efac;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.76rem;
     }
 
     .dot {
@@ -122,309 +299,1046 @@
       height: 9px;
       border-radius: 50%;
       background: #22c55e;
-      box-shadow: 0 0 10px #22c55e
+      box-shadow: 0 0 10px #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.7; }
+    }
+
+    .clk-wrap {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-variant-numeric: tabular-nums;
     }
 
     .clk {
-      margin-left: auto;
-      opacity: .8;
-      font-variant-numeric: tabular-nums;
-      font-size: .9rem
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 11px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      letter-spacing: 0.03em;
     }
 
     .lg {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px
+      gap: 12px;
     }
 
     .lc {
-      background: #ffffff14;
-      border-radius: 12px;
-      padding: 12px;
-      min-height: 80px
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 14px;
+      padding: 14px 16px;
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lc.active-now {
+      background: rgba(16, 185, 129, 0.13);
+      border-color: rgba(52, 211, 153, 0.4);
+    }
+
+    .lc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
     }
 
     .lc small {
-      opacity: .6;
+      opacity: 0.72;
       font-weight: 800;
-      letter-spacing: .06em
+      font-size: 0.73rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .countdown-pill {
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: #f8fafc;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .lc.active-now .countdown-pill {
+      background: rgba(16, 185, 129, 0.3);
+      color: #a7f3d0;
     }
 
     .lc strong {
       display: block;
-      margin: 4px 0;
-      font-size: 1.02rem;
-      line-height: 1.25
+      margin: 6px 0 4px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: #ffffff;
     }
 
     .lc span {
-      opacity: .72;
-      font-size: .88rem
+      opacity: 0.8;
+      font-size: 0.85rem;
+    }
+
+    .progress-track {
+      margin-top: 10px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #34d399, #10b981);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* ---- Controls Panel ---- */
+    .controls {
+      padding: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.1fr 1.2fr;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+    }
+
+    select,
+    input[type="search"],
+    button {
+      font: inherit;
+      padding: 10px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-subtle);
+      color: var(--text);
+      width: 100%;
+      min-height: 44px;
+      font-size: 0.92rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+
+    select:hover,
+    input[type="search"]:hover {
+      border-color: var(--primary);
+    }
+
+    button {
+      background: var(--primary);
+      color: #ffffff;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--primary-hover);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    button.alt {
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    button.alt:hover:not(:disabled) {
+      background: rgba(37, 99, 235, 0.18);
+    }
+
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #f59e0b;
+      outline-offset: 2px;
+    }
+
+    .controls-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .notif-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .notif-btns button {
+      width: auto;
+      min-height: 38px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+    }
+
+    .view-Valid-toggle {
+      display: inline-flex;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .view-btn {
+      min-height: 34px;
+      padding: 6px 12px;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.83rem;
+      font-weight: 700;
+      border: none;
+      width: auto;
+    }
+
+    .view-btn:hover:not(.active) {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+
+    .view-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ---- Meta & Category Bar ---- */
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
     .meta {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 12px
+      align-items: center;
     }
 
     .badge {
-      background: #eef2ff;
-      color: #3730a3;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      border: 1px solid rgba(37, 99, 235, 0.2);
       border-radius: 999px;
-      padding: 6px 11px;
-      font-size: .82rem;
-      font-weight: 700
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
     }
 
     #notice {
-      font-size: .85rem;
-      color: #475569;
-      align-self: center
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
+    .cat-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .cat-pill {
+      width: auto;
+      min-height: 32px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-strong);
+    }
+
+    .cat-pill:hover:not(.active) {
+      background: var(--surface-hover);
+    }
+
+    .cat-pill.active {
+      background: var(--text);
+      color: var(--surface);
+      border-color: var(--text);
+    }
+
+    /* ---- Weekly Table View ---- */
     .wrap {
-      overflow-x: auto
+      overflow-x: auto;
+      border-radius: 18px;
     }
 
     table {
       border-collapse: collapse;
       width: 100%;
-      min-width: 900px
+      min-width: 940px;
     }
 
     th,
     td {
-      border-bottom: 1px solid #e8ebf1;
-      padding: 10px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 11px 12px;
       text-align: left;
       vertical-align: top;
-      font-size: .9rem
+      font-size: 0.88rem;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: none;
+    }
+
+    tbody tr:last-child th,
+    tbody tr:last-child td {
+      border-bottom: none;
     }
 
     thead th {
-      background: #f8fafc;
-      font-size: .82rem
+      background: var(--surface-subtle);
+      color: var(--text-secondary);
+      font-size: 0.79rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 13px 12px;
+      white-space: nowrap;
+    }
+
+    thead th .slot-sub {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 2px;
     }
 
     tbody th {
-      white-space: nowrap
+      white-space: nowrap;
+      background: var(--surface-subtle);
+      color: var(--text);
+      font-weight: 800;
+      width: 120px;
+      vertical-align: middle;
+    }
+
+    tbody th .day-tag {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    tr.today {
+      background: var(--today-row);
     }
 
     tr.today th {
-      box-shadow: inset 4px 0 0 #3b82f6;
-      color: #1d4ed8
+      box-shadow: inset 4px 0 0 var(--primary);
+      color: var(--primary-text);
     }
 
     td.brk {
-      background: #fff7ed;
-      color: #9a3412;
+      background: var(--brk-bg);
+      color: var(--brk-text);
       text-align: center;
-      font-weight: 700;
-      width: 60px;
+      font-weight: 800;
+      width: 56px;
+      min-width: 56px;
       vertical-align: middle;
       writing-mode: vertical-rl;
       transform: rotate(180deg);
-      letter-spacing: .2em
+      letter-spacing: 0.22em;
+      font-size: 0.78rem;
+      border-left: 1px solid var(--brk-border);
+      border-right: 1px solid var(--brk-border);
+      user-select: none;
     }
 
     td.on {
-      background: #dcfce7;
-      box-shadow: inset 0 0 0 2px #16a34a
+      background: var(--on-cell);
     }
 
+    /* ---- Schedule Item Cards ---- */
     .it {
-      padding: 5px 8px;
-      border-radius: 8px;
-      margin: 2px 0;
-      font-weight: 600
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin: 4px 0;
+      font-weight: 650;
+      background: var(--lec-bg);
+      border: 1px solid var(--lec-border);
+      color: var(--lec-text);
+      transition: transform 0.12s ease, opacity 0.15s ease;
+      position: relative;
     }
+
+    .it:first-child { margin-top: 0; }
+    .it:last-child { margin-bottom: 0; }
 
     .it.lab {
-      background: #e0f3ef;
-      color: #0b6b5f
+      background: var(--lab-bg);
+      border-color: var(--lab-border);
+      color: var(--lab-text);
     }
 
     .it.rem {
-      background: #efe9fa;
-      color: #5a3b94
+      background: var(--rem-bg);
+      border-color: var(--rem-border);
+      color: var(--rem-text);
+    }
+
+    .it.act {
+      background: var(--act-bg);
+      border-color: var(--act-border);
+      color: var(--act-text);
     }
 
     .it.on {
-      background: #bbf7d0;
-      box-shadow: inset 4px 0 0 #16a34a
+      background: var(--on-bg);
+      border-color: var(--on-border);
+      color: var(--on-text);
+      box-shadow: 0 0 0 1px var(--on-border), 0 4px 12px rgba(16, 185, 129, 0.15);
+    }
+
+    .it.dimmed {
+      opacity: 0.25;
+      filter: grayscale(0.8);
+    }
+
+    .it-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 3px;
+      flex-wrap: wrap;
+    }
+
+    .it-badges {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: var(--lec-tag-bg);
+      color: var(--lec-tag-text);
+    }
+
+    .it.lab .tag { background: var(--lab-tag-bg); color: var(--lab-tag-text); }
+    .it.rem .tag { background: var(--rem-tag-bg); color: var(--rem-tag-text); }
+    .it.act .tag { background: var(--act-tag-bg); color: var(--act-tag-text); }
+
+    .grp-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: rgba(15, 23, 42, 0.08);
+      color: inherit;
+    }
+
+    [data-theme="dark"] .grp-tag {
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .it em {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       font-style: normal;
-      font-size: .68rem;
+      font-size: 0.66rem;
       font-weight: 900;
-      color: #15803d
+      color: #059669;
+      background: rgba(16, 185, 129, 0.18);
+      padding: 1px 7px;
+      border-radius: 999px;
+    }
+
+    [data-theme="dark"] .it em {
+      color: #6ee7b7;
+    }
+
+    .it-title {
+      font-size: 0.88rem;
+      line-height: 1.32;
+      word-break: break-word;
+    }
+
+    .it small.slot-time {
+      display: block;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.74rem;
+      margin-top: 3px;
     }
 
     .none {
-      color: #aab1bd
+      color: var(--text-muted);
+      opacity: 0.5;
+      font-weight: 500;
+    }
+
+    /* ---- Day Agenda View ---- */
+    #agWrap {
+      display: none;
+    }
+
+    .day-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 2px 12px;
+      scrollbar-width: none;
+    }
+
+    .day-tabs::-webkit-scrollbar { display: none; }
+
+    .day-tab {
+      width: auto;
+      min-height: 38px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-strong);
+      font-size: 0.84rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .day-tab.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .day-tab .today-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
     }
 
     #ag {
-      display: none
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+    }
+
+    #ag.single-day {
+      grid-template-columns: 1fr;
     }
 
     .day {
-      padding: 12px;
-      margin-bottom: 12px
+      padding: 16px;
+    }
+
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
 
     .day h3 {
-      margin: 0 0 8px
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .day.today {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary), var(--shadow-md);
     }
 
     .day.today h3 {
-      color: #1d4ed8
+      color: var(--primary-text);
+    }
+
+    .day-count {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--surface-subtle);
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .day-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .day .it {
+      margin: 0;
+      padding: 11px 13px;
+    }
+
+    .lunch-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 9px;
+      background: var(--brk-bg);
+      border: 1px dashed var(--brk-border);
+      color: var(--brk-text);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ---- Summary Stats & Course Legend ---- */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      padding: 16px 18px;
+    }
+
+    .info-card h2 {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .stat-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .stat-box strong {
       display: block;
-      padding: 10px;
-      border: 1px solid #e6e9ef
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-text);
+      line-height: 1.15;
     }
 
-    .day .it small {
-      display: block;
-      color: #687386;
-      font-weight: 500;
-      margin-bottom: 3px
+    .stat-box span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
     }
 
-    .day .it.on {
-      border-color: #16a34a
+    .legend-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 8px 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    @media(max-width:760px) {
-      .wrap {
-        display: none
-      }
-
-      #ag {
-        display: block
-      }
-
-      .controls {
-        grid-template-columns: 1fr 1fr
-      }
-
-      .controls>div:first-child {
-        grid-column: 1/-1
-      }
-
-      .lg {
-        grid-template-columns: 1fr
-      }
+    .legend-list li {
+      font-size: 0.81rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
     }
 
+    .legend-code {
+      font-weight: 800;
+      font-size: 0.74rem;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      flex-shrink: 0;
+    }
+
+    /* ---- Footer ---- */
     footer {
       text-align: center;
-      color: #687386;
-      font-size: 12px;
-      padding: 20px
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      padding: 24px 16px 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 20px;
     }
 
     footer .credit {
       display: block;
       margin-top: 6px;
-      color: #4b5563;
-      font-weight: 600
+      color: var(--text-secondary);
+      font-weight: 700;
     }
 
+    /* ---- Toast & Install Banner ---- */
     #toast,
     #inst {
       position: fixed;
       left: 14px;
       right: 14px;
-      bottom: 14px;
+      bottom: 16px;
       z-index: 99;
-      background: #171a20;
-      color: #fff;
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 14px 40px #0007;
+      background: #0f172a;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow-lg);
       display: none;
-      max-width: 560px;
-      margin: auto
+      max-width: 520px;
+      margin: auto;
+      animation: slideUp 0.22s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(16px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     #toast {
-      border-left: 6px solid #f59e0b
+      border-left: 5px solid #f59e0b;
+      cursor: pointer;
     }
 
     #toast b {
       display: block;
-      font-size: 1.05rem;
-      margin-bottom: 4px
+      font-size: 0.98rem;
+      margin-bottom: 3px;
+    }
+
+    #toast span {
+      font-size: 0.88rem;
+      opacity: 0.9;
     }
 
     #inst strong {
       display: block;
-      margin-bottom: 4px
+      font-size: 1rem;
+      margin-bottom: 4px;
     }
 
     #inst p {
-      margin: 0 0 10px;
-      opacity: .8;
-      font-size: .9rem
+      margin: 0 0 12px;
+      opacity: 0.84;
+      font-size: 0.88rem;
     }
 
     #inst div {
       display: flex;
-      gap: 8px
+      gap: 8px;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 860px) {
+      .controls-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .controls-grid > .field:first-child {
+        grid-column: 1 / -1;
+      }
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 18px 14px 24px;
+      }
+      .lg {
+        grid-template-columns: 1fr;
+      }
+      .controls-grid {
+        grid-template-columns: 1fr;
+      }
+      .controls-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .notif-btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .notif-btns button:first-child {
+        grid-column: 1 / -1;
+      }
+      .view-Valid-toggle {
+        width: 100%;
+      }
+      .view-btn {
+        flex: 1;
+      }
+    }
+
+    @media print {
+      header { background: none !important; color: #000 !important; padding: 10px 0 !important; }
+      .header-actions, .controls, .live, .cat-pills, #agWrap, .info-grid, footer, #toast, #inst { display: none !important; }
+      #gridWrap { display: block !important; }
+      .card { box-shadow: none !important; border: 1px solid #ccc !important; }
+      body { background: #fff !important; color: #000 !important; }
     }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>LNJPIT 1st Semester Timetable</h1>
-    <p>Lok Nayak Jai Prakash Institute of Technology, Chapra, Bihar</p>
-    <p>Session: July–December 2026 • Revised w.e.f. 28.09.2026</p>
+    <div class="header-inner">
+      <div class="brand-group">
+        <img src="icons/icon-192.png" alt="LNJPIT Icon" class="brand-logo" width="52" height="52">
+        <div class="brand-text">
+          <h1>LNJPIT 1st Semester Timetable</h1>
+          <p>Lok Nayak Jai Prakash Institute of Technology, Chapra, Bihar</p>
+          <span class="session-pill">📅 Session: July–December 2026 • Revised w.e.f. 28.09.2026</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="themeBtn" class="icon-btn" title="Toggle Dark/Light Theme" aria-label="Toggle theme">🌙 Dark</button>
+        <button type="button" id="printBtn" class="icon-btn" title="Print or Save PDF">🖨️ Print</button>
+      </div>
+    </div>
   </header>
+
   <main>
+    <!-- Live Status Card -->
     <section class="card live" aria-live="polite">
-      <div class="lh"><span class="dot"></span>Live status<span class="clk" id="clk">--:--:--</span></div>
+      <div class="lh">
+        <span class="live-badge"><span class="dot"></span>Live Status</span>
+        <span id="liveGroupBadge" style="font-size:0.75rem;opacity:0.8;font-weight:700;"></span>
+        <div class="clk-wrap">
+          <span class="clk" id="clk">--:--:--</span>
+        </div>
+      </div>
       <div class="lg">
-        <div class="lc"><small>NOW</small><strong id="nowT">–</strong><span id="nowS"></span></div>
-        <div class="lc"><small>NEXT</small><strong id="nxtT">–</strong><span id="nxtS"></span></div>
+        <div class="lc" id="nowCard">
+          <div>
+            <div class="lc-top">
+              <small>Happening Now</small>
+              <span class="countdown-pill" id="nowCd" hidden></span>
+            </div>
+            <strong id="nowT">–</strong>
+            <span id="nowS"></span>
+          </div>
+          <div class="progress-track" id="nowProgWrap" hidden>
+            <div class="progress-bar" id="nowProg"></div>
+          </div>
+        </div>
+        <div class="lc" id="nxtCard">
+          <div>
+            <div class="lc-top">
+              <small>Up Next</small>
+              <span class="countdown-pill" id="nxtCd" hidden></span>
+            </div>
+            <strong id="nxtT">–</strong>
+            <span id="nxtS"></span>
+          </div>
+        </div>
       </div>
     </section>
-    <div class="card controls">
-      <div><label for="br">Select branch / section</label><select id="br"></select></div>
-      <button id="perm">🔔 Enable notifications</button>
-      <button id="copyToken" class="alt" hidden>Copy FCM token</button>
-      <button id="test" class="alt">Test alert</button>
+
+    <!-- Smart Controls Card -->
+    <section class="card controls" aria-label="Timetable Controls">
+      <div class="controls-grid">
+        <div class="field">
+          <label for="br">🎓 Branch / Section</label>
+          <select id="br"></select>
+        </div>
+        <div class="field">
+          <label for="grp">👥 Lab / Practical Batch</label>
+          <select id="grp">
+            <option value="all">All Batches (G1 &amp; G2)</option>
+            <option value="G1">Batch G1 Only</option>
+            <option value="G2">Batch G2 Only</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="search">🔍 Quick Search Subject</label>
+          <input type="search" id="search" placeholder="e.g. Math, Physics, PPS, IAI..." autocomplete="off">
+        </div>
+      </div>
+
+      <div class="controls-actions">
+        <div class="notif-btns">
+          <button type="button" id="perm">🔔 Enable notifications</button>
+          <button type="button" id="copyToken" class="alt" hidden>📋 Copy FCM token</button>
+          <button type="button" id="test" class="alt">⚡ Test alert</button>
+        </div>
+
+        <div class="view-Valid-toggle" role="group" aria-label="Schedule View Mode">
+          <button type="button" class="view-btn" id="viewWeekBtn">📅 Weekly Grid</button>
+          <button type="button" class="view-btn" id="viewDayBtn">📋 Day Agenda</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meta Badges & Category Filter Pills -->
+    <div class="meta-bar">
+      <div class="meta">
+        <span class="badge" id="room">📍 Room</span>
+        <span class="badge" id="today">📅 Today</span>
+        <span id="notice"></span>
+      </div>
+      <div class="cat-pills" role="group" aria-label="Filter by Class Type">
+        <button type="button" class="cat-pill active" data-cat="all">All</button>
+        <button type="button" class="cat-pill" data-cat="lec">Lectures</button>
+        <button type="button" class="cat-pill" data-cat="lab">Labs &amp; Sports</button>
+        <button type="button" class="cat-pill" data-cat="rem">Remedial</button>
+      </div>
     </div>
-    <div class="meta"><span class="badge" id="room"></span><span class="badge" id="today"></span><span
-        id="notice"></span></div>
-    <div class="card wrap">
-      <table id="tb"></table>
+
+    <!-- Desktop / Full Weekly Grid View -->
+    <div class="card wrap" id="gridWrap">
+      <table id="tb" aria-label="Weekly Class Timetable"></table>
     </div>
-    <div id="ag"></div>
+
+    <!-- Mobile / Day Agenda View -->
+    <div id="agWrap">
+      <div class="day-tabs" id="dayTabs" role="tablist" aria-label="Select Day"></div>
+      <div id="ag"></div>
+    </div>
+
+    <!-- Weekly Stats & Course Legend -->
+    <div class="info-grid">
+      <section class="card info-card">
+        <h2>📊 Weekly Schedule Summary</h2>
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-box"><strong id="stTotal">0</strong><span>Total Sessions / Wk</span></div>
+          <div class="stat-box"><strong id="stHours">0h</strong><span>Contact Hours / Wk</span></div>
+          <div class="stat-box"><strong id="stLabs">0</strong><span>Lab &amp; Practical Slots</span></div>
+          <div class="stat-box"><strong id="stLec">0</strong><span>Theory &amp; Tutorials</span></div>
+        </div>
+      </section>
+
+      <section class="card info-card">
+        <h2>📖 Course Code &amp; Subject Reference</h2>
+        <ul class="legend-list">
+          <li><span class="legend-code">IAI</span>Introduction to Artificial Intelligence</li>
+          <li><span class="legend-code">PPS</span>Programming for Problem Solving</li>
+          <li><span class="legend-code">CFET</span>Conceptual Foundations of Engg. &amp; Tech.</li>
+          <li><span class="legend-code">BEEE / BE</span>Basic Electrical &amp; Electronics Engg.</li>
+          <li><span class="legend-code">EGD</span>Engineering Graphics &amp; Design</li>
+          <li><span class="legend-code">UHV</span>Universal Human Values</li>
+          <li><span class="legend-code">EIC</span>Engineering Induction &amp; Innovation</li>
+          <li><span class="legend-code">G1 / G2</span>Lab / Practical Batch Group 1 &amp; 2</li>
+        </ul>
+      </section>
+    </div>
   </main>
+
   <footer>
-    Live status and reminders follow your device clock. Reminders fire only while the app is open.
-    <span class="credit">Developed by Pragya Kumar · MNC 18</span>
+    Live status and class reminders follow Indian Standard Time (IST). Local reminders work while the app is open; cloud push reminders work even when closed.
+    <span class="credit">Developed by Pragya Kumar · MNC 18 · LNJPIT Chapra</span>
   </footer>
-  <div id="toast" role="status"></div>
-  <div id="inst"><strong>📲 Install LNJPIT Timetable</strong>
-    <p>Add it to your home screen for quick, offline access.</p>
-    <div><button id="instBtn">Install</button><button id="instNo" class="alt">Later</button></div>
+
+  <div id="toast" role="status" aria-live="assertive"></div>
+  <div id="inst" role="dialog" aria-label="Install App">
+    <strong>📲 Install LNJPIT Timetable</strong>
+    <p>Add to your home screen for instant offline access and class reminders.</p>
+    <div>
+      <button type="button" id="instBtn">Install App</button>
+      <button type="button" id="instNo" class="alt">Maybe Later</button>
+    </div>
   </div>
+
   <script>
+    /* ---- Timetable Dataset ---- */
     const SL = { a: [600, 720], b: [720, 780], c: [840, 900], d: [900, 960], e: [960, 1020], x: [600, 780] };
-    const P = s => s.split('|').map(p => { const i = p.indexOf(':'), k = p.slice(0, i); return { s: SL[k][0], e: SL[k][1], t: p.slice(i + 1) } });
+    const P = s => s.split('|').map(p => {
+      const i = p.indexOf(':'), k = p.slice(0, i);
+      return { k, s: SL[k][0], e: SL[k][1], t: p.slice(i + 1) };
+    });
     const B = (name, room, d) => ({ name, room, d: d.map(P) });
     const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const SHORT_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
     const BRANCHES = [
       B('Electrical and Electronics Engineering', 'Room 3', [
         'a:PPS Lab (G2) / CS Lab (G1)|b:Remedial class (CS)|c:Math-I|d:BE|e:Physics',
@@ -477,126 +1391,498 @@
         'x:Chemistry (G1) / Sports-Yoga-NCC-NSS|c:Foreign Language|d:Math-I|e:Mentor-Mentee'])
     ];
 
-    /* ---- Helpers ---- */
+    /* ---- State & Helpers ---- */
     const $ = id => document.getElementById(id);
-    const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-    const fmt = m => { const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0'); return `${h % 12 || 12}:${mm} ${h < 12 ? 'AM' : 'PM'}` };
-    const cls = t => /lab|sports|yoga/i.test(t) ? 'lab' : /remedial/i.test(t) ? 'rem' : '';
-    const nowInfo = () => { const n = new Date(); return { n, m: n.getHours() * 60 + n.getMinutes(), di: (n.getDay() + 6) % 7, sun: n.getDay() === 0 } };
-    const cur = () => BRANCHES[$('br').value];
+    const esc = s => String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
+    const fmt = m => {
+      const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
+      return `${h % 12 || 12}:${mm} ${h < 12 ? 'AM' : 'PM'}`;
+    };
+
+    const fmtDur = mins => {
+      if (mins <= 0) return '0m';
+      const h = Math.floor(mins / 60), m = mins % 60;
+      return h > 0 ? `${h}h ${m ? m + 'm' : ''}`.trim() : `${m}m`;
+    };
+
+    const cls = t => {
+      if (/lab|sports|yoga|ncc|nss/i.test(t)) return 'lab';
+      if (/remedial/i.test(t)) return 'rem';
+      if (/library|mentor|eic/i.test(t)) return 'act';
+      return 'lec';
+    };
+
+    const typeLabel = c => ({ lab: 'Lab / Practical', rem: 'Remedial', act: 'Activity', lec: 'Lecture' }[c] || 'Class');
+
+    const extractGroupTag = t => {
+      if (/G1\s*&\s*G2/i.test(t)) return 'G1 & G2';
+      const hasG1 = /\(G1\)/i.test(t), hasG2 = /\(G2\)/i.test(t);
+      if (hasG1 && hasG2) return 'G1 / G2';
+      if (hasG1) return 'Batch G1';
+      if (hasG2) return 'Batch G2';
+      return '';
+    };
+
+    // Check if an entry applies to the selected group ('all', 'G1', 'G2')
+    function matchesGroup(title, grp) {
+      if (!grp || grp === 'all') return true;
+      if (/G1\s*&\s*G2/i.test(title)) return true;
+      const hasG1 = /\(G1\)/i.test(title), hasG2 = /\(G2\)/i.test(title);
+      if (!hasG1 && !hasG2) return true;
+      if (grp === 'G1') return hasG1;
+      if (grp === 'G2') return hasG2;
+      return true;
+    }
+
+    // Format composite slash strings like "PPS Lab (G2) / CS Lab (G1)" when a specific group is chosen
+    function displayTitleForGroup(title, grp) {
+      if (!grp || grp === 'all' || !title.includes('/')) return title;
+      const parts = title.split('/').map(s => s.trim());
+      const matching = parts.filter(p => matchesGroup(p, grp));
+      return matching.length ? matching.join(' / ') : title;
+    }
+
+    // Time helper synced with Asia/Kolkata (IST) with device fallback
+    function nowInfo() {
+      const n = new Date();
+      try {
+        const parts = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Asia/Kolkata',
+          weekday: 'short',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hourCycle: 'h23'
+        }).formatToParts(n);
+        const val = type => parts.find(p => p.type === type)?.value;
+        const wkMap = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 };
+        const di = wkMap[val('weekday')] ?? ((n.getDay() + 6) % 7);
+        const h = Number(val('hour')), min = Number(val('minute')), sec = Number(val('second') || 0);
+        return { n, m: h * 60 + min, sec, di, sun: di === 6 };
+      } catch (e) {
+        return { n, m: n.getHours() * 60 + n.getMinutes(), sec: n.getSeconds(), di: (n.getDay() + 6) % 7, sun: n.getDay() === 0 };
+      }
+    }
+
+    const cur = () => BRANCHES[$('br').value] || BRANCHES[0];
+    const curGroup = () => $('grp').value || 'all';
     const same = (a, b) => a.length && a.length === b.length && a.every((x, i) => x === b[i]);
-    const over = (day, a, b) => day.filter(x => x.s < b && x.e > a);
+    const over = (day, a, b, grp) => day.filter(x => x.s < b && x.e > a && matchesGroup(x.t, grp));
+
+    let activeCategory = 'all';
+    let searchQuery = '';
+    let viewMode = window.innerWidth <= 760 ? 'day' : 'week';
+    let selectedDayIdx = -1; // -1 means auto-set to today (or 'all' if user picks All Days)
+
+    // Check URL params for PWA shortcuts (?view=day or ?view=week)
+    try {
+      const params = new URLSearchParams(location.search);
+      if (params.get('view') === 'day') viewMode = 'day';
+      if (params.get('view') === 'week') viewMode = 'week';
+    } catch (e) {}
+
+    function filterMatches(en) {
+      const c = cls(en.t);
+      if (activeCategory !== 'all' && c !== activeCategory) return false;
+      if (searchQuery && !en.t.toLowerCase().includes(searchQuery)) return false;
+      return true;
+    }
 
     /* ---- Rendering ---- */
-    function item(en, isToday, m, withTime) {
+    function item(en, isToday, m, withTime, showSpanHint = false) {
+      const grp = curGroup();
+      const titleText = displayTitleForGroup(en.t, grp);
       const on = isToday && m >= en.s && m < en.e;
-      return `<div class="it ${cls(en.t)} ${on ? 'on' : ''}">${withTime ? `<small>${fmt(en.s)} – ${fmt(en.e)}</small>` : ''}${on ? '<em>● LIVE</em>' : ''}${esc(en.t)}</div>`;
+      const c = cls(titleText);
+      const gTag = extractGroupTag(titleText);
+      const isDimmed = !filterMatches(en);
+      const timeLabel = withTime || showSpanHint ? `<small class="slot-time">🕒 ${fmt(en.s)} – ${fmt(en.e)} (${(en.e - en.s) / 60}h)</small>` : '';
+
+      return `<div class="it ${c} ${on ? 'on' : ''} ${isDimmed ? 'dimmed' : ''}">
+        <div class="it-head">
+          <div class="it-badges">
+            <span class="tag">${typeLabel(c)}</span>
+            ${gTag ? `<span class="grp-tag">${esc(gTag)}</span>` : ''}
+          </div>
+          ${on ? '<em>● LIVE</em>' : ''}
+        </div>
+        <div class="it-title">${esc(titleText)}</div>
+        ${timeLabel}
+      </div>`;
     }
+
     function cell(day, list, span, isToday, m) {
       const on = isToday && list.some(e => m >= e.s && m < e.e);
-      return `<td colspan="${span}" class="${on ? 'on' : ''}">${list.length ? list.map(e => item(e, isToday, m)).join('') : '<span class="none">–</span>'}</td>`;
+      const hasMixedEnd = list.length > 1 && new Set(list.map(x => `${x.s}-${x.e}`)).size > 1;
+      return `<td colspan="${span}" class="${on ? 'on' : ''}">${
+        list.length
+          ? list.map(e => item(e, isToday, m, false, hasMixedEnd)).join('')
+          : '<span class="none">–</span>'
+      }</td>`;
     }
+
+    function renderDayTabs(todayIdx, sun) {
+      if (selectedDayIdx === -1) {
+        selectedDayIdx = sun ? 0 : todayIdx;
+      }
+      let tabsHtml = `<button type="button" class="day-tab ${selectedDayIdx === 'all' ? 'active' : ''}" data-day="all">All 6 Days</button>`;
+      DAYS.forEach((d, idx) => {
+        const isToday = !sun && idx === todayIdx;
+        const isActive = selectedDayIdx === idx;
+        tabsHtml += `<button type="button" class="day-tab ${isActive ? 'active' : ''}" data-day="${idx}">
+          ${ isToday ? '<span class="today-dot"></span> ' : '' }${SHORT_DAYS[idx]}${ isToday ? ' (Today)' : '' }
+        </button>`;
+      });
+      $('dayTabs').innerHTML = tabsHtml;
+      $('dayTabs').querySelectorAll('.day-tab').forEach(btn => {
+        btn.onclick = () => {
+          const val = btn.dataset.day;
+          selectedDayIdx = val === 'all' ? 'all' : Number(val);
+          render();
+        };
+      });
+    }
+
+    function updateStats(b, grp) {
+      let totalSessions = 0, totalMins = 0, labs = 0, lecs = 0;
+      b.d.forEach(day => {
+        day.forEach(en => {
+          if (!matchesGroup(en.t, grp)) return;
+          totalSessions++;
+          totalMins += (en.e - en.s);
+          const c = cls(en.t);
+          if (c === 'lab') labs++;
+          else lecs++;
+        });
+      });
+      $('stTotal').textContent = totalSessions;
+      $('stHours').textContent = `${Math.round(totalMins / 60)}h`;
+      $('stLabs').textContent = labs;
+      $('stLec').textContent = lecs;
+    }
+
+    function updateViewContainers() {
+      $('gridWrap').style.display = viewMode === 'week' ? 'block' : 'none';
+      $('agWrap').style.display = viewMode === 'day' ? 'block' : 'none';
+      $('viewWeekBtn').classList.toggle('active', viewMode === 'week');
+      $('viewDayBtn').classList.toggle('active', viewMode === 'day');
+    }
+
     function render() {
-      const { m, di, sun, n } = nowInfo(), b = cur();
-      $('room').textContent = b.room;
-      $('today').textContent = 'Today: ' + n.toLocaleDateString('en-IN', { weekday: 'long' });
-      let h = '<thead><tr><th>Day</th><th>10 AM – 12 PM</th><th>12 – 1 PM</th><th></th><th>2 – 3 PM</th><th>3 – 4 PM</th><th>4 – 5 PM</th></tr></thead><tbody>';
+      const { m, di, sun, n } = nowInfo(), b = cur(), grp = curGroup();
+      $('room').textContent = `📍 ${b.room}`;
+      $('today').textContent = '📅 ' + n.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short', timeZone: 'Asia/Kolkata' });
+      $('liveGroupBadge').textContent = grp === 'all' ? '• Showing G1 & G2' : `• Filtered for Batch ${grp}`;
+
+      // 1. Weekly Table
+      let h = `<thead><tr>
+        <th>Day</th>
+        <th>10:00 – 12:00 PM<span class="slot-sub">Morning Lab / Slot A (2h)</span></th>
+        <th>12:00 – 1:00 PM<span class="slot-sub">Slot B (1h)</span></th>
+        <th>1:00 – 2:00 PM<span class="slot-sub">Recess</span></th>
+        <th>2:00 – 3:00 PM<span class="slot-sub">Slot C (1h)</span></th>
+        <th>3:00 – 4:00 PM<span class="slot-sub">Slot D (1h)</span></th>
+        <th>4:00 – 5:00 PM<span class="slot-sub">Slot E (1h)</span></th>
+      </tr></thead><tbody>`;
+
       b.d.forEach((day, i) => {
-        const t = !sun && i === di, l1 = over(day, 600, 720), l2 = over(day, 720, 780);
-        h += `<tr class="${t ? 'today' : ''}"><th>${DAYS[i]}</th>`;
+        const t = !sun && i === di;
+        const l1 = over(day, 600, 720, grp), l2 = over(day, 720, 780, grp);
+        h += `<tr class="${t ? 'today' : ''}"><th><div>${DAYS[i]}</div>${t ? '<span class="day-tag">Today</span>' : ''}</th>`;
         h += same(l1, l2) ? cell(day, l1, 2, t, m) : cell(day, l1, 1, t, m) + cell(day, l2, 1, t, m);
-        if (i === 0) h += '<td class="brk" rowspan="6">BREAK</td>';
-        h += cell(day, over(day, 840, 900), 1, t, m) + cell(day, over(day, 900, 960), 1, t, m) + cell(day, over(day, 960, 1020), 1, t, m) + '</tr>';
+        if (i === 0) h += '<td class="brk" rowspan="6">LUNCH BREAK</td>';
+        h += cell(day, over(day, 840, 900, grp), 1, t, m)
+          + cell(day, over(day, 900, 960, grp), 1, t, m)
+          + cell(day, over(day, 960, 1020, grp), 1, t, m)
+          + '</tr>';
       });
       $('tb').innerHTML = h + '</tbody>';
-      $('ag').innerHTML = b.d.map((day, i) => {
-        const t = !sun && i === di, s = [...day].sort((x, y) => x.s - y.s || x.e - y.e);
-        return `<section class="card day ${t ? 'today' : ''}"><h3>${DAYS[i]}${t ? ' · today' : ''}</h3>${s.map(e => item(e, t, m, true)).join('')}</section>`;
+
+      // 2. Day Agenda View
+      renderDayTabs(di, sun);
+      $('ag').classList.toggle('single-day', selectedDayIdx !== 'all');
+
+      const daysToRender = selectedDayIdx === 'all'
+        ? b.d.map((day, i) => ({ day, i }))
+        : [{ day: b.d[selectedDayIdx] || b.d[0], i: typeof selectedDayIdx === 'number' ? selectedDayIdx : 0 }];
+
+      $('ag').innerHTML = daysToRender.map(({ day, i }) => {
+        const t = !sun && i === di;
+        const filteredDay = day.filter(e => matchesGroup(e.t, grp)).sort((x, y) => x.s - y.s || x.e - y.e);
+        const morning = filteredDay.filter(e => e.s < 780);
+        const afternoon = filteredDay.filter(e => e.s >= 840);
+        const onBreak = t && m >= 780 && m < 840;
+
+        return `<section class="card day ${t ? 'today' : ''}">
+          <div class="day-header">
+            <h3>${DAYS[i]}${t ? ' <span class="badge" style="padding:2px 8px;font-size:0.72rem;">Today</span>' : ''}</h3>
+            <span class="day-count">${filteredDay.length} sessions</span>
+          </div>
+          <div class="day-timeline">
+            ${morning.map(e => item(e, t, m, true)).join('')}
+            <div class="lunch-divider">${onBreak ? '🟢 ' : '🍽️ '}1:00 PM – 2:00 PM • Lunch Break${onBreak ? ' (Active Now)' : ''}</div>
+            ${afternoon.map(e => item(e, t, m, true)).join('')}
+          </div>
+        </section>`;
       }).join('');
+
+      updateStats(b, grp);
+      updateViewContainers();
       live();
     }
+
     function live() {
-      const { n, m, di, sun } = nowInfo(), day = sun ? [] : cur().d[di];
-      $('clk').textContent = n.toLocaleTimeString('en-IN');
-      const act = day.filter(e => m >= e.s && m < e.e), nx = day.filter(e => e.s > m).sort((x, y) => x.s - y.s), f = nx.filter(e => nx.length && e.s === nx[0].s);
-      const j = l => [...new Set(l.map(e => e.t))].join(' | ');
-      $('nowT').textContent = act.length ? j(act) : (sun ? 'Sunday – no classes' : 'No class right now');
-      $('nowS').textContent = act.length ? `${fmt(act[0].s)} – ${fmt(Math.max(...act.map(e => e.e)))}` : (!sun && m >= 780 && m < 840 ? 'Break time' : '');
-      $('nxtT').textContent = f.length ? j(f) : 'No upcoming class';
-      $('nxtS').textContent = f.length ? 'at ' + fmt(f[0].s) : (sun ? 'See you Monday' : "You're done for today");
+      const { n, m, di, sun } = nowInfo(), grp = curGroup();
+      const rawDay = sun ? [] : cur().d[di];
+      const day = rawDay.filter(e => matchesGroup(e.t, grp));
+
+      $('clk').textContent = n.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      const act = day.filter(e => m >= e.s && m < e.e);
+      const nx = day.filter(e => e.s > m).sort((x, y) => x.s - y.s);
+      const f = nx.filter(e => nx.length && e.s === nx[0].s);
+      const j = l => [...new Set(l.map(e => displayTitleForGroup(e.t, grp)))].join(' | ');
+
+      const isBreak = !sun && m >= 780 && m < 840;
+      $('nowCard').classList.toggle('active-now', act.length > 0 || isBreak);
+
+      if (act.length) {
+        const startMin = Math.min(...act.map(e => e.s));
+        const endMin = Math.max(...act.map(e => e.e));
+        const pct = Math.min(100, Math.max(0, Math.round(((m - startMin) / (endMin - startMin)) * 100)));
+        $('nowT').textContent = j(act);
+        $('nowS').textContent = `${fmt(startMin)} – ${fmt(endMin)} • ${cur().room}`;
+        $('nowCd').textContent = `${fmtDur(endMin - m)} left`;
+        $('nowCd').hidden = false;
+        $('nowProg').style.width = `${pct}%`;
+        $('nowProgWrap').hidden = false;
+      } else if (isBreak) {
+        const pct = Math.round(((m - 780) / 60) * 100);
+        $('nowT').textContent = '🍽️ Lunch / Recess Break';
+        $('nowS').textContent = '1:00 PM – 2:00 PM • Afternoon classes resume at 2:00 PM';
+        $('nowCd').textContent = `${fmtDur(840 - m)} left`;
+        $('nowCd').hidden = false;
+        $('nowProg').style.width = `${pct}%`;
+        $('nowProgWrap').hidden = false;
+      } else {
+        $('nowT').textContent = sun ? 'Sunday – No scheduled classes' : 'No class right now';
+        $('nowS').textContent = sun
+          ? 'Enjoy your weekend! Preview Monday’s schedule below.'
+          : (m < 600 ? 'Morning classes begin at 10:00 AM' : 'All classes completed for today');
+        $('nowCd').hidden = true;
+        $('nowProgWrap').hidden = true;
+      }
+
+      if (f.length) {
+        const waitMins = f[0].s - m;
+        $('nxtT').textContent = j(f);
+        $('nxtS').textContent = `Starts at ${fmt(f[0].s)} (${ fmt(f[0].s) } – ${ fmt(Math.max(...f.map(e => e.e))) })`;
+        $('nxtCd').textContent = `in ${fmtDur(waitMins)}`;
+        $('nxtCd').hidden = false;
+      } else {
+        $('nxtT').textContent = 'No upcoming class today';
+        $('nxtS').textContent = sun ? 'Classes resume Monday at 10:00 AM' : "You're all done for today!";
+        $('nxtCd').hidden = true;
+      }
     }
 
     /* ---- Notifications ---- */
     const sent = new Set();
-    function toast(title, body) { const t = $('toast'); t.innerHTML = `<b></b><span></span>`; t.firstChild.textContent = title; t.lastChild.textContent = body; t.style.display = 'block'; clearTimeout(toast.id); toast.id = setTimeout(() => t.style.display = 'none', 10000); if (navigator.vibrate) navigator.vibrate([200, 100, 200]) }
+    function toast(title, body) {
+      const t = $('toast');
+      t.innerHTML = `<b></b><span></span>`;
+      t.firstChild.textContent = title;
+      t.lastChild.textContent = body;
+      t.style.display = 'block';
+      clearTimeout(toast.id);
+      toast.id = setTimeout(() => t.style.display = 'none', 10000);
+      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    }
     $('toast').onclick = () => $('toast').style.display = 'none';
+
     async function notify(title, body, url = './') {
       toast(title, body);
       if (!('Notification' in window) || Notification.permission !== 'granted') return;
-      const o = { body, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: 'class-reminder', renotify: true, vibrate: [200, 100, 200], data: { url } };
-      try { // Android Chrome needs the service worker to show notifications
+      const o = {
+        body,
+        icon: 'icons/icon-192.png',
+        badge: 'icons/icon-192.png',
+        tag: 'class-reminder',
+        renotify: true,
+        vibrate: [200, 100, 200],
+        data: { url }
+      };
+      try {
         const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration();
-        if (reg) { await reg.showNotification(title, o); return }
-      } catch (e) { }
-      try { new Notification(title, o) } catch (e) { }
+        if (reg) { await reg.showNotification(title, o); return; }
+      } catch (e) {}
+      try { new Notification(title, o); } catch (e) {}
     }
+
     addEventListener('fcm-message', event => {
       const payload = event.detail || {};
       notify(payload.title || 'LNJPIT Timetable', payload.body || 'You have a new timetable notification.', payload.url || './');
     });
+
     function checkUpcoming() {
-      const { n, m, di, sun } = nowInfo(); if (sun) return;
-      const soon = cur().d[di].filter(e => e.s - m === 5); if (!soon.length) return;
-      const key = n.toDateString() + $('br').value + soon[0].s; if (sent.has(key)) return; sent.add(key);
-      notify('⏰ Class reminder', `Your ${[...new Set(soon.map(e => e.t))].join(' | ')} class starts in 5 minutes!`);
+      const { n, m, di, sun } = nowInfo();
+      if (sun) return;
+      const grp = curGroup();
+      // Catch classes starting in 1 to 5 minutes (safe against background tab throttling)
+      const soon = cur().d[di].filter(e => matchesGroup(e.t, grp) && (e.s - m >= 1 && e.s - m <= 5));
+      if (!soon.length) return;
+      const key = `${n.toDateString()}-${$('br').value}-${grp}-${soon[0].s}`;
+      if (sent.has(key)) return;
+      sent.add(key);
+      const minsLeft = soon[0].s - m;
+      const titles = [...new Set(soon.map(e => displayTitleForGroup(e.t, grp)))].join(' | ');
+      notify('⏰ Class Reminder', `Your ${titles} class starts in ${minsLeft} minute${minsLeft === 1 ? '' : 's'} (${cur().room})!`);
     }
+
     function permUI() {
       const b = $('perm'), nt = $('notice');
-      if (!('Notification' in window)) { b.style.display = 'none'; nt.textContent = 'System notifications unsupported — on-screen reminders will be used.'; return }
+      if (!('Notification' in window)) {
+        b.style.display = 'none';
+        nt.textContent = 'System notifications unsupported — on-screen reminders active.';
+        return;
+      }
       const p = Notification.permission;
-      b.textContent = p === 'granted' ? '🔔 Notifications on' : '🔔 Enable notifications';
-      nt.textContent = p === 'granted' ? 'Browser notifications enabled.' : p === 'denied' ? 'Notifications blocked in browser settings — on-screen reminders only.' : '';
-      if (location.protocol === 'file:') nt.textContent = 'Opened as a local file: only on-screen reminders work. Host it on HTTPS for system notifications.';
+      b.textContent = p === 'granted' ? '🔔 Notifications Active' : '🔔 Enable notifications';
+      nt.textContent = p === 'granted'
+        ? 'Browser notifications enabled.'
+        : p === 'denied'
+          ? 'Notifications blocked in browser settings — using on-screen alerts.'
+          : '';
+      if (location.protocol === 'file:') {
+        nt.textContent = 'Running from local file: on-screen alerts active (host on HTTPS for push notifications).';
+      }
     }
+
     async function askPerm() {
-      if (!('Notification' in window)) { permUI(); return }
+      if (!('Notification' in window)) { permUI(); return; }
       let permission = Notification.permission;
       if (permission === 'default') permission = await Notification.requestPermission();
-      if (permission !== 'granted') { permUI(); return }
+      if (permission !== 'granted') { permUI(); return; }
       permUI();
       dispatchEvent(new Event('fcm-permission-granted'));
     }
 
-    /* ---- Init ---- */
+    /* ---- Theme Management ---- */
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      $('themeBtn').textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      $('themeMeta').setAttribute('content', theme === 'dark' ? '#0f172a' : '#1e40af');
+      try { localStorage.setItem('tt-theme', theme); } catch (e) {}
+    }
+
+    (function initTheme() {
+      let saved = null;
+      try { saved = localStorage.getItem('tt-theme'); } catch (e) {}
+      if (saved === 'dark' || saved === 'light') {
+        applyTheme(saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      } else {
+        applyTheme('light');
+      }
+    })();
+
+    $('themeBtn').onclick = () => {
+      const curTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(curTheme);
+    };
+
+    $('printBtn').onclick = () => window.print();
+
+    /* ---- Init & Event Listeners ---- */
     BRANCHES.forEach((b, i) => $('br').add(new Option(b.name, i)));
-    try { const s = localStorage.getItem('tt-branch'); if (s !== null && BRANCHES[s]) $('br').value = s } catch (e) { }
+    try {
+      const s = localStorage.getItem('tt-branch');
+      if (s !== null && BRANCHES[s]) $('br').value = s;
+      const g = localStorage.getItem('tt-group');
+      if (g && ['all', 'G1', 'G2'].includes(g)) $('grp').value = g;
+    } catch (e) {}
+
     $('br').onchange = () => {
-      try { localStorage.setItem('tt-branch', $('br').value) } catch (e) { }
+      try { localStorage.setItem('tt-branch', $('br').value); } catch (e) {}
       render();
       dispatchEvent(new Event('timetable-branch-changed'));
     };
-    $('perm').onclick = askPerm;
-    $('test').onclick = async () => { if (Notification.permission === 'default') await askPerm(); notify('⏰ Class reminder', 'Your PPS Lab class starts in 5 minutes!') };
-    let lastMin = -1;
-    function loop() { live(); const mn = new Date().getMinutes(); if (mn !== lastMin) { lastMin = mn; render(); checkUpcoming() } }
-    render(); permUI(); loop(); setInterval(loop, 1000);
 
-    /* ---- PWA ---- */
-    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('./sw.js').catch(() => { });
+    $('grp').onchange = () => {
+      try { localStorage.setItem('tt-group', $('grp').value); } catch (e) {}
+      render();
+      dispatchEvent(new Event('timetable-branch-changed'));
+    };
+
+    $('search').oninput = e => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      render();
+    };
+
+    document.querySelectorAll('.cat-pill').forEach(pill => {
+      pill.onclick = () => {
+        document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        activeCategory = pill.dataset.cat;
+        render();
+      };
+    });
+
+    $('viewWeekBtn').onclick = () => { viewMode = 'week'; updateViewContainers(); };
+    $('viewDayBtn').onclick = () => { viewMode = 'day'; updateViewContainers(); };
+
+    $('perm').onclick = askPerm;
+    $('test').onclick = async () => {
+      if ('Notification' in window && Notification.permission === 'default') await askPerm();
+      notify('⏰ Class Reminder', `Your PPS Lab class starts in 5 minutes (${cur().room})!`);
+    };
+
+    let lastMin = -1;
+    function loop() {
+      live();
+      const mn = new Date().getMinutes();
+      if (mn !== lastMin) {
+        lastMin = mn;
+        render();
+        checkUpcoming();
+      }
+    }
+    render();
+    permUI();
+    loop();
+    setInterval(loop, 1000);
+
+    /* ---- PWA Service Worker & Install Prompt ---- */
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
     let dp = null;
-    addEventListener('beforeinstallprompt', e => { e.preventDefault(); dp = e; if (!matchMedia('(display-mode: standalone)').matches) $('inst').style.display = 'block' });
-    $('instBtn').onclick = async () => { if (dp) { dp.prompt(); await dp.userChoice; dp = null } $('inst').style.display = 'none' };
+    addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      dp = e;
+      if (!matchMedia('(display-mode: standalone)').matches) $('inst').style.display = 'block';
+    });
+    $('instBtn').onclick = async () => {
+      if (dp) { dp.prompt(); await dp.userChoice; dp = null; }
+      $('inst').style.display = 'none';
+    };
     $('instNo').onclick = () => $('inst').style.display = 'none';
     addEventListener('appinstalled', () => $('inst').style.display = 'none');
   </script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
     import { getMessaging, getToken, isSupported, onMessage } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging.js";
     import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
     import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-functions.js";
 
-    // Firebase Web app configuration is public client configuration. Do not put a
-    // service-account JSON, server key, or private VAPID key in this file.
     const firebaseConfig = {
       apiKey: "AIzaSyD1VQ6LxMrKaMl0AuxEA9mRc1SpdDopck4",
       authDomain: "lnjpit-timetable.firebaseapp.com",
@@ -606,8 +1892,6 @@
       appId: "1:983687695923:web:de769b16368a1a34d51d46"
     };
 
-    // Firebase Console → Project settings → Cloud Messaging → Web Push certificates.
-    // Paste only the *public* VAPID key here before deploying.
     const VAPID_PUBLIC_KEY = "BJCMjMtR-goDJA3VSb7El9HJRJ9te7VoR0LTwNpM2gHjOp1sbr9zqEn_8lFjlFqVX_pQp4rSljur47OcTHRaA3k";
     const FUNCTIONS_REGION = "asia-south1";
 
@@ -623,8 +1907,8 @@
     let fcmToken = "";
 
     const hasVapidKey = () => VAPID_PUBLIC_KEY.trim().length > 0;
-    const setStatus = message => { $('notice').textContent = message };
-    const updateTokenButton = () => { $('copyToken').hidden = !fcmToken };
+    const setStatus = message => { $('notice').textContent = message; };
+    const updateTokenButton = () => { $('copyToken').hidden = !fcmToken; };
 
     async function setupMessaging() {
       if (messaging) return;
@@ -635,8 +1919,6 @@
           throw new Error('Firebase Messaging is not supported in this browser.');
         }
 
-        // Pass the existing PWA worker explicitly so one worker owns both cache
-        // and Firebase Messaging at this GitHub Pages-safe relative scope.
         serviceWorkerRegistration = await navigator.serviceWorker.register('./sw.js');
         await navigator.serviceWorker.ready;
         messaging = getMessaging(app);
@@ -678,14 +1960,13 @@
         await ensureAnonymousUser();
         await registerReminderDevice({
           token: fcmToken,
-          branchIndex: Number($('br').value)
+          branchIndex: Number($('br').value),
+          groupFilter: $('grp').value || 'all'
         });
         return true;
       } catch (error) {
-        // The PWA remains usable if the server has not been deployed yet. Never
-        // store the token directly from the browser in Firestore.
         console.warn('Could not register this device for scheduled reminders.', error);
-        if (!quiet) setStatus('Notifications are enabled. Scheduled closed-app reminders will activate after the Firebase backend is deployed.');
+        if (!quiet) setStatus('Notifications enabled. Closed-app reminders will activate once the Firebase backend is deployed.');
         return false;
       }
     }
@@ -693,13 +1974,11 @@
     async function refreshFcmToken({ quiet = false } = {}) {
       if (Notification.permission !== 'granted') return null;
       if (!hasVapidKey()) {
-        if (!quiet) setStatus('Browser notifications are enabled. Add the public Web Push VAPID key to enable Firebase messages.');
+        if (!quiet) setStatus('Browser notifications enabled. Add the public VAPID key to enable Firebase push.');
         return null;
       }
 
       await setupMessaging();
-      // getToken is retained for the Firebase Console registration-token test.
-      // Do not combine it with the newer FID register()/onRegistered() API.
       const token = await getToken(messaging, {
         vapidKey: VAPID_PUBLIC_KEY,
         serviceWorkerRegistration
@@ -711,8 +1990,8 @@
       const scheduled = await syncReminderDevice({ quiet });
       if (!quiet) {
         setStatus(scheduled
-          ? 'Notifications enabled. This device is registered for 5-minute class reminders.'
-          : 'Notifications enabled. Copy the FCM token for a Firebase Console test; scheduled reminders need the backend deployment.');
+          ? 'Notifications active! Registered for 5-minute class reminders.'
+          : 'Notifications active. Copy FCM token for console testing; backend reminders require functions deployment.');
       }
       return token;
     }
@@ -723,30 +2002,34 @@
       try {
         await refreshFcmToken();
       } catch (error) {
-        setStatus(`Browser notifications are enabled, but Firebase token setup failed: ${error.message}`);
+        setStatus(`Browser notifications enabled, but FCM setup failed: ${error.message}`);
       } finally {
         button.disabled = false;
       }
     }
 
     async function copyFcmToken() {
-      if (!fcmToken) { setStatus('Enable notifications first to create an FCM token.'); return }
+      if (!fcmToken) { setStatus('Enable notifications first to generate an FCM token.'); return; }
       try {
         await navigator.clipboard.writeText(fcmToken);
-        setStatus('FCM token copied. Paste it only into the Firebase Console test-message field.');
+        const btn = $('copyToken');
+        const orig = btn.textContent;
+        btn.textContent = '✅ Token Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 2500);
+        setStatus('FCM token copied to clipboard for Firebase Console testing.');
       } catch (error) {
-        setStatus('The token is ready, but the browser could not copy it. Open the deployed HTTPS site and try again.');
+        setStatus('Token ready, but clipboard copy was blocked. Use HTTPS and try again.');
       }
     }
 
-    addEventListener('fcm-permission-granted', () => { void enableFirebaseNotifications() });
-    addEventListener('timetable-branch-changed', () => { void syncReminderDevice({ quiet: true }) });
+    addEventListener('fcm-permission-granted', () => { void enableFirebaseNotifications(); });
+    addEventListener('timetable-branch-changed', () => { void syncReminderDevice({ quiet: true }); });
     $('copyToken').addEventListener('click', copyFcmToken);
 
     if ('Notification' in window && Notification.permission === 'granted') {
       refreshFcmToken({ quiet: true }).then(() => {
-        if (fcmToken) setStatus('Notifications enabled. FCM token ready for testing.');
-      }).catch(() => { });
+        if (fcmToken) setStatus('Notifications active • FCM token ready.');
+      }).catch(() => {});
     }
   </script>
 </body>

@@ -1,62 +1,49 @@
-# LNJPIT 1st Semester Timetable — PWA
+# LNJPIT 1st Semester Timetable — Progressive Web App (PWA)
 
-This folder is a ready-to-deploy Progressive Web App for the LNJPIT 1st Semester July–December 2026 revised timetable.
+A modern, offline-first Progressive Web App for the **LNJPIT Chapra 1st Semester (July–December 2026, Revised w.e.f. 28.09.2026)** timetable.
 
-## Included
-- `index.html` — complete timetable app
-- `manifest.webmanifest` — installable PWA configuration
-- `sw.js` — offline caching and Firebase Messaging service worker
-- `firebase-messaging-sw.js` — compatibility entry point that loads the unified worker
-- `icons/` — LNJPIT-style app icons
+## ✨ Key Features
+- **Real-Time IST Live Tracker**: Displays current and upcoming classes synced to Indian Standard Time (`Asia/Kolkata`) with live progress bars, remaining-time countdowns, and automatic Lunch Break (`1:00 PM – 2:00 PM`) detection.
+- **Branch & Lab Batch Filtering**:
+  - Covers all 7 branches/sections (`EEE`, `CSE-A`, `CSE-B`, `Civil`, `Mechanical`, `Mathematics & Computing`, `Food Processing & Preservation`).
+  - Dedicated **Lab Batch Selector (`All`, `Batch G1 Only`, `Batch G2 Only`)** filters both the timetable views and notifications so students only see sessions relevant to their practical group.
+- **Dual Views & Instant Search**:
+  - **Weekly Grid View**: Full Monday–Saturday matrix with semantic color coding (`Lectures`, `Labs & Sports`, `Remedial`, `Activities`), group badges, and `● LIVE` highlights.
+  - **Interactive Day Agenda View**: Single-day or 6-day vertical timeline cards with quick day-selector pills (`Mon`–`Sat`) and lunch break dividers.
+  - **Quick Search & Category Filter Pills**: Filter by `Lectures`, `Labs & Sports`, `Remedial`, or search any subject code (`Math`, `Physics`, `PPS`, `IAI`, `EGD`, etc.).
+- **Dark & Light Theme**: Automatic system theme detection with a manual Dark/Light mode toggle and print-ready layout (`🖨️ Print`).
+- **Course Code Reference & Weekly Stats**: Built-in reference guide for 1st-semester course abbreviations (`IAI`, `PPS`, `CFET`, `BEEE`, `EGD`, `UHV`, `EIC`) and weekly contact-hour metrics.
+- **Resilient Offline PWA & Push Notifications**:
+  - Offline-safe unified Service Worker (`sw.js`) caches the app shell and assets.
+  - Supports in-app 5-minute class reminders (with vibration & toast alerts) plus closed-app Firebase Cloud Messaging (FCM) push reminders via Firebase Cloud Functions (`functions/index.js`).
 
-## Deploy free with GitHub Pages
+## 📁 Project Structure
+- `index.html` & `public/index.html` — Complete responsive timetable application (kept identical for GitHub Pages root or Firebase Hosting `public/` deployment)
+- `manifest.webmanifest` & `public/manifest.webmanifest` — Installable PWA configuration with maskable icons and app shortcuts
+- `sw.js` & `public/sw.js` — Unified offline caching and Firebase Cloud Messaging service worker
+- `firebase-messaging-sw.js` & `public/firebase-messaging-sw.js` — Compatibility entry point loading `sw.js`
+- `404.html` & `public/404.html` — Custom themed 404 fallback page
+- `icons/` & `public/icons/` — High-resolution anti-aliased `192x192` and `512x512` PWA icons
+- `functions/` — Firebase Cloud Functions v2 backend (`registerReminderDevice`, `unregisterReminderDevice`, and scheduled `sendClassReminders`)
+
+## 🚀 Deploy Free with GitHub Pages
 1. Create a **Public** repository on GitHub.
-2. Upload **all files and the `icons` folder** from this package.
-3. Make sure `index.html` is in the repository root.
-4. Open **Settings → Pages**.
-5. Under Build and deployment choose **Deploy from a branch**.
-6. Select `main` and `/ (root)`, then Save.
-7. GitHub will give you an HTTPS URL like:
-   `https://YOUR-USERNAME.github.io/REPOSITORY-NAME/`
-8. Open that URL in Chrome. HTTPS enables the normal browser notification permission flow and PWA installation.
+2. Upload all root files (`index.html`, `404.html`, `manifest.webmanifest`, `sw.js`, `firebase-messaging-sw.js`, and the `icons/` folder).
+3. Open **Settings → Pages** → choose **Deploy from a branch** → select `main` and `/ (root)`, then **Save**.
+4. Open your HTTPS URL (`https://YOUR-USERNAME.github.io/REPOSITORY-NAME/`) in Chrome to install the PWA and enable notifications.
 
-## Install on Android
-Open the HTTPS website in Chrome → menu `⋮` → **Install app** / **Add to Home screen**.
+## 🔥 Firebase Notifications & Backend Deployment
+1. In **Firebase Console → Project settings → Cloud Messaging → Web Push certificates**, copy your **public VAPID key** and set `VAPID_PUBLIC_KEY` in `index.html`.
+2. Deploy the frontend or backend from the project root:
+   ```bash
+   cd functions
+   npm install
+   npm run check
+   cd ..
+   firebase login
+   firebase deploy
+   ```
+3. Ensure **Anonymous Authentication** is enabled in Firebase Console → Authentication.
 
-## Firebase notifications
-
-1. In Firebase Console, open **Project settings → Cloud Messaging → Web Push certificates**.
-2. Generate a key pair only if there is no existing one, then copy the **public VAPID key**.
-3. In `index.html`, set `VAPID_PUBLIC_KEY` to that public key. Do not use a private key, service-account JSON, or legacy server key in this repository.
-4. Deploy the site on HTTPS (GitHub Pages works), open the deployed URL, and tap **Enable notifications**.
-5. Tap **Copy FCM token**, then use that token in Firebase Console → Messaging → **Send test message**. Do not publish the token in an issue, screenshot, or Git commit.
-
-The app requests notification permission only from the button click. It receives foreground FCM messages in the page and background data messages through the unified service worker. The token flow is included specifically for Firebase Console testing; production sending should use a trusted backend, not browser code.
-
-## Automatic class reminders
-
-The project now includes a trusted Firebase backend in `functions/`:
-
-- `registerReminderDevice` is a callable function. The PWA uses anonymous Firebase Authentication and sends the device's FCM token plus selected branch to this function; it never writes tokens directly to Firestore.
-- `sendClassReminders` is a second-generation scheduled function in `asia-south1`. It runs each minute in `Asia/Kolkata`, detects classes beginning in roughly five minutes, sends data-only FCM pushes, removes invalid tokens, and uses Firestore idempotency records to prevent duplicate reminders.
-
-The server stores only an anonymous Firebase UID, the FCM token, the selected branch index, and an update timestamp in the private `reminderDevices` collection. Keep that collection and `reminderLocks` inaccessible to browser clients in your Firestore rules; the Admin SDK used by Cloud Functions does not need client access.
-
-### Deploying the backend
-
-Scheduled Cloud Functions require the Firebase **Blaze** plan. Cloud Scheduler has a monthly charge after the three-job free allowance, and Cloud Functions/Firestore/FCM usage can also incur charges. No billing change is made by the source code alone.
-
-After billing is enabled for `lnjpit-timetable`, deploy from the project root:
-
-```powershell
-cd functions
-npm install
-cd ..
-firebase login
-firebase deploy --only functions
-```
-
-Before deploying, verify that Anonymous authentication remains enabled. If Firebase Authentication requires it for your project, add `pragyakumar-wq.github.io` to Authentication → Settings → Authorized domains. The current client will continue to give in-page reminders until this backend is deployed; it registers for closed-app reminders automatically once the callable function is live.
-
-## Branding
-The included icon is an **LNJPIT-style app icon**, not an official institute logo. Replace it with the official logo only if you have permission/right to use it.
+## 👤 Credits
+Developed by **Pragya Kumar · MNC 18** · Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra, Bihar.

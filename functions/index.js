@@ -15,9 +15,10 @@ const TIME_ZONE = "Asia/Kolkata";
 const DEVICE_COLLECTION = "reminderDevices";
 const LOCK_COLLECTION = "reminderLocks";
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const VALID_GROUPS = new Set(["all", "G1", "G2"]);
 
-// This mirrors the public timetable in index.html. Times are minutes after
-// midnight in Asia/Kolkata. Keep the two files in sync when the timetable changes.
+// Mirrors the public timetable in index.html. Times are minutes after
+// midnight in Asia/Kolkata (IST). Keep the two files in sync when the timetable changes.
 const SLOT = {a: [600, 720], b: [720, 780], c: [840, 900], d: [900, 960], e: [960, 1020], x: [600, 780]};
 const parseDay = encoded => encoded.split("|").map(part => {
   const divider = part.indexOf(":");
@@ -25,6 +26,17 @@ const parseDay = encoded => encoded.split("|").map(part => {
   const [start, end] = SLOT[slot];
   return {start, end, title: part.slice(divider + 1)};
 });
+
+const BRANCH_NAMES = [
+  "Electrical and Electronics Engineering",
+  "Computer Science & Engineering (Section-A)",
+  "Computer Science & Engineering (Section-B)",
+  "Civil Engineering",
+  "Mechanical Engineering",
+  "Mathematics & Computing",
+  "Food Processing & Preservation"
+];
+
 const SCHEDULE = [
   [
     "a:PPS Lab (G2) / CS Lab (G1)|b:Remedial class (CS)|c:Math-I|d:BE|e:Physics",
@@ -95,7 +107,7 @@ function indiaClock(date = new Date()) {
     minute: "2-digit",
     hourCycle: "h23"
   }).formatToParts(date);
-  const value = type => parts.find(part => part.type === type).value;
+  const value = type => parts.find(part => part.type === type)?.value || "";
   return {
     weekday: value("weekday"),
     minutes: Number(value("hour")) * 60 + Number(value("minute")),
@@ -109,6 +121,24 @@ function timeLabel(minutes) {
   return `${hour % 12 || 12}:${minute} ${hour < 12 ? "AM" : "PM"}`;
 }
 
+function matchesGroup(title, groupFilter) {
+  if (!groupFilter || groupFilter === "all") return true;
+  if (/G1\s*&\s*G2/i.test(title)) return true;
+  const hasG1 = /\(G1\)/i.test(title);
+  const hasG2 = /\(G2\)/i.test(title);
+  if (!hasG1 && !hasG2) return true;
+  if (groupFilter === "G1") return hasG1;
+  if (groupFilter === "G2") return hasG2;
+  return true;
+}
+
+function formatTitleForGroup(title, groupFilter) {
+  if (!groupFilter || groupFilter === "all" || !title.includes("/")) return title;
+  const segments = title.split("/").map(s => s.trim());
+  const matching = segments.filter(seg => matchesGroup(seg, groupFilter));
+  return matching.length ? matching.join(" / ") : title;
+}
+
 function remindersDue(clock) {
   const dayIndex = DAYS.indexOf(clock.weekday);
   if (dayIndex === -1) return [];
@@ -117,8 +147,8 @@ function remindersDue(clock) {
   SCHEDULE.forEach((branchDays, branchIndex) => {
     for (const entry of branchDays[dayIndex]) {
       const minutesBeforeStart = entry.start - clock.minutes;
-      // Cloud Scheduler can start a little late. The idempotency lock below
-      // makes the 4–5 minute window safe if it invokes this function twice.
+      // Cloud Scheduler can start slightly late. The idempotency lock below
+      // makes the 4–5 minute window safe if invoked twice.
       if (minutesBeforeStart < 4 || minutesBeforeStart > 5) continue;
       const key = `${branchIndex}:${entry.start}`;
       if (!grouped.has(key)) grouped.set(key, {branchIndex, start: entry.start, titles: new Set()});
@@ -152,27 +182,44 @@ async function removeInvalidDevice(ref, token) {
 }
 
 function chunks(values, size) {
-  return Array.from({length: Math.ceil(values.length / size)}, (_, index) => values.slice(index * size, (index + 1) * size));
+  return Array.from(
+    {length: Math.ceil(values.length / size)},
+    (_, index) => values.slice(index * size, (index + 1) * size)
+  );
 }
 
 exports.registerReminderDevice = onCall({region: REGION}, async request => {
-  if (!request.auth) throw new HttpsError("unauthenticated", "Sign in before registering for reminders.");
+  if (!request.auth) {
+    throw new HttpsError("unauthenticated", "Sign in before registering for reminders.");
+  }
 
-  const {token, branchIndex} = request.data || {};
+  const {token, branchIndex, groupFilter = "all", enabled = true} = request.data || {};
   if (typeof token !== "string" || token.trim().length < 20 || token.trim().length > 4096) {
     throw new HttpsError("invalid-argument", "A valid Firebase Messaging token is required.");
   }
   if (!Number.isInteger(branchIndex) || branchIndex < 0 || branchIndex >= SCHEDULE.length) {
     throw new HttpsError("invalid-argument", "Choose a valid timetable branch.");
   }
+  const normalizedGroup = VALID_GROUPS.has(groupFilter) ? groupFilter : "all";
 
   await db.collection(DEVICE_COLLECTION).doc(request.auth.uid).set({
     fcmToken: token.trim(),
     branchIndex,
+    branchName: BRANCH_NAMES[branchIndex] || "",
+    groupFilter: normalizedGroup,
+    enabled: Boolean(enabled),
     updatedAt: FieldValue.serverTimestamp()
   }, {merge: true});
 
-  return {registered: true};
+  return {registered: true, branchIndex, groupFilter: normalizedGroup, enabled: Boolean(enabled)};
+});
+
+exports.unregisterReminderDevice = onCall({region: REGION}, async request => {
+  if (!request.auth) {
+    throw new HttpsError("unauthenticated", "Sign in before unregistering reminders.");
+  }
+  await db.collection(DEVICE_COLLECTION).doc(request.auth.uid).delete();
+  return {unregistered: true};
 });
 
 exports.sendClassReminders = onSchedule({
@@ -193,34 +240,58 @@ exports.sendClassReminders = onSchedule({
     const registrations = await db.collection(DEVICE_COLLECTION)
       .where("branchIndex", "==", reminder.branchIndex)
       .get();
+
     const recipients = registrations.docs
-      .map(doc => ({ref: doc.ref, token: doc.data().fcmToken}))
-      .filter(device => typeof device.token === "string" && device.token.length > 0);
+      .map(doc => ({
+        ref: doc.ref,
+        token: doc.data().fcmToken,
+        groupFilter: doc.data().groupFilter || "all",
+        enabled: doc.data().enabled !== false
+      }))
+      .filter(device => device.enabled && typeof device.token === "string" && device.token.length > 0);
+
     if (!recipients.length) return;
 
-    const titles = reminder.titles.join(" | ");
-    const body = `Your ${titles} class starts at ${timeLabel(reminder.start)} (about 5 minutes).`;
     const invalidDevices = [];
 
-    for (const batch of chunks(recipients, 500)) {
-      const response = await getMessaging().sendEachForMulticast({
-        tokens: batch.map(device => device.token),
-        data: {
-          title: "⏰ Class reminder",
-          body,
-          url: "./",
-          reminderId
-        },
-        webpush: {headers: {Urgency: "high", TTL: "300"}}
-      });
-      response.responses.forEach((result, index) => {
-        if (result.success) return;
-        const code = result.error?.code;
-        logger.warn("FCM reminder delivery failed", {reminderId, code});
-        if (code === "messaging/registration-token-not-registered" || code === "messaging/invalid-registration-token") {
-          invalidDevices.push(batch[index]);
-        }
-      });
+    // Group recipients by their effective notification text (accounting for G1/G2 filter)
+    const buckets = new Map();
+    for (const device of recipients) {
+      const relevantTitles = reminder.titles
+        .filter(t => matchesGroup(t, device.groupFilter))
+        .map(t => formatTitleForGroup(t, device.groupFilter));
+      if (!relevantTitles.length) continue;
+      const joinedTitles = [...new Set(relevantTitles)].join(" | ");
+      if (!buckets.has(joinedTitles)) buckets.set(joinedTitles, []);
+      buckets.get(joinedTitles).push(device);
+    }
+
+    for (const [titlesText, groupDevices] of buckets.entries()) {
+      const body = `Your ${titlesText} class starts at ${timeLabel(reminder.start)} (in about 5 minutes).`;
+
+      for (const batch of chunks(groupDevices, 500)) {
+        const response = await getMessaging().sendEachForMulticast({
+          tokens: batch.map(device => device.token),
+          data: {
+            title: "⏰ Class Reminder • LNJPIT",
+            body,
+            url: "./",
+            reminderId
+          },
+          webpush: {headers: {Urgency: "high", TTL: "300"}}
+        });
+        response.responses.forEach((result, index) => {
+          if (result.success) return;
+          const code = result.error?.code;
+          logger.warn("FCM reminder delivery failed", {reminderId, code});
+          if (
+            code === "messaging/registration-token-not-registered" ||
+            code === "messaging/invalid-registration-token"
+          ) {
+            invalidDevices.push(batch[index]);
+          }
+        });
+      }
     }
 
     await Promise.all(invalidDevices.map(device => removeInvalidDevice(device.ref, device.token)));
