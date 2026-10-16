@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>LNJPIT 1st Semester Timetable 2026</title>
-  <meta name="description" content="Interactive 1st Semester Timetable Companion for Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra, Bihar. Live class status, lab group filter, and notifications.">
+  <meta name="description"
+    content="Interactive 1st Semester Timetable Companion for Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra, Bihar. Live class status, lab group filter, and notifications.">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1e40af" id="themeMeta">
   <meta name="mobile-web-app-capable" content="yes">
@@ -70,7 +71,28 @@
       --brk-text: #9a3412;
       --brk-border: #fed7aa;
       --today-row: rgba(37, 99, 235, 0.035);
+
+
+        :root {
+  --accent: #2563eb;
+}
+
+button {
+  background-color: var(--accent);
+}
+
+
+
+.active {
+  border-color: var(--accent);
+}
+
+header {
+  background: var(--accent);}
+      
     }
+  
+    
 
     [data-theme="dark"] {
       --bg: #0b1120;
@@ -304,8 +326,17 @@
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.25); opacity: 0.7; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.25);
+        opacity: 0.7;
+      }
     }
 
     .clk-wrap {
@@ -731,8 +762,13 @@
       position: relative;
     }
 
-    .it:first-child { margin-top: 0; }
-    .it:last-child { margin-bottom: 0; }
+    .it:first-child {
+      margin-top: 0;
+    }
+
+    .it:last-child {
+      margin-bottom: 0;
+    }
 
     .it.lab {
       background: var(--lab-bg);
@@ -791,9 +827,20 @@
       color: var(--lec-tag-text);
     }
 
-    .it.lab .tag { background: var(--lab-tag-bg); color: var(--lab-tag-text); }
-    .it.rem .tag { background: var(--rem-tag-bg); color: var(--rem-tag-text); }
-    .it.act .tag { background: var(--act-tag-bg); color: var(--act-tag-text); }
+    .it.lab .tag {
+      background: var(--lab-tag-bg);
+      color: var(--lab-tag-text);
+    }
+
+    .it.rem .tag {
+      background: var(--rem-tag-bg);
+      color: var(--rem-tag-text);
+    }
+
+    .it.act .tag {
+      background: var(--act-tag-bg);
+      color: var(--act-tag-text);
+    }
 
     .grp-tag {
       font-size: 0.65rem;
@@ -858,7 +905,9 @@
       scrollbar-width: none;
     }
 
-    .day-tabs::-webkit-scrollbar { display: none; }
+    .day-tabs::-webkit-scrollbar {
+      display: none;
+    }
 
     .day-tab {
       width: auto;
@@ -1080,8 +1129,15 @@
     }
 
     @keyframes slideUp {
-      from { transform: translateY(16px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from {
+        transform: translateY(16px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     #toast {
@@ -1122,9 +1178,11 @@
       .controls-grid {
         grid-template-columns: 1fr 1fr;
       }
-      .controls-grid > .field:first-child {
+
+      .controls-grid>.field:first-child {
         grid-column: 1 / -1;
       }
+
       .info-grid {
         grid-template-columns: 1fr;
       }
@@ -1134,37 +1192,70 @@
       header {
         padding: 18px 14px 24px;
       }
+
       .lg {
         grid-template-columns: 1fr;
       }
+
       .controls-grid {
         grid-template-columns: 1fr;
       }
+
       .controls-actions {
         flex-direction: column;
         align-items: stretch;
       }
+
       .notif-btns {
         display: grid;
         grid-template-columns: 1fr 1fr;
       }
+
       .notif-btns button:first-child {
         grid-column: 1 / -1;
       }
+
       .view-Valid-toggle {
         width: 100%;
       }
+
       .view-btn {
         flex: 1;
       }
     }
 
     @media print {
-      header { background: none !important; color: #000 !important; padding: 10px 0 !important; }
-      .header-actions, .controls, .live, .cat-pills, #agWrap, .info-grid, footer, #toast, #inst { display: none !important; }
-      #gridWrap { display: block !important; }
-      .card { box-shadow: none !important; border: 1px solid #ccc !important; }
-      body { background: #fff !important; color: #000 !important; }
+      header {
+        background: none !important;
+        color: #000 !important;
+        padding: 10px 0 !important;
+      }
+
+      .header-actions,
+      .controls,
+      .live,
+      .cat-pills,
+      #agWrap,
+      .info-grid,
+      footer,
+      #toast,
+      #inst {
+        display: none !important;
+      }
+
+      #gridWrap {
+        display: block !important;
+      }
+
+      .card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+      }
+
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
     }
   </style>
 </head>
@@ -1177,11 +1268,25 @@
         <div class="brand-text">
           <h1>LNJPIT 1st Semester Timetable</h1>
           <p>Lok Nayak Jai Prakash Institute of Technology, Chapra, Bihar</p>
-          <span class="session-pill">📅 Session: July–December 2026 • Revised w.e.f. 28.09.2026</span>
+          <span class="session-pill">📅 Session: July–December 2026 </span>
         </div>
       </div>
       <div class="header-actions">
-        <button type="button" id="themeBtn" class="icon-btn" title="Toggle Dark/Light Theme" aria-label="Toggle theme">🌙 Dark</button>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center">
+          <select id="accentSel" aria-label="Color theme"
+            style="width:auto;min-height:36px;padding:4px 10px;border-radius:999px;background:#ffffff24;color:#fff;border:1px solid #ffffff40;font-size:.82rem;font-weight:700">
+            <option value="blue" style="color:#172033">🎨 Royal Blue</option>
+            <option value="emerald" style="color:#172033">🎨 Emerald Green</option>
+            <option value="violet" style="color:#172033">🎨 Royal Violet</option>
+            <option value="crimson" style="color:#172033">🎨 Crimson Red</option>
+          </select>
+
+          
+
+        </div>
+        <button type="button" id="themeBtn" class="icon-btn" title="Toggle Dark/Light Theme"
+          aria-label="Toggle theme">🌙 Dark</button>
+
         <button type="button" id="printBtn" class="icon-btn" title="Print or Save PDF">🖨️ Print</button>
       </div>
     </div>
@@ -1314,7 +1419,8 @@
   </main>
 
   <footer>
-    Live status and class reminders follow Indian Standard Time (IST). Local reminders work while the app is open; cloud push reminders work even when closed.
+    Live status and class reminders follow Indian Standard Time (IST). Local reminders work while the app is open; cloud
+    push reminders work even when closed.
     <span class="credit">Developed by Pragya Kumar · MNC 18 · LNJPIT Chapra</span>
   </footer>
 
@@ -1485,7 +1591,7 @@
       const params = new URLSearchParams(location.search);
       if (params.get('view') === 'day') viewMode = 'day';
       if (params.get('view') === 'week') viewMode = 'week';
-    } catch (e) {}
+    } catch (e) { }
 
     function filterMatches(en) {
       const c = cls(en.t);
@@ -1520,11 +1626,10 @@
     function cell(day, list, span, isToday, m) {
       const on = isToday && list.some(e => m >= e.s && m < e.e);
       const hasMixedEnd = list.length > 1 && new Set(list.map(x => `${x.s}-${x.e}`)).size > 1;
-      return `<td colspan="${span}" class="${on ? 'on' : ''}">${
-        list.length
+      return `<td colspan="${span}" class="${on ? 'on' : ''}">${list.length
           ? list.map(e => item(e, isToday, m, false, hasMixedEnd)).join('')
           : '<span class="none">–</span>'
-      }</td>`;
+        }</td>`;
     }
 
     function renderDayTabs(todayIdx, sun) {
@@ -1536,7 +1641,7 @@
         const isToday = !sun && idx === todayIdx;
         const isActive = selectedDayIdx === idx;
         tabsHtml += `<button type="button" class="day-tab ${isActive ? 'active' : ''}" data-day="${idx}">
-          ${ isToday ? '<span class="today-dot"></span> ' : '' }${SHORT_DAYS[idx]}${ isToday ? ' (Today)' : '' }
+          ${isToday ? '<span class="today-dot"></span> ' : ''}${SHORT_DAYS[idx]}${isToday ? ' (Today)' : ''}
         </button>`;
       });
       $('dayTabs').innerHTML = tabsHtml;
@@ -1682,7 +1787,7 @@
       if (f.length) {
         const waitMins = f[0].s - m;
         $('nxtT').textContent = j(f);
-        $('nxtS').textContent = `Starts at ${fmt(f[0].s)} (${ fmt(f[0].s) } – ${ fmt(Math.max(...f.map(e => e.e))) })`;
+        $('nxtS').textContent = `Starts at ${fmt(f[0].s)} (${fmt(f[0].s)} – ${fmt(Math.max(...f.map(e => e.e)))})`;
         $('nxtCd').textContent = `in ${fmtDur(waitMins)}`;
         $('nxtCd').hidden = false;
       } else {
@@ -1721,8 +1826,8 @@
       try {
         const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration();
         if (reg) { await reg.showNotification(title, o); return; }
-      } catch (e) {}
-      try { new Notification(title, o); } catch (e) {}
+      } catch (e) { }
+      try { new Notification(title, o); } catch (e) { }
     }
 
     addEventListener('fcm-message', event => {
@@ -1778,12 +1883,12 @@
       document.documentElement.setAttribute('data-theme', theme);
       $('themeBtn').textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
       $('themeMeta').setAttribute('content', theme === 'dark' ? '#0f172a' : '#1e40af');
-      try { localStorage.setItem('tt-theme', theme); } catch (e) {}
+      try { localStorage.setItem('tt-theme', theme); } catch (e) { }
     }
 
     (function initTheme() {
       let saved = null;
-      try { saved = localStorage.getItem('tt-theme'); } catch (e) {}
+      try { saved = localStorage.getItem('tt-theme'); } catch (e) { }
       if (saved === 'dark' || saved === 'light') {
         applyTheme(saved);
       } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -1807,16 +1912,16 @@
       if (s !== null && BRANCHES[s]) $('br').value = s;
       const g = localStorage.getItem('tt-group');
       if (g && ['all', 'G1', 'G2'].includes(g)) $('grp').value = g;
-    } catch (e) {}
+    } catch (e) { }
 
     $('br').onchange = () => {
-      try { localStorage.setItem('tt-branch', $('br').value); } catch (e) {}
+      try { localStorage.setItem('tt-branch', $('br').value); } catch (e) { }
       render();
       dispatchEvent(new Event('timetable-branch-changed'));
     };
 
     $('grp').onchange = () => {
-      try { localStorage.setItem('tt-group', $('grp').value); } catch (e) {}
+      try { localStorage.setItem('tt-group', $('grp').value); } catch (e) { }
       render();
       dispatchEvent(new Event('timetable-branch-changed'));
     };
@@ -1861,7 +1966,7 @@
 
     /* ---- PWA Service Worker & Install Prompt ---- */
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      navigator.serviceWorker.register('./sw.js').catch(() => { });
     }
     let dp = null;
     addEventListener('beforeinstallprompt', e => {
@@ -2029,9 +2134,31 @@
     if ('Notification' in window && Notification.permission === 'granted') {
       refreshFcmToken({ quiet: true }).then(() => {
         if (fcmToken) setStatus('Notifications active • FCM token ready.');
-      }).catch(() => {});
+      }).catch(() => { });
     }
   </script>
+
+  <script>
+  const accentSel = document.getElementById("accentSel");
+
+  const themes = {
+    blue: "#2563eb",
+    emerald: "#059669",
+    violet: "#7c3aed",
+    crimson: "#dc2626"
+  };
+
+  accentSel.addEventListener("change", function () {
+    const selectedColor = themes[this.value];
+
+    if (selectedColor) {
+      document.documentElement.style.setProperty(
+        "--accent",
+        selectedColor
+      );
+    }
+  });
+</script>
 </body>
 
 </html>
