@@ -73,26 +73,21 @@
       --today-row: rgba(37, 99, 235, 0.035);
 
 
-        :root {
-  --accent: #2563eb;
-}
+      :root {
+        --accent: #2563eb;
+      }
 
-button {
-  background-color: var(--accent);
-}
+      .active {
+        border-color: var(--accent);
+      }
 
+      header {
+        background: var(--accent);
+      }
 
-
-.active {
-  border-color: var(--accent);
-}
-
-header {
-  background: var(--accent);}
-      
     }
-  
-    
+
+
 
     [data-theme="dark"] {
       --bg: #0b1120;
@@ -1281,7 +1276,7 @@ header {
             <option value="crimson" style="color:#172033">🎨 Crimson Red</option>
           </select>
 
-          
+
 
         </div>
         <button type="button" id="themeBtn" class="icon-btn" title="Toggle Dark/Light Theme"
@@ -1627,8 +1622,8 @@ header {
       const on = isToday && list.some(e => m >= e.s && m < e.e);
       const hasMixedEnd = list.length > 1 && new Set(list.map(x => `${x.s}-${x.e}`)).size > 1;
       return `<td colspan="${span}" class="${on ? 'on' : ''}">${list.length
-          ? list.map(e => item(e, isToday, m, false, hasMixedEnd)).join('')
-          : '<span class="none">–</span>'
+        ? list.map(e => item(e, isToday, m, false, hasMixedEnd)).join('')
+        : '<span class="none">–</span>'
         }</td>`;
     }
 
@@ -2139,26 +2134,26 @@ header {
   </script>
 
   <script>
-  const accentSel = document.getElementById("accentSel");
+    const accentSel = document.getElementById("accentSel");
 
-  const themes = {
-    blue: "#2563eb",
-    emerald: "#059669",
-    violet: "#7c3aed",
-    crimson: "#dc2626"
-  };
+    const themes = {
+      blue: "#2563eb",
+      emerald: "#059669",
+      violet: "#7c3aed",
+      crimson: "#dc2626"
+    };
 
-  accentSel.addEventListener("change", function () {
-    const selectedColor = themes[this.value];
+    accentSel.addEventListener("change", function () {
+      const selectedColor = themes[this.value];
 
-    if (selectedColor) {
-      document.documentElement.style.setProperty(
-        "--accent",
-        selectedColor
-      );
-    }
-  });
-</script>
+      if (selectedColor) {
+        document.documentElement.style.setProperty(
+          "--accent",
+          selectedColor
+        );
+      }
+    });
+  </script>
 </body>
 
 </html>
