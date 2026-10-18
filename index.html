@@ -1315,6 +1315,205 @@
 }
 
 
+
+
+
+/* Attendance Tracker */
+.attendance-section {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 18px;
+  background: var(--card, #ffffff);
+  color: var(--text, #172033);
+  border: 1px solid #dbe3ef;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.07);
+}
+
+.attendance-section h2 {
+  margin: 0 0 8px;
+}
+
+.att-subtitle {
+  margin: 0 0 18px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.att-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.att-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.att-field input,
+.att-field select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+  background: #fff;
+  color: #172033;
+  font-size: 15px;
+}
+
+.att-full {
+  grid-column: 1 / -1;
+}
+
+.att-btn {
+  padding: 12px 15px;
+  border: 0;
+  border-radius: 11px;
+  background: #1d4ed8;
+  color: white;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.att-btn-secondary {
+  background: #e2e8f0;
+  color: #172033;
+}
+
+.att-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.att-stat {
+  padding: 14px;
+  border-radius: 14px;
+  background: #eff6ff;
+}
+
+.att-stat span {
+  display: block;
+  color: #475569;
+  font-size: 12px;
+}
+
+.att-stat strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 23px;
+}
+
+.att-progress {
+  height: 9px;
+  margin-top: 9px;
+  background: #dbeafe;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.att-progress div {
+  height: 100%;
+  width: 0;
+  background: #16a34a;
+  transition: width .2s;
+}
+
+.att-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.att-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.att-table th,
+.att-table td {
+  padding: 11px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.att-table th {
+  background: #f1f5f9;
+}
+
+.att-status {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.att-present {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.att-absent {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.att-cancelled {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.att-record {
+  margin-top: 20px;
+}
+
+.att-record h3 {
+  font-size: 17px;
+}
+
+.att-delete {
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #991b1b;
+  cursor: pointer;
+}
+
+.att-message {
+  margin: 12px 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+@media (max-width: 600px) {
+  .attendance-section {
+    margin: 16px 10px;
+    padding: 14px;
+  }
+
+  .att-form {
+    grid-template-columns: 1fr;
+  }
+
+  .att-full {
+    grid-column: auto;
+  }
+
+  .att-table {
+    min-width: 580px;
+  }
+}
+
+
   </style>
 </head>
 
@@ -1351,8 +1550,9 @@
   </header>
 
   <main>
-    <!-- Live Status Card -->
+   
 
+    <!-- study section -->
 
     <section class="study-section" id="studySection">
   <h2>📚 Study Section</h2>
@@ -1377,6 +1577,9 @@
   </a>
 </section>
 
+
+
+           <!-- Live Status Card -->
 
     <section class="card live" aria-live="polite">
       <div class="lh">
@@ -1412,6 +1615,9 @@
         </div>
       </div>
     </section>
+
+
+
 
     <!-- Smart Controls Card -->
     <section class="card controls" aria-label="Timetable Controls">
@@ -1501,6 +1707,143 @@
       </section>
     </div>
   </main>
+
+  
+    <!-- 📋 Attendance Tracker section -->
+
+    <section class="attendance-section" id="attendanceSection">
+  <h2>📋 Attendance Tracker</h2>
+  <p class="att-subtitle">
+    LNJPIT Semester-I · Date-wise and lecture-wise attendance
+  </p>
+
+  <form id="attForm" class="att-form">
+    <div class="att-field">
+      <label for="attDate">Class Date</label>
+      <input type="date" id="attDate" required>
+    </div>
+
+    <div class="att-field">
+      <label for="attSubject">Subject</label>
+     <input
+  id="attSubject"
+  type="text"
+  placeholder="Koi bhi subject ya lab ka naam likho"
+  required
+>
+      <datalist id="attSubjects">
+        <option value="Engineering Physics">
+        <option value="Engineering Mathematics-I">
+        <option value="Programming for Problem Solving (PPS)">
+        <option value="Introduction to AI (IAI)">
+        <option value="Basic Electrical Engineering (BE)">
+        <option value="Basics of Electrical & Electronics Engineering (BEEE)">
+        <option value="Computer Fundamentals & Emerging Technologies (CFET)">
+        <option value="Communication Skills">
+        <option value="Engineering Chemistry">
+        <option value="Engineering Graphics and Design (EGD)">
+        <option value="Universal Human Values (UHV)">
+        <option value="Essence of Indian Constitution (EIC)">
+        <option value="Sports / Yoga / NCC / NSS">
+        <option value="Foreign Language">
+      </datalist>
+    </div>
+
+    <div class="att-field">
+      <label for="attSlot">Lecture / Lab Time</label>
+      <select id="attSlot" required>
+        <option value="10:00 AM–12:00 PM">10:00 AM – 12:00 PM</option>
+        <option value="12:00 PM–01:00 PM">12:00 PM – 01:00 PM</option>
+        <option value="02:00 PM–03:00 PM">02:00 PM – 03:00 PM</option>
+        <option value="03:00 PM–04:00 PM">03:00 PM – 04:00 PM</option>
+        <option value="04:00 PM–05:00 PM">04:00 PM – 05:00 PM</option>
+      </select>
+    </div>
+
+    <div class="att-field">
+      <label for="attStatus">Attendance Status</label>
+      <select id="attStatus" required>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+    </div>
+
+    <div class="att-field att-full">
+      <button class="att-btn" type="submit">
+        Save Attendance
+      </button>
+    </div>
+  </form>
+
+  <p id="attMessage" class="att-message" aria-live="polite">
+    Attendance records are stored on this device.
+  </p>
+
+  <div class="att-summary">
+    <div class="att-stat">
+      <span>Overall Attendance</span>
+      <strong id="attOverall">0%</strong>
+      <div class="att-progress">
+        <div id="attOverallBar"></div>
+      </div>
+    </div>
+
+    <div class="att-stat">
+      <span>75% Target</span>
+      <strong id="attGoal">No classes yet</strong>
+      <span id="attGoalDetail">Save your first record.</span>
+    </div>
+  </div>
+
+  <div class="att-record">
+    <h3>📊 Subject-wise Attendance</h3>
+    <div class="att-table-wrap">
+      <table class="att-table">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Cancelled</th>
+            <th>Percentage</th>
+            <th>75% Goal</th>
+          </tr>
+        </thead>
+        <tbody id="attSubjectRows"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="att-record">
+    <h3>🗓️ Attendance History</h3>
+
+    <div class="att-field">
+      <label for="attFilterDate">Filter by date (optional)</label>
+      <input type="date" id="attFilterDate">
+    </div>
+
+    <p class="att-message">
+      Same date, subject and lecture slot dobara save karne par
+      purana record update hoga.
+    </p>
+
+    <div class="att-table-wrap">
+      <table class="att-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Subject</th>
+            <th>Lecture</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="attHistoryRows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
   <footer>
     Live status and class reminders follow Indian Standard Time (IST). Local reminders work while the app is open; cloud
@@ -2243,6 +2586,283 @@
       }
     });
   </script>
+
+<script>
+
+  (() => {
+  "use strict";
+
+  const STORAGE_KEY = "lnjpit_attendance_v1";
+  const TARGET = 75;
+
+  const $ = id => document.getElementById(id);
+
+  const form = $("attForm");
+  if (!form) return;
+
+  const dateInput = $("attDate");
+  const subjectInput = $("attSubject");
+  const slotInput = $("attSlot");
+  const statusInput = $("attStatus");
+  const message = $("attMessage");
+
+  let records = [];
+
+  // Load records safely from this browser's local storage.
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    const parsed = saved ? JSON.parse(saved) : [];
+    records = Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    records = [];
+    message.textContent =
+      "Storage access failed. Open this app in a normal browser.";
+  }
+
+  // Default date = today in local time.
+  function localDateString() {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
+  dateInput.value = localDateString();
+
+  function saveRecords() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      return true;
+    } catch (error) {
+      message.textContent =
+        "Save nahi ho paya. Browser storage full ya blocked ho sakta hai.";
+      return false;
+    }
+  }
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
+  }
+
+  function counts(list) {
+    return {
+      present: list.filter(r => r.status === "Present").length,
+      absent: list.filter(r => r.status === "Absent").length,
+      cancelled: list.filter(r => r.status === "Cancelled").length
+    };
+  }
+
+  // Cancelled classes are excluded from the percentage.
+  function percentage(list) {
+    const c = counts(list);
+    const held = c.present + c.absent;
+    return held ? (c.present / held) * 100 : null;
+  }
+
+ function goalText(list) {
+  const present = list.filter(
+    r => r.status === "Present"
+  ).length;
+
+  const absent = list.filter(
+    r => r.status === "Absent"
+  ).length;
+
+  const total = present + absent;
+
+  if (total === 0) {
+    return "No classes yet";
+  }
+
+  const pct = (present / total) * 100;
+
+  if (pct >= 75) {
+    return "75% target achieved";
+  }
+
+  // Additional consecutive classes needed,
+  // assuming every future class is attended.
+  const needed = Math.ceil(
+    (0.75 * total - present) / 0.25
+  );
+
+  return `Attend next ${needed} classes`;
+}
+
+  function setPercentage(elementId, value) {
+    $(elementId).textContent =
+      value === null ? "—" : `${value.toFixed(1)}%`;
+  }
+
+  function renderSummary() {
+    const pct = percentage(records);
+    setPercentage("attOverall", pct);
+
+    $("attOverallBar").style.width =
+      `${pct === null ? 0 : Math.min(100, pct)}%`;
+
+    $("attGoal").textContent = goalText(records);
+
+    const c = counts(records);
+    $("attGoalDetail").textContent =
+      `${c.present} present · ${c.absent} absent · ${c.cancelled} cancelled`;
+  }
+
+  function renderSubjects() {
+    const subjects = [...new Set(records.map(r => r.subject))]
+      .sort((a, b) => a.localeCompare(b));
+
+    $("attSubjectRows").innerHTML = subjects.map(subject => {
+      const list = records.filter(r => r.subject === subject);
+      const c = counts(list);
+      const pct = percentage(list);
+
+      return `
+        <tr>
+          <td>${escapeHTML(subject)}</td>
+          <td>${c.present}</td>
+          <td>${c.absent}</td>
+          <td>${c.cancelled}</td>
+          <td>${pct === null ? "—" : pct.toFixed(1) + "%"}</td>
+          <td>${escapeHTML(goalText(list))}</td>
+        </tr>
+      `;
+    }).join("");
+
+    if (!subjects.length) {
+      $("attSubjectRows").innerHTML =
+        '<tr><td colspan="6">Abhi koi attendance record nahi hai.</td></tr>';
+    }
+  }
+
+  function renderHistory() {
+    const filter = $("attFilterDate").value;
+
+    const list = records
+      .filter(r => !filter || r.date === filter)
+      .sort((a, b) =>
+        b.date.localeCompare(a.date) ||
+        a.slot.localeCompare(b.slot) ||
+        a.subject.localeCompare(b.subject)
+      );
+
+    $("attHistoryRows").innerHTML = list.map(r => {
+      const statusClass = {
+        Present: "att-present",
+        Absent: "att-absent",
+        Cancelled: "att-cancelled"
+      }[r.status] || "att-cancelled";
+
+      return `
+        <tr>
+          <td>${escapeHTML(r.date)}</td>
+          <td>${escapeHTML(r.subject)}</td>
+          <td>${escapeHTML(r.slot)}</td>
+          <td><span class="att-status ${statusClass}">
+            ${escapeHTML(r.status)}
+          </span></td>
+          <td>
+            <button class="att-delete" type="button"
+              data-delete="${escapeHTML(r.id)}">
+              Delete
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    if (!list.length) {
+      $("attHistoryRows").innerHTML =
+        '<tr><td colspan="5">Is filter ke liye koi record nahi hai.</td></tr>';
+    }
+  }
+
+  function render() {
+    renderSummary();
+    renderSubjects();
+    renderHistory();
+  }
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const date = dateInput.value;
+    const subject = subjectInput.value.trim();
+    const slot = slotInput.value;
+    const status = statusInput.value;
+
+    if (!date || !subject) {
+      message.textContent = "Date aur subject dono select karo.";
+      return;
+    }
+
+    if (!["Present", "Absent", "Cancelled"].includes(status)) {
+      message.textContent = "Valid attendance status select karo.";
+      return;
+    }
+
+    // One record per date + subject + lecture slot.
+    const existing = records.find(r =>
+      r.date === date &&
+      r.subject.toLowerCase() === subject.toLowerCase() &&
+      r.slot === slot
+    );
+
+    if (existing) {
+      existing.status = status;
+      existing.subject = subject;
+    } else {
+      records.push({
+        id: (crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now()) + Math.random().toString(16).slice(2)),
+        date,
+        subject,
+        slot,
+        status
+      });
+    }
+
+    if (!saveRecords()) return;
+
+    message.textContent = existing
+      ? "Attendance record update ho gaya."
+      : "Attendance successfully save ho gayi.";
+
+    render();
+  });
+
+  $("attFilterDate").addEventListener("change", renderHistory);
+
+  $("attHistoryRows").addEventListener("click", event => {
+    const button = event.target.closest("[data-delete]");
+    if (!button) return;
+
+    const id = button.dataset.delete;
+
+    if (!confirm("Is attendance record ko delete karna hai?")) {
+      return;
+    }
+
+    records = records.filter(r => r.id !== id);
+
+    if (saveRecords()) {
+      message.textContent = "Attendance record delete ho gaya.";
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+
 </body>
 
 </html>
