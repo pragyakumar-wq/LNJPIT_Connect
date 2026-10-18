@@ -1252,6 +1252,69 @@
         color: #000 !important;
       }
     }
+
+
+    /* Study Section */
+.study-section {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #172554, #1d4ed8);
+  color: white;
+  border-radius: 22px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.study-section h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+.study-section p {
+  margin: 0 0 16px;
+  opacity: 0.85;
+}
+
+.study-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 14px;
+  background: white;
+  color: #17327b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.study-link small {
+  display: block;
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+  font-weight: normal;
+}
+
+.study-open {
+  background: #2563eb;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .study-section {
+    margin: 16px 10px;
+    padding: 16px;
+  }
+
+  .study-link {
+    padding: 12px;
+  }
+}
+
+
   </style>
 </head>
 
@@ -1289,6 +1352,32 @@
 
   <main>
     <!-- Live Status Card -->
+
+
+    <section class="study-section" id="studySection">
+  <h2>📚 Study Section</h2>
+
+  <p>
+    B.Tech 1st Semester ke notes aur study materials
+    yahan access karo.
+  </p>
+
+  <a
+    class="study-link"
+    href="https://pragyakumar-wq.github.io/b-tech-sem-1/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span>
+      B.Tech Semester 1 Study Website
+      <small>Notes, materials & learning resources</small>
+    </span>
+
+    <span class="study-open">Open ↗</span>
+  </a>
+</section>
+
+
     <section class="card live" aria-live="polite">
       <div class="lh">
         <span class="live-badge"><span class="dot"></span>Live Status</span>
