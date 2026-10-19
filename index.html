@@ -1317,26 +1317,55 @@
 
 
 
+/* ===== Attendance Tracker (Dark & Light Mode Ready) ===== */
+:root {
+  --att-bg: #111827;
+  --att-surface: #1e293b;
+  --att-surface-hover: #334155;
+  --att-border: #334155;
+  --att-text: #f8fafc;
+  --att-muted: #94a3b8;
+  --att-input-bg: #0f172a;
+}
 
-/* Attendance Tracker */
+/* Agar aapki website Light Mode me ho aur body par dark class na lagi ho, 
+   toh dono modes support karne ke liye yeh variables kaam aayenge */
+body.light-mode,
+[data-theme="light"] {
+  --att-bg: #ffffff;
+  --att-surface: #f1f5f9;
+  --att-surface-hover: #e2e8f0;
+  --att-border: #dbe3ef;
+  --att-text: #172033;
+  --att-muted: #64748b;
+  --att-input-bg: #ffffff;
+}
+
 .attendance-section {
   max-width: 1100px;
   margin: 20px auto;
   padding: 18px;
-  background: var(--card, #ffffff);
-  color: var(--text, #172033);
-  border: 1px solid #dbe3ef;
+  background: var(--att-bg);
+  color: var(--att-text);
+  border: 1px solid var(--att-border);
   border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.07);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
-.attendance-section h2 {
+.attendance-section h2,
+.att-record h3 {
   margin: 0 0 8px;
+  color: var(--att-text);
+}
+
+.att-record h3 {
+  font-size: 17px;
+  margin-bottom: 12px;
 }
 
 .att-subtitle {
   margin: 0 0 18px;
-  color: #64748b;
+  color: var(--att-muted);
   font-size: 14px;
 }
 
@@ -1351,6 +1380,7 @@
   margin-bottom: 6px;
   font-size: 13px;
   font-weight: 700;
+  color: var(--att-text);
 }
 
 .att-field input,
@@ -1359,11 +1389,19 @@
   min-width: 0;
   box-sizing: border-box;
   padding: 12px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--att-border);
   border-radius: 11px;
-  background: #fff;
-  color: #172033;
+  background: var(--att-input-bg);
+  color: var(--att-text);
   font-size: 15px;
+  color-scheme: dark; /* Date picker icon ko dark mode me white dikhane ke liye */
+}
+
+.att-field input:focus,
+.att-field select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
 }
 
 .att-full {
@@ -1374,16 +1412,22 @@
   padding: 12px 15px;
   border: 0;
   border-radius: 11px;
-  background: #1d4ed8;
-  color: white;
+  background: #2563eb;
+  color: #ffffff;
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
+  transition: background 0.2s;
+}
+
+.att-btn:hover {
+  background: #1d4ed8;
 }
 
 .att-btn-secondary {
-  background: #e2e8f0;
-  color: #172033;
+  background: var(--att-surface);
+  color: var(--att-text);
+  border: 1px solid var(--att-border);
 }
 
 .att-summary {
@@ -1396,39 +1440,44 @@
 .att-stat {
   padding: 14px;
   border-radius: 14px;
-  background: #eff6ff;
+  background: var(--att-surface);
+  border: 1px solid var(--att-border);
 }
 
 .att-stat span {
   display: block;
-  color: #475569;
+  color: var(--att-muted);
   font-size: 12px;
 }
 
 .att-stat strong {
   display: block;
   margin-top: 5px;
-  font-size: 23px;
+  font-size: 22px;
+  color: var(--att-text);
 }
 
 .att-progress {
   height: 9px;
   margin-top: 9px;
-  background: #dbeafe;
+  background: #0f172a;
   border-radius: 20px;
   overflow: hidden;
+  border: 1px solid var(--att-border);
 }
 
 .att-progress div {
   height: 100%;
   width: 0;
-  background: #16a34a;
-  transition: width .2s;
+  background: #22c55e;
+  transition: width 0.2s;
 }
 
 .att-table-wrap {
   width: 100%;
   overflow-x: auto;
+  border: 1px solid var(--att-border);
+  border-radius: 12px;
 }
 
 .att-table {
@@ -1439,59 +1488,72 @@
 
 .att-table th,
 .att-table td {
-  padding: 11px 8px;
+  padding: 11px 10px;
   text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--att-border);
+  color: var(--att-text);
 }
 
 .att-table th {
-  background: #f1f5f9;
+  background: var(--att-surface);
+  color: var(--att-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.att-table tr:last-child td {
+  border-bottom: none;
 }
 
 .att-status {
   display: inline-block;
-  padding: 5px 8px;
+  padding: 5px 10px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 800;
 }
 
 .att-present {
-  background: #dcfce7;
-  color: #166534;
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.3);
 }
 
 .att-absent {
-  background: #fee2e2;
-  color: #991b1b;
+  background: rgba(220, 38, 38, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.3);
 }
 
 .att-cancelled {
-  background: #e2e8f0;
-  color: #334155;
+  background: rgba(148, 163, 184, 0.2);
+  color: #cbd5e1;
+  border: 1px solid rgba(203, 213, 225, 0.3);
 }
 
 .att-record {
-  margin-top: 20px;
-}
-
-.att-record h3 {
-  font-size: 17px;
+  margin-top: 22px;
 }
 
 .att-delete {
-  padding: 7px 9px;
-  border: 0;
+  padding: 7px 10px;
+  border: 1px solid rgba(248, 113, 113, 0.3);
   border-radius: 8px;
-  background: #fee2e2;
-  color: #991b1b;
+  background: rgba(220, 38, 38, 0.15);
+  color: #f87171;
+  font-weight: 600;
   cursor: pointer;
+}
+
+.att-delete:hover {
+  background: rgba(220, 38, 38, 0.3);
 }
 
 .att-message {
   margin: 12px 0;
   font-size: 13px;
-  color: #475569;
+  color: var(--att-muted);
 }
 
 @media (max-width: 600px) {
