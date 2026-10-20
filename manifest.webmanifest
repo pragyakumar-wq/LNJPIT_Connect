@@ -1,9 +1,9 @@
 {
   "id": "./",
-  "name": "LNJPIT 1st Semester Timetable 2026",
-  "short_name": "LNJPIT Timetable",
-  "description": "Smart student timetable companion for LNJPIT Chapra 1st Semester (July–December 2026). Live class tracking, lab group filtering, offline access, and 5-minute class reminders.",
-  "start_url": "./",
+  "name": "LNJPIT Connect",
+  "short_name": "LNJPIT Connect",
+  "description": "Campus companion for LNJPIT students with timetable, study resources, notices and attendance.",
+  "start_url": "./#home",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -11,8 +11,8 @@
     "minimal-ui"
   ],
   "orientation": "any",
-  "background_color": "#0f172a",
-  "theme_color": "#1e40af",
+  "background_color": "#06192b",
+  "theme_color": "#06192b",
   "lang": "en-IN",
   "dir": "ltr",
   "categories": [
@@ -52,7 +52,7 @@
       "name": "Today's Schedule",
       "short_name": "Today",
       "description": "Jump straight to today's classes and live status",
-      "url": "./?view=day",
+      "url": "./?view=day#schedule",
       "icons": [
         {
           "src": "icons/icon-192.png",
@@ -65,7 +65,7 @@
       "name": "Weekly Timetable",
       "short_name": "Week Grid",
       "description": "Open the full Monday–Saturday timetable grid",
-      "url": "./?view=week",
+      "url": "./?view=week#schedule",
       "icons": [
         {
           "src": "icons/icon-192.png",

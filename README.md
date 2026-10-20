@@ -1,31 +1,29 @@
-# LNJPIT 1st Semester Timetable — Progressive Web App (PWA)
+# LNJPIT Connect
 
-A modern, offline-first Progressive Web App for the **LNJPIT Chapra 1st Semester (July–December 2026, Revised w.e.f. 28.09.2026)** timetable.
+A mobile-first student companion for LNJPIT Chapra. The interface follows the supplied dark navy and blue reference with a fixed bottom navigation bar.
 
-## ✨ Key Features
-- **Real-Time IST Live Tracker**: Displays current and upcoming classes synced to Indian Standard Time (`Asia/Kolkata`) with live progress bars, remaining-time countdowns, and automatic Lunch Break (`1:00 PM – 2:00 PM`) detection.
-- **Branch & Lab Batch Filtering**:
-  - Covers all 7 branches/sections (`EEE`, `CSE-A`, `CSE-B`, `Civil`, `Mechanical`, `Mathematics & Computing`, `Food Processing & Preservation`).
-  - Dedicated **Lab Batch Selector (`All`, `Batch G1 Only`, `Batch G2 Only`)** filters both the timetable views and notifications so students only see sessions relevant to their practical group.
-- **Dual Views & Instant Search**:
-  - **Weekly Grid View**: Full Monday–Saturday matrix with semantic color coding (`Lectures`, `Labs & Sports`, `Remedial`, `Activities`), group badges, and `● LIVE` highlights.
-  - **Interactive Day Agenda View**: Single-day or 6-day vertical timeline cards with quick day-selector pills (`Mon`–`Sat`) and lunch break dividers.
-  - **Quick Search & Category Filter Pills**: Filter by `Lectures`, `Labs & Sports`, `Remedial`, or search any subject code (`Math`, `Physics`, `PPS`, `IAI`, `EGD`, etc.).
-- **Dark & Light Theme**: Automatic system theme detection with a manual Dark/Light mode toggle and print-ready layout (`🖨️ Print`).
-- **Course Code Reference & Weekly Stats**: Built-in reference guide for 1st-semester course abbreviations (`IAI`, `PPS`, `CFET`, `BEEE`, `EGD`, `UHV`, `EIC`) and weekly contact-hour metrics.
-- **Resilient Offline PWA & Push Notifications**:
-  - Offline-safe unified Service Worker (`sw.js`) caches the app shell and assets.
-  - Supports in-app 5-minute class reminders (with vibration & toast alerts) plus closed-app Firebase Cloud Messaging (FCM) push reminders via Firebase Cloud Functions (`functions/index.js`).
+## Screens
 
-## 📁 Project Structure
-- `index.html` & `public/index.html` — Complete responsive timetable application (kept identical for GitHub Pages root or Firebase Hosting `public/` deployment)
-- `manifest.webmanifest` & `public/manifest.webmanifest` — Installable PWA configuration with maskable icons and app shortcuts
-- `sw.js` & `public/sw.js` — Unified offline caching and Firebase Cloud Messaging service worker
-- `firebase-messaging-sw.js` & `public/firebase-messaging-sw.js` — Compatibility entry point loading `sw.js`
-- `404.html` & `public/404.html` — Custom themed 404 fallback page
-- `icons/` & `public/icons/` — High-resolution anti-aliased `192x192` and `512x512` PWA icons
-- `functions/` — Firebase Cloud Functions v2 backend (`registerReminderDevice`, `unregisterReminderDevice`, and scheduled `sendClassReminders`)
+- **Home:** quick access to Timetable, Study Notes, Notices, Lost & Found, Community and More, plus the live timetable overview.
+- **Schedule:** the existing live IST class tracker, branch and lab-batch filters, search, day agenda, weekly grid, reminders and course reference.
+- **Study Notes:** subject cards link to the existing B.Tech Semester 1 study website; search and branch filters work locally.
+- **Notices:** ready-to-fill notice screen. It shows an empty state until official notices are connected.
+- **Lost & Found / Community:** navigation-ready pages marked **Coming Soon**.
+- **Profile:** theme and install controls plus the existing attendance tracker, which stores records in this browser.
 
+## Open in VS Code
 
-## 👤 Credits
-Developed by **Pragya Kumar · MNC 18** · Lok Nayak Jai Prakash Institute of Technology (LNJPIT), Chapra, Bihar.
+1. Extract `LNJPIT_Connect_APP_Enhanced.zip`.
+2. Open the extracted folder in VS Code.
+3. Open `index.html` in a browser, or serve the folder over localhost for PWA and notification features.
+
+The timetable, filters, theme selection, screen navigation, and attendance tracker run in the browser. The study cards open the existing external study site. Web push notifications require the configured Firebase project and HTTPS hosting.
+
+## Files
+
+- `index.html` — app screens, styles, timetable data and client-side behavior
+- `manifest.webmanifest`, `sw.js`, `firebase-messaging-sw.js` — install and offline behavior
+- `icons/` — LNJPIT app icons
+- `functions/` — Firebase Cloud Functions for scheduled class reminders
+
+Built for LNJPIT students.

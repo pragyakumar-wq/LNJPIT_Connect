@@ -1,4 +1,4 @@
-const CACHE = "lnjpit-timetable-v4";
+const CACHE = "lnjpit-connect-v5";
 const SHELL = [
   "./",
   "./index.html",
