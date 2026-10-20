@@ -17,14 +17,6 @@ A modern, offline-first Progressive Web App for the **LNJPIT Chapra 1st Semester
   - Offline-safe unified Service Worker (`sw.js`) caches the app shell and assets.
   - Supports in-app 5-minute class reminders (with vibration & toast alerts) plus closed-app Firebase Cloud Messaging (FCM) push reminders via Firebase Cloud Functions (`functions/index.js`).
 
-## 📁 Project Structure
-- `index.html` & `public/index.html` — Complete responsive timetable application (kept identical for GitHub Pages root or Firebase Hosting `public/` deployment)
-- `manifest.webmanifest` & `public/manifest.webmanifest` — Installable PWA configuration with maskable icons and app shortcuts
-- `sw.js` & `public/sw.js` — Unified offline caching and Firebase Cloud Messaging service worker
-- `firebase-messaging-sw.js` & `public/firebase-messaging-sw.js` — Compatibility entry point loading `sw.js`
-- `404.html` & `public/404.html` — Custom themed 404 fallback page
-- `icons/` & `public/icons/` — High-resolution anti-aliased `192x192` and `512x512` PWA icons
-- `functions/` — Firebase Cloud Functions v2 backend (`registerReminderDevice`, `unregisterReminderDevice`, and scheduled `sendClassReminders`)
 
 
 ## 👤 Credits
