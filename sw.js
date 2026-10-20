@@ -42,7 +42,7 @@ try {
   importScripts("https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging-compat.js");
 
   firebase.initializeApp({
-    apiKey: "fgghjklhgcfvjkjlgufx",
+    apiKey: "AIzaSyD1VQ6LxMrKaMl0AuxEA9mRp1SpdDodck9",
     authDomain: "lnjpit-connect.firebaseapp.com",
     projectId: "lnjpit-connect",
     storageBucket: "lnjpit-connect.firebasestorage.app",
