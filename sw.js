@@ -42,10 +42,10 @@ try {
   importScripts("https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging-compat.js");
 
   firebase.initializeApp({
-    apiKey: "AIzaSyD1VQ6LxMrKaMl0AuxEA9mRc1SpdDopck4",
-    authDomain: "lnjpit-timetable.firebaseapp.com",
-    projectId: "lnjpit-timetable",
-    storageBucket: "lnjpit-timetable.firebasestorage.app",
+    apiKey: "fgghjklhgcfvjkjlgufx",
+    authDomain: "lnjpit-connect.firebaseapp.com",
+    projectId: "lnjpit-connect",
+    storageBucket: "lnjpit-connect.firebasestorage.app",
     messagingSenderId: "983687695923",
     appId: "1:983687695923:web:de769b16368a1a34d51d46"
   });
@@ -57,11 +57,11 @@ try {
   messaging.onBackgroundMessage(payload => {
     if (payload?.notification?.title) return;
     const data = payload?.data || {};
-    return self.registration.showNotification(data.title || "LNJPIT Timetable", {
+    return self.registration.showNotification(data.title || "LNJPIT Connect", {
       body: data.body || "You have an upcoming class reminder.",
       icon: "./icons/icon-192.png",
       badge: "./icons/icon-192.png",
-      tag: data.reminderId || "lnjpit-timetable",
+      tag: data.reminderId || "lnjpit-connect",
       renotify: true,
       vibrate: [200, 100, 200],
       data: { url: data.url || "./" }
