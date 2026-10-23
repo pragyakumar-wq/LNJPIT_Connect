@@ -2291,7 +2291,7 @@ body.light-mode,
     ];
 
     /* ---- State & Helpers ---- */
-    const $ = id => document.getElementById(id);
+    window.$ = window.$ || (id => document.getElementById(id));
     const esc = s => String(s)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
