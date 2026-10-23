@@ -298,3 +298,86 @@ exports.sendClassReminders = onSchedule({
     logger.info("Class reminder processed", {reminderId, recipients: recipients.length});
   }));
 });
+
+
+// Cloud Functions for Campus Community & Lost & Found (uses Admin SDK, bypassing client security rules)
+exports.saveCommunityPost = onCall({region: REGION, cors: true}, async request => {
+  const post = request.data || {};
+  if (typeof post.id !== "string" || !post.id.trim()) {
+    throw new HttpsError("invalid-argument", "Post id is required.");
+  }
+  const cleanId = post.id.trim().slice(0, 120);
+  const payload = {
+    id: cleanId,
+    author: String(post.author || "LNJPIT Student").trim().slice(0, 60),
+    branch: String(post.branch || "All Branches").trim().slice(0, 60),
+    category: String(post.category || "General").trim().slice(0, 60),
+    title: String(post.title || "").trim().slice(0, 140),
+    body: String(post.body || "").trim().slice(0, 1200),
+    photoData: String(post.photoData || ""),
+    likes: Number(post.likes || 0),
+    replies: Array.isArray(post.replies) ? post.replies.slice(0, 200) : [],
+    dateLabel: String(post.dateLabel || "Today").slice(0, 40),
+    createdAtMs: Number(post.createdAtMs || Date.now()),
+    updatedAtMs: Date.now(),
+    updatedAt: FieldValue.serverTimestamp()
+  };
+  await db.collection("communityPosts").doc(cleanId).set(payload, {merge: true});
+  return {saved: true, id: cleanId};
+});
+
+exports.deleteCommunityPost = onCall({region: REGION, cors: true}, async request => {
+  const {id} = request.data || {};
+  if (typeof id !== "string" || !id.trim()) {
+    throw new HttpsError("invalid-argument", "Post id is required.");
+  }
+  await db.collection("communityPosts").doc(id.trim()).delete();
+  return {deleted: true, id: id.trim()};
+});
+
+exports.listCommunityPosts = onCall({region: REGION, cors: true}, async () => {
+  const snap = await db.collection("communityPosts").orderBy("createdAtMs", "desc").limit(60).get();
+  const posts = snap.docs.map(d => ({id: d.id, ...d.data()}));
+  return {posts};
+});
+
+exports.saveLostFoundItem = onCall({region: REGION, cors: true}, async request => {
+  const item = request.data || {};
+  if (typeof item.id !== "string" || !item.id.trim()) {
+    throw new HttpsError("invalid-argument", "Item id is required.");
+  }
+  const cleanId = item.id.trim().slice(0, 120);
+  const payload = {
+    id: cleanId,
+    type: item.type === "found" ? "found" : "lost",
+    status: item.status === "resolved" ? "resolved" : "active",
+    title: String(item.title || "").trim().slice(0, 120),
+    category: String(item.category || "Other").trim().slice(0, 60),
+    location: String(item.location || "Campus").trim().slice(0, 100),
+    date: String(item.date || "").slice(0, 30),
+    reporter: String(item.reporter || "LNJPIT Student").trim().slice(0, 60),
+    contact: String(item.contact || "").trim().slice(0, 80),
+    desc: String(item.desc || "").trim().slice(0, 800),
+    photoData: String(item.photoData || ""),
+    createdAtMs: Number(item.createdAtMs || Date.now()),
+    updatedAtMs: Date.now(),
+    updatedAt: FieldValue.serverTimestamp()
+  };
+  await db.collection("lostFoundItems").doc(cleanId).set(payload, {merge: true});
+  return {saved: true, id: cleanId};
+});
+
+exports.deleteLostFoundItem = onCall({region: REGION, cors: true}, async request => {
+  const {id} = request.data || {};
+  if (typeof id !== "string" || !id.trim()) {
+    throw new HttpsError("invalid-argument", "Item id is required.");
+  }
+  await db.collection("lostFoundItems").doc(id.trim()).delete();
+  return {deleted: true, id: id.trim()};
+});
+
+exports.listLostFoundItems = onCall({region: REGION, cors: true}, async () => {
+  const snap = await db.collection("lostFoundItems").orderBy("createdAtMs", "desc").limit(60).get();
+  const items = snap.docs.map(d => ({id: d.id, ...d.data()}));
+  return {items};
+});

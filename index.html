@@ -2489,6 +2489,62 @@ html[data-theme="light"] .comm-identity-bar input {
   border-color: #cbd5e1;
 }
 
+
+.fb-sync-banner {
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  color: #fde68a;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+.fb-sync-banner strong {
+  color: #fbbf24;
+  display: block;
+  font-size: 0.82rem;
+  margin-bottom: 4px;
+}
+.fb-sync-banner pre {
+  background: #061524;
+  border: 1px solid rgba(88, 153, 205, 0.3);
+  border-radius: 9px;
+  padding: 8px 10px;
+  margin: 8px 0;
+  color: #93c5fd;
+  font-size: 0.68rem;
+  overflow-x: auto;
+  white-space: pre;
+}
+.fb-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.lf-sync-pill {
+  cursor: pointer;
+  user-select: none;
+}
+.lf-sync-pill.is-local {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.45);
+}
+html[data-theme="light"] .fb-sync-banner {
+  background: #fffbeb;
+  border-color: #f59e0b;
+  color: #78350f;
+}
+html[data-theme="light"] .fb-sync-banner strong {
+  color: #b45309;
+}
+html[data-theme="light"] .fb-sync-banner pre {
+  background: #0f172a;
+  color: #bae6fd;
+}
+
   </style>
 </head>
 
@@ -2751,7 +2807,28 @@ html[data-theme="light"] .comm-identity-bar input {
     <section class="page-view lf-page" data-page="lostfound">
       <div class="lf-top-bar">
         <button class="back-link" type="button" data-go="more">← Back to More</button>
-        <span class="lf-sync-pill" id="lfSyncStatus">● Campus Live Board</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button type="button" class="lf-btn-sm alt" data-fb-sync-now="1" style="min-height:26px;padding:3px 9px;font-size:0.68rem;">🔄 Sync Now</button>
+          <span class="lf-sync-pill" id="lfSyncStatus" title="Tap for Firebase sync status">● Connecting Firebase...</span>
+        </div>
+      </div>
+
+      <div class="fb-sync-banner" id="lfFirebaseBanner" hidden>
+        <strong id="lfFirebaseBannerTitle">⚠️ Message Sirf Aapke Phone Me Save Ho Raha Hai (Firebase Rules Blocked)</strong>
+        <span id="lfFirebaseBannerDesc">Aapke Firebase project (<code>lnjpit-timetable</code>) me Firestore Database Rules abhi write block kar rahe hain, isliye posts doosre phone par nahi dikh rahe. Niche se Rules copy karke Firebase Console me <b>Publish</b> karein:</span>
+        <pre id="lfRulesCode">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}</pre>
+        <div class="fb-sync-actions">
+          <button type="button" class="lf-btn-sm lf-btn-resolve" data-copy-fb-rules="1">📋 1. Copy Firestore Rules</button>
+          <a class="lf-btn-sm lf-btn-contact" href="https://console.firebase.google.com/project/lnjpit-timetable/firestore/rules" target="_blank" rel="noopener">🔗 2. Open Firebase Rules &amp; Publish</a>
+          <button type="button" class="lf-btn-sm alt" data-fb-sync-now="1">🔄 3. Retry &amp; Sync Phone Posts</button>
+        </div>
       </div>
 
       <div class="screen-title">
@@ -2903,7 +2980,28 @@ html[data-theme="light"] .comm-identity-bar input {
     <section class="page-view comm-page" data-page="community">
       <div class="lf-top-bar">
         <button class="back-link" type="button" data-go="more">← Back to More</button>
-        <span class="lf-sync-pill" id="commSyncStatus">● Campus Live Feed</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button type="button" class="lf-btn-sm alt" data-fb-sync-now="1" style="min-height:26px;padding:3px 9px;font-size:0.68rem;">🔄 Sync Now</button>
+          <span class="lf-sync-pill" id="commSyncStatus" title="Tap for Firebase sync status">● Connecting Firebase...</span>
+        </div>
+      </div>
+
+      <div class="fb-sync-banner" id="commFirebaseBanner" hidden>
+        <strong id="commFirebaseBannerTitle">⚠️ Message Sirf Aapke Phone Me Save Ho Raha Hai (Firebase Rules Blocked)</strong>
+        <span id="commFirebaseBannerDesc">Aapke Firebase project (<code>lnjpit-timetable</code>) me Firestore Database Rules abhi write block kar rahe hain, isliye messages sirf aapke phone ke Local Storage me reh ja rahe hain. Isko sabhi phones ke liye live karne ke liye ye 2 step karein:</span>
+        <pre id="commRulesCode">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}</pre>
+        <div class="fb-sync-actions">
+          <button type="button" class="lf-btn-sm lf-btn-resolve" data-copy-fb-rules="1">📋 1. Copy Firestore Rules</button>
+          <a class="lf-btn-sm lf-btn-contact" href="https://console.firebase.google.com/project/lnjpit-timetable/firestore/rules" target="_blank" rel="noopener">🔗 2. Open Firebase Rules &amp; Publish</a>
+          <button type="button" class="lf-btn-sm alt" data-fb-sync-now="1">🔄 3. Retry &amp; Sync Phone Messages</button>
+        </div>
       </div>
 
       <div class="screen-title">
@@ -3303,7 +3401,7 @@ html[data-theme="light"] .comm-identity-bar input {
     ];
 
     /* ---- State & Helpers ---- */
-    const getById = id => document.getElementById(id);
+    const $ = id => document.getElementById(id);
     const esc = s => String(s)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -4099,150 +4197,368 @@ html[data-theme="light"] .comm-identity-bar input {
     });
     $('noticeSearch')?.addEventListener('input', renderLiveNotices);
 
+    // Cloud Function callables for Community & Lost/Found (bypass Firestore client rules if deployed)
+    const saveCommunityPostFn = httpsCallable(functions, "saveCommunityPost");
+    const deleteCommunityPostFn = httpsCallable(functions, "deleteCommunityPost");
+    const listCommunityPostsFn = httpsCallable(functions, "listCommunityPosts");
+    const saveLostFoundItemFn = httpsCallable(functions, "saveLostFoundItem");
+    const deleteLostFoundItemFn = httpsCallable(functions, "deleteLostFoundItem");
+    const listLostFoundItemsFn = httpsCallable(functions, "listLostFoundItems");
+
+    const FIRESTORE_RULES_SNIPPET = `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
+
+    function setFirebaseSyncUI(isSynced, errorMsg = '') {
+      ['lfSyncStatus', 'commSyncStatus'].forEach(id => {
+        const el = $(id);
+        if (!el) return;
+        if (isSynced) {
+          el.textContent = '● Firebase Cloud Live';
+          el.classList.remove('is-local');
+        } else {
+          el.textContent = '⚠️ Phone Only (Tap to Fix Firebase)';
+          el.classList.add('is-local');
+        }
+      });
+
+      ['lfFirebaseBanner', 'commFirebaseBanner'].forEach(id => {
+        const banner = $(id);
+        if (!banner) return;
+        banner.hidden = Boolean(isSynced);
+      });
+
+      if (!isSynced && errorMsg) {
+        ['lfFirebaseBannerDesc', 'commFirebaseBannerDesc'].forEach(id => {
+          const descEl = $(id);
+          if (descEl) {
+            descEl.innerHTML = `Firebase Console me Firestore Rules abhi write block kar rahe hain (<code>${String(errorMsg).replace(/</g, '&lt;')}</code>), isliye message sirf aapke phone me save ho raha hai. Sabhi phones me live sync chalu karne ke liye niche <b>1. Copy Firestore Rules</b> dabayein aur <b>2. Open Firebase Rules</b> me paste karke <b>Publish</b> karein:`;
+          }
+        });
+      }
+    }
+
+    // Allow tapping the status pill to toggle the setup helper banner
+    ['lfSyncStatus', 'commSyncStatus'].forEach(id => {
+      $(id)?.addEventListener('click', () => {
+        const bannerId = id === 'lfSyncStatus' ? 'lfFirebaseBanner' : 'commFirebaseBanner';
+        const banner = $(bannerId);
+        if (banner) banner.hidden = !banner.hidden;
+      });
+    });
+
+    // 1-tap Copy Firestore Rules button handler
+    document.querySelectorAll('[data-copy-fb-rules]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(FIRESTORE_RULES_SNIPPET);
+          } else {
+            copyTextFallback(FIRESTORE_RULES_SNIPPET);
+          }
+        } catch (e) {
+          try { copyTextFallback(FIRESTORE_RULES_SNIPPET); } catch (err) {}
+        }
+        const orig = btn.textContent;
+        btn.textContent = '✅ Rules Copied! Now Open Firebase & Publish';
+        setTimeout(() => { btn.textContent = orig; }, 3500);
+        if (typeof toast === 'function') {
+          toast('📋 Firestore Rules Copied', 'Ab Firebase Console Rules tab me paste karke Publish daba dein!');
+        }
+      });
+    });
+
+    // Helper: Save Lost & Found item via Firestore OR Cloud Function fallback
+    async function pushLfItemToCloud(item) {
+      if (!item || !item.id) return false;
+      await ensureAnonymousUser().catch(() => {});
+      seenLfIds.add(item.id);
+      const cleanPayload = {
+        id: item.id,
+        type: item.type === 'found' ? 'found' : 'lost',
+        status: item.status === 'resolved' ? 'resolved' : 'active',
+        title: item.title || 'Campus Item',
+        category: item.category || 'Other',
+        location: item.location || 'Campus',
+        date: item.date || '',
+        reporter: item.reporter || 'LNJPIT Student',
+        contact: item.contact || '',
+        desc: item.desc || '',
+        photoData: item.photoData || '',
+        createdAtMs: Number(item.createdAtMs || Date.now()),
+        updatedAtMs: Number(item.updatedAtMs || Date.now())
+      };
+
+      try {
+        await setDoc(doc(db, "lostFoundItems", item.id), {
+          ...cleanPayload,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        setFirebaseSyncUI(true);
+        dispatchEvent(new CustomEvent('lf-item-cloud-confirmed', { detail: { id: item.id } }));
+        return true;
+      } catch (firestoreErr) {
+        try {
+          await saveLostFoundItemFn(cleanPayload);
+          setFirebaseSyncUI(true);
+          dispatchEvent(new CustomEvent('lf-item-cloud-confirmed', { detail: { id: item.id } }));
+          return true;
+        } catch (fnErr) {
+          const code = firestoreErr?.code || firestoreErr?.message || 'permission-denied';
+          console.warn('Firebase lostFoundItems sync blocked:', firestoreErr);
+          setFirebaseSyncUI(false, code);
+          return false;
+        }
+      }
+    }
+
+    // Helper: Save Community Post via Firestore OR Cloud Function fallback
+    async function pushCommPostToCloud(post) {
+      if (!post || !post.id) return false;
+      await ensureAnonymousUser().catch(() => {});
+      seenCommIds.add(post.id);
+      const cleanPayload = {
+        id: post.id,
+        author: post.author || 'LNJPIT Student',
+        branch: post.branch || 'All Branches',
+        category: post.category || 'General',
+        title: post.title || 'Campus Discussion',
+        body: post.body || '',
+        photoData: post.photoData || '',
+        likes: Number(post.likes || 0),
+        replies: Array.isArray(post.replies) ? post.replies : [],
+        dateLabel: post.dateLabel || 'Today',
+        createdAtMs: Number(post.createdAtMs || Date.now()),
+        updatedAtMs: Number(post.updatedAtMs || Date.now())
+      };
+
+      try {
+        await setDoc(doc(db, "communityPosts", post.id), {
+          ...cleanPayload,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        setFirebaseSyncUI(true);
+        dispatchEvent(new CustomEvent('comm-post-cloud-confirmed', { detail: { id: post.id } }));
+        return true;
+      } catch (firestoreErr) {
+        try {
+          await saveCommunityPostFn(cleanPayload);
+          setFirebaseSyncUI(true);
+          dispatchEvent(new CustomEvent('comm-post-cloud-confirmed', { detail: { id: post.id } }));
+          return true;
+        } catch (fnErr) {
+          const code = firestoreErr?.code || firestoreErr?.message || 'permission-denied';
+          console.warn('Firebase communityPosts sync blocked:', firestoreErr);
+          setFirebaseSyncUI(false, code);
+          return false;
+        }
+      }
+    }
+
+    // Auto-upload any unsynced user posts from this phone to Firebase
+    async function syncPendingLocalDataToFirebase() {
+      try {
+        const rawComm = localStorage.getItem('lnjpit_community_v1');
+        const localComm = rawComm ? JSON.parse(rawComm) : [];
+        if (Array.isArray(localComm)) {
+          for (const p of localComm) {
+            if (p && p.id && !String(p.id).startsWith('comm_sample_') && !p.syncedToCloud) {
+              await pushCommPostToCloud(p);
+            }
+          }
+        }
+      } catch (e) {}
+
+      try {
+        const rawLf = localStorage.getItem('lnjpit_lostfound_v1');
+        const localLf = rawLf ? JSON.parse(rawLf) : [];
+        if (Array.isArray(localLf)) {
+          for (const item of localLf) {
+            if (item && item.id && !String(item.id).startsWith('lf_sample_') && !item.syncedToCloud) {
+              await pushLfItemToCloud(item);
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
     // Live Campus Lost & Found sync via Firebase Firestore ("lostFoundItems" collection)
     let seenLfIds = new Set();
     let initialLfLoaded = false;
+    let lfUnsubscribe = null;
 
-    try {
-      const lfQuery = query(collection(db, "lostFoundItems"), orderBy("createdAtMs", "desc"), limit(50));
-      onSnapshot(lfQuery, snapshot => {
-        const remoteItems = [];
-        snapshot.forEach(docSnap => {
-          const d = docSnap.data() || {};
-          remoteItems.push({
-            id: docSnap.id,
-            type: d.type === 'found' ? 'found' : 'lost',
-            status: d.status === 'resolved' ? 'resolved' : 'active',
-            title: d.title || 'Campus Item',
-            category: d.category || 'Other',
-            location: d.location || 'Campus',
-            date: d.date || '',
-            reporter: d.reporter || 'LNJPIT Student',
-            contact: d.contact || '',
-            desc: d.desc || '',
-            photoData: d.photoData || '',
-            createdAtMs: Number(d.createdAtMs || Date.now())
+    function startLfRealtimeListener() {
+      if (lfUnsubscribe) {
+        try { lfUnsubscribe(); } catch (e) {}
+        lfUnsubscribe = null;
+      }
+      try {
+        const lfQuery = query(collection(db, "lostFoundItems"), limit(60));
+        lfUnsubscribe = onSnapshot(lfQuery, snapshot => {
+          const remoteItems = [];
+          snapshot.forEach(docSnap => {
+            const d = docSnap.data() || {};
+            remoteItems.push({
+              id: docSnap.id,
+              type: d.type === 'found' ? 'found' : 'lost',
+              status: d.status === 'resolved' ? 'resolved' : 'active',
+              title: d.title || 'Campus Item',
+              category: d.category || 'Other',
+              location: d.location || 'Campus',
+              date: d.date || '',
+              reporter: d.reporter || 'LNJPIT Student',
+              contact: d.contact || '',
+              desc: d.desc || '',
+              photoData: d.photoData || '',
+              createdAtMs: Number(d.createdAtMs || Date.now()),
+              updatedAtMs: Number(d.updatedAtMs || d.createdAtMs || Date.now()),
+              syncedToCloud: true
+            });
+            if (initialLfLoaded && !seenLfIds.has(docSnap.id)) {
+              const badge = d.type === 'found' ? '🎉 Found on Campus' : '🔍 Lost on Campus';
+              dispatchEvent(new CustomEvent('fcm-message', {
+                detail: {
+                  title: `${badge}: ${d.title || 'Item'}`,
+                  body: `${d.location || 'LNJPIT Campus'} — Reported by ${d.reporter || 'Student'}`,
+                  url: './#lostfound'
+                }
+              }));
+            }
+            seenLfIds.add(docSnap.id);
           });
-          if (initialLfLoaded && !seenLfIds.has(docSnap.id)) {
-            const badge = d.type === 'found' ? '🎉 Found on Campus' : '🔍 Lost on Campus';
-            dispatchEvent(new CustomEvent('fcm-message', {
-              detail: {
-                title: `${badge}: ${d.title || 'Item'}`,
-                body: `${d.location || 'LNJPIT Campus'} — Reported by ${d.reporter || 'Student'}`,
-                url: './#lostfound'
-              }
-            }));
-          }
-          seenLfIds.add(docSnap.id);
+          initialLfLoaded = true;
+          setFirebaseSyncUI(true);
+          dispatchEvent(new CustomEvent('lf-remote-sync', { detail: { items: remoteItems } }));
+          void syncPendingLocalDataToFirebase();
+        }, async err => {
+          try {
+            const res = await listLostFoundItemsFn();
+            if (Array.isArray(res?.data?.items)) {
+              setFirebaseSyncUI(true);
+              dispatchEvent(new CustomEvent('lf-remote-sync', { detail: { items: res.data.items } }));
+              return;
+            }
+          } catch (fnErr) {}
+          setFirebaseSyncUI(false, err?.code || 'permission-denied');
         });
-        initialLfLoaded = true;
-        const syncEl = $('lfSyncStatus');
-        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
-        dispatchEvent(new CustomEvent('lf-remote-sync', { detail: { items: remoteItems } }));
-      }, () => {
-        const syncEl = $('lfSyncStatus');
-        if (syncEl) syncEl.textContent = '● Local Campus Board';
-      });
-    } catch (e) {}
+      } catch (e) {}
+    }
+
+    // Live Campus Community sync via Firebase Firestore ("communityPosts" collection)
+    let seenCommIds = new Set();
+    let initialCommLoaded = false;
+    let commUnsubscribe = null;
+
+    function startCommRealtimeListener() {
+      if (commUnsubscribe) {
+        try { commUnsubscribe(); } catch (e) {}
+        commUnsubscribe = null;
+      }
+      try {
+        const commQuery = query(collection(db, "communityPosts"), limit(60));
+        commUnsubscribe = onSnapshot(commQuery, snapshot => {
+          const remotePosts = [];
+          snapshot.forEach(docSnap => {
+            const d = docSnap.data() || {};
+            remotePosts.push({
+              id: docSnap.id,
+              author: d.author || 'LNJPIT Student',
+              branch: d.branch || 'All Branches',
+              category: d.category || 'General',
+              title: d.title || 'Campus Discussion',
+              body: d.body || '',
+              photoData: d.photoData || '',
+              likes: Number(d.likes || 0),
+              replies: Array.isArray(d.replies) ? d.replies : [],
+              dateLabel: d.dateLabel || 'Recent',
+              createdAtMs: Number(d.createdAtMs || Date.now()),
+              updatedAtMs: Number(d.updatedAtMs || d.createdAtMs || Date.now()),
+              syncedToCloud: true
+            });
+            if (initialCommLoaded && !seenCommIds.has(docSnap.id)) {
+              dispatchEvent(new CustomEvent('fcm-message', {
+                detail: {
+                  title: `👥 Community (${d.category || 'Post'}): ${d.title || 'New Discussion'}`,
+                  body: `Posted by ${d.author || 'Student'} (${d.branch || 'LNJPIT'})`,
+                  url: './#community'
+                }
+              }));
+            }
+            seenCommIds.add(docSnap.id);
+          });
+          initialCommLoaded = true;
+          setFirebaseSyncUI(true);
+          dispatchEvent(new CustomEvent('comm-remote-sync', { detail: { posts: remotePosts } }));
+          void syncPendingLocalDataToFirebase();
+        }, async err => {
+          try {
+            const res = await listCommunityPostsFn();
+            if (Array.isArray(res?.data?.posts)) {
+              setFirebaseSyncUI(true);
+              dispatchEvent(new CustomEvent('comm-remote-sync', { detail: { posts: res.data.posts } }));
+              return;
+            }
+          } catch (fnErr) {}
+          setFirebaseSyncUI(false, err?.code || 'permission-denied');
+        });
+      } catch (e) {}
+    }
+
+    // Start listeners after attempting anonymous sign-in (works with both public rules and auth!=null rules)
+    ensureAnonymousUser().catch(() => {}).finally(() => {
+      startLfRealtimeListener();
+      startCommRealtimeListener();
+    });
 
     addEventListener('lf-save-item', async event => {
-      const item = event.detail;
-      if (!item || !item.id) return;
-      try {
-        await ensureAnonymousUser().catch(() => {});
-        seenLfIds.add(item.id);
-        await setDoc(doc(db, "lostFoundItems", item.id), {
-          ...item,
-          updatedAt: serverTimestamp()
-        }, { merge: true });
-        const syncEl = $('lfSyncStatus');
-        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
-      } catch (err) {
-        console.warn('Firestore lostFoundItems save fallback to local storage:', err);
-      }
+      await pushLfItemToCloud(event.detail);
     });
 
     addEventListener('lf-delete-item', async event => {
       const id = event.detail?.id;
       if (!id) return;
+      await ensureAnonymousUser().catch(() => {});
       try {
-        await ensureAnonymousUser().catch(() => {});
         await deleteDoc(doc(db, "lostFoundItems", id));
       } catch (err) {
-        console.warn('Firestore lostFoundItems delete fallback:', err);
+        try { await deleteLostFoundItemFn({ id }); } catch (fnErr) {}
       }
     });
 
-    // Live Campus Community sync via Firebase Firestore ("communityPosts" collection)
-    let seenCommIds = new Set();
-    let initialCommLoaded = false;
-
-    try {
-      const commQuery = query(collection(db, "communityPosts"), orderBy("createdAtMs", "desc"), limit(50));
-      onSnapshot(commQuery, snapshot => {
-        const remotePosts = [];
-        snapshot.forEach(docSnap => {
-          const d = docSnap.data() || {};
-          remotePosts.push({
-            id: docSnap.id,
-            author: d.author || 'LNJPIT Student',
-            branch: d.branch || 'All Branches',
-            category: d.category || 'General',
-            title: d.title || 'Campus Discussion',
-            body: d.body || '',
-            photoData: d.photoData || '',
-            likes: Number(d.likes || 0),
-            replies: Array.isArray(d.replies) ? d.replies : [],
-            dateLabel: d.dateLabel || 'Recent',
-            createdAtMs: Number(d.createdAtMs || Date.now())
-          });
-          if (initialCommLoaded && !seenCommIds.has(docSnap.id)) {
-            dispatchEvent(new CustomEvent('fcm-message', {
-              detail: {
-                title: `👥 Community (${d.category || 'Post'}): ${d.title || 'New Discussion'}`,
-                body: `Posted by ${d.author || 'Student'} (${d.branch || 'LNJPIT'})`,
-                url: './#community'
-              }
-            }));
-          }
-          seenCommIds.add(docSnap.id);
-        });
-        initialCommLoaded = true;
-        const syncEl = $('commSyncStatus');
-        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
-        dispatchEvent(new CustomEvent('comm-remote-sync', { detail: { posts: remotePosts } }));
-      }, () => {
-        const syncEl = $('commSyncStatus');
-        if (syncEl) syncEl.textContent = '● Local Campus Feed';
-      });
-    } catch (e) {}
-
     addEventListener('comm-save-post', async event => {
-      const post = event.detail;
-      if (!post || !post.id) return;
-      try {
-        await ensureAnonymousUser().catch(() => {});
-        seenCommIds.add(post.id);
-        await setDoc(doc(db, "communityPosts", post.id), {
-          ...post,
-          updatedAt: serverTimestamp()
-        }, { merge: true });
-        const syncEl = $('commSyncStatus');
-        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
-      } catch (err) {
-        console.warn('Firestore communityPosts save fallback to local storage:', err);
-      }
+      await pushCommPostToCloud(event.detail);
     });
 
     addEventListener('comm-delete-post', async event => {
       const id = event.detail?.id;
       if (!id) return;
+      await ensureAnonymousUser().catch(() => {});
       try {
-        await ensureAnonymousUser().catch(() => {});
         await deleteDoc(doc(db, "communityPosts", id));
       } catch (err) {
-        console.warn('Firestore communityPosts delete fallback:', err);
+        try { await deleteCommunityPostFn({ id }); } catch (fnErr) {}
       }
+    });
+
+    // Manual "Sync Now / Retry" button handler
+    document.querySelectorAll('[data-fb-sync-now]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const orig = btn.textContent;
+        btn.textContent = '⏳ Syncing...';
+        await ensureAnonymousUser().catch(() => {});
+        startLfRealtimeListener();
+        startCommRealtimeListener();
+        await syncPendingLocalDataToFirebase();
+        setTimeout(() => { btn.textContent = orig; }, 1200);
+        if (typeof toast === 'function') {
+          toast('🔄 Firebase Sync Triggered', 'Checking Firebase Firestore & syncing your phone posts...');
+        }
+      });
     });
 
 
@@ -5090,14 +5406,33 @@ html[data-theme="light"] .comm-identity-bar input {
 
     searchInput?.addEventListener("input", renderItems);
 
-    // Merge remote Firestore items with local items
+    addEventListener("lf-item-cloud-confirmed", event => {
+      const id = event.detail?.id;
+      const target = items.find(i => i.id === id);
+      if (target) {
+        target.syncedToCloud = true;
+        saveLocal();
+        renderItems();
+      }
+    });
+
+    // Merge remote Firestore items with local items (preserving unsynced local reports & starter samples)
     addEventListener("lf-remote-sync", event => {
       const remoteItems = event.detail?.items;
-      if (!Array.isArray(remoteItems) || !remoteItems.length) return;
+      if (!Array.isArray(remoteItems)) return;
       const map = new Map();
-      items.forEach(item => map.set(item.id, item));
-      remoteItems.forEach(rItem => map.set(rItem.id, rItem));
-      items = Array.from(map.values()).sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+      // Keep starter samples if remote is empty, plus any unsynced local reports
+      items.forEach(item => {
+        const isSample = String(item.id || "").startsWith("lf_sample_");
+        if (isSample || !item.syncedToCloud) {
+          map.set(item.id, item);
+        }
+      });
+      remoteItems.forEach(rItem => {
+        map.set(rItem.id, { ...rItem, syncedToCloud: true });
+      });
+      const merged = Array.from(map.values()).sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+      items = merged.length ? merged : starterItems.slice();
       saveLocal();
       renderItems();
     });
@@ -5447,7 +5782,7 @@ html[data-theme="light"] .comm-identity-bar input {
                 <strong>${escHtml(post.author)}</strong>
                 <small>${escHtml(post.branch)} · ${escHtml(post.dateLabel || "Just now")}</small>
               </div>
-              <span class="comm-topic-badge">${escHtml(post.category)}</span>
+              <span class="comm-topic-badge">${escHtml(post.category)} ${post.syncedToCloud ? "☁️" : (String(post.id).startsWith("comm_sample_") ? "" : "📱")}</span>
             </div>
 
             <h4 class="comm-post-title">${escHtml(post.title)}</h4>
@@ -5657,13 +5992,38 @@ html[data-theme="light"] .comm-identity-bar input {
 
     searchInput?.addEventListener("input", renderPosts);
 
+    addEventListener("comm-post-cloud-confirmed", event => {
+      const id = event.detail?.id;
+      const target = posts.find(p => p.id === id);
+      if (target) {
+        target.syncedToCloud = true;
+        saveLocal();
+        renderPosts();
+      }
+    });
+
     addEventListener("comm-remote-sync", event => {
       const remotePosts = event.detail?.posts;
-      if (!Array.isArray(remotePosts) || !remotePosts.length) return;
+      if (!Array.isArray(remotePosts)) return;
       const map = new Map();
-      posts.forEach(p => map.set(p.id, p));
-      remotePosts.forEach(rp => map.set(rp.id, rp));
-      posts = Array.from(map.values()).sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+      posts.forEach(p => {
+        const isSample = String(p.id || "").startsWith("comm_sample_");
+        if (isSample || !p.syncedToCloud) {
+          map.set(p.id, p);
+        }
+      });
+      remotePosts.forEach(rp => {
+        const existing = map.get(rp.id);
+        // Merge replies & likes so no local reply is lost
+        const mergedReplies = Array.isArray(rp.replies) ? rp.replies : (existing?.replies || []);
+        map.set(rp.id, {
+          ...rp,
+          replies: mergedReplies,
+          syncedToCloud: true
+        });
+      });
+      const merged = Array.from(map.values()).sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+      posts = merged.length ? merged : starterPosts.slice();
       saveLocal();
       renderPosts();
     });
