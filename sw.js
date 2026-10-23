@@ -1,4 +1,4 @@
-const CACHE = "lnjpit-connect-v5";
+const CACHE = "lnjpit-connect-v6";
 const SHELL = [
   "./",
   "./index.html",
@@ -43,9 +43,9 @@ try {
 
   firebase.initializeApp({
     apiKey: "AIzaSyD1VQ6LxMrKaMl0AuxEA9mRc1SpdDopck4",
-    authDomain: "lnjpit-connect.firebaseapp.com",
-    projectId: "lnjpit-connect",
-    storageBucket: "lnjpit-connect.firebasestorage.app",
+    authDomain: "lnjpit-timetable.firebaseapp.com",
+    projectId: "lnjpit-timetable",
+    storageBucket: "lnjpit-timetable.firebasestorage.app",
     messagingSenderId: "983687695923",
     appId: "1:983687695923:web:de769b16368a1a34d51d46"
   });

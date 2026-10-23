@@ -1789,6 +1789,388 @@ body.light-mode,
 }
 
 
+  
+/* ===== Lost & Found Feature Styles ===== */
+.lf-page {
+  padding-bottom: 18px;
+}
+
+.lf-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.lf-sync-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.16);
+  color: #5bdbad;
+  border: 1px solid rgba(16, 185, 129, 0.32);
+}
+
+.lf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.lf-stat-card {
+  background: #0a2238;
+  border: 1px solid rgba(88, 153, 205, 0.22);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.lf-stat-card strong {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.lf-stat-card small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.63rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.lf-stat-card.lost-stat strong { color: #ff8299; }
+.lf-stat-card.found-stat strong { color: #5bdbad; }
+.lf-stat-card.resolved-stat strong { color: #80b9ff; }
+
+.lf-form-card {
+  background: #0a2238;
+  border: 1px solid rgba(88, 153, 205, 0.25);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.lf-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.lf-form-header h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.lf-type-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.lf-type-btn {
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 11px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: #0b2943;
+  color: var(--text-secondary);
+  border: 1px solid rgba(88, 153, 205, 0.25);
+}
+
+.lf-type-btn.active-lost {
+  background: rgba(244, 63, 94, 0.22);
+  color: #ff8299;
+  border-color: rgba(244, 63, 94, 0.55);
+}
+
+.lf-type-btn.active-found {
+  background: rgba(16, 185, 129, 0.22);
+  color: #5bdbad;
+  border-color: rgba(16, 185, 129, 0.55);
+}
+
+.lf-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.lf-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.lf-field input,
+.lf-field select,
+.lf-field textarea {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 11px;
+  border-radius: 10px;
+  border: 1px solid rgba(88, 153, 205, 0.28);
+  background: #0b2943;
+  color: #f3f8ff;
+  font: inherit;
+  font-size: 0.78rem;
+}
+
+.lf-field textarea {
+  min-height: 68px;
+  resize: vertical;
+}
+
+.lf-full {
+  grid-column: 1 / -1;
+}
+
+.lf-photo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lf-photo-preview {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(88, 153, 205, 0.35);
+}
+
+.lf-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.lf-card {
+  background: #0a2238;
+  border: 1px solid rgba(88, 153, 205, 0.22);
+  border-radius: 14px;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.lf-card.is-lost {
+  border-left: 4px solid #f43f5e;
+}
+
+.lf-card.is-found {
+  border-left: 4px solid #10b981;
+}
+
+.lf-card.is-resolved {
+  border-left: 4px solid #64748b;
+  opacity: 0.82;
+}
+
+.lf-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lf-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.lf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lf-badge.lost {
+  background: rgba(244, 63, 94, 0.2);
+  color: #ff8299;
+  border: 1px solid rgba(244, 63, 94, 0.38);
+}
+
+.lf-badge.found {
+  background: rgba(16, 185, 129, 0.2);
+  color: #5bdbad;
+  border: 1px solid rgba(16, 185, 129, 0.38);
+}
+
+.lf-badge.resolved {
+  background: rgba(148, 163, 184, 0.2);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.lf-cat-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(20, 121, 255, 0.16);
+  color: #80b9ff;
+}
+
+.lf-date {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.lf-card-body {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+}
+
+.lf-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(88, 153, 205, 0.28);
+}
+
+.lf-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.lf-card-content h4 {
+  margin: 0 0 3px;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.lf-card-content p {
+  margin: 0 0 6px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.lf-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 0.69rem;
+  color: var(--text-muted);
+}
+
+.lf-meta-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lf-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(88, 153, 205, 0.16);
+}
+
+.lf-action-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lf-btn-sm {
+  width: auto;
+  min-height: 30px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.69rem;
+  font-weight: 700;
+}
+
+.lf-btn-contact {
+  background: rgba(20, 121, 255, 0.18);
+  color: #80b9ff;
+  border: 1px solid rgba(20, 121, 255, 0.35);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lf-btn-resolve {
+  background: rgba(16, 185, 129, 0.18);
+  color: #5bdbad;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.lf-btn-delete {
+  background: rgba(244, 63, 94, 0.15);
+  color: #ff8299;
+  border: 1px solid rgba(244, 63, 94, 0.32);
+}
+
+html[data-theme="light"] .lf-stat-card,
+html[data-theme="light"] .lf-form-card,
+html[data-theme="light"] .lf-card {
+  background: #ffffff;
+  color: #12243a;
+  border-color: #d9e4ee;
+}
+
+html[data-theme="light"] .lf-field input,
+html[data-theme="light"] .lf-field select,
+html[data-theme="light"] .lf-field textarea,
+html[data-theme="light"] .lf-type-btn {
+  background: #f7fafc;
+  color: #12243a;
+  border-color: #cbd9e5;
+}
+
+html[data-theme="light"] .lf-card-content h4 {
+  color: #12243a;
+}
+
+@media (max-width: 520px) {
+  .lf-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .lf-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
 </head>
 
@@ -1846,7 +2228,7 @@ body.light-mode,
         <button class="quick-card" type="button" data-go="schedule"><span class="quick-icon blue">▦</span><span>Timetable</span></button>
         <button class="quick-card" type="button" data-go="notes"><span class="quick-icon green">▤</span><span>Study Notes</span></button>
         <button class="quick-card" type="button" data-go="notices"><span class="quick-icon amber">🔔</span><span>Notices</span></button>
-        <button class="quick-card" type="button" data-go="lostfound"><span class="quick-icon rose">📍</span><span>Lost &amp; Found</span><small>Coming Soon</small></button>
+        <button class="quick-card" type="button" data-go="lostfound"><span class="quick-icon rose">📍</span><span>Lost &amp; Found</span><small id="homeLfBadge">Report &amp; Find</small></button>
         <button class="quick-card" type="button" data-go="community"><span class="quick-icon violet">👥</span><span>Community</span><small>Coming Soon</small></button>
         <button class="quick-card" type="button" data-go="more"><span class="quick-icon teal">⊞</span><span>More</span></button>
       </div>
@@ -2033,13 +2415,14 @@ body.light-mode,
       <div class="screen-title"><span class="screen-icon">🔔</span><div><h2>Notices</h2><p>Latest updates &amp; important alerts</p></div></div>
       <div class="notes-search"><span>⌕</span><input type="search" id="noticeSearch" placeholder="Search notices..." aria-label="Search notices"></div>
       <div class="note-filters" role="group" aria-label="Filter notices"><button class="notice-filter active" type="button" data-notice-filter="all">All</button><button class="notice-filter" type="button" data-notice-filter="Academic">Academic</button><button class="notice-filter" type="button" data-notice-filter="Exam">Exam</button><button class="notice-filter" type="button" data-notice-filter="General">General</button><button class="notice-filter" type="button" data-notice-filter="Hostel">Hostel</button></div>
-      <div class="empty-state notice-empty"><span>♧</span><h3>No notices yet</h3><p>Official campus updates will appear here when they are available.</p></div>
+      <div id="noticeList" class="note-list" style="margin-bottom:14px;" hidden></div>
+      <div class="empty-state notice-empty" id="noticeEmpty"><span>♧</span><h3>No notices yet</h3><p>Official campus updates will appear here when they are available.</p></div>
     </section>
 
     <section class="page-view" data-page="more">
       <div class="screen-title"><span class="screen-icon">⊞</span><div><h2>More</h2><p>More ways to stay connected</p></div></div>
       <div class="more-list">
-        <button type="button" data-go="lostfound"><span class="more-icon rose">📍</span><span><strong>Lost &amp; Found</strong><small>Coming Soon</small></span><span class="note-arrow">›</span></button>
+        <button type="button" data-go="lostfound"><span class="more-icon rose">📍</span><span><strong>Lost &amp; Found</strong><small>Report lost or found belongings on campus</small></span><span class="note-arrow">›</span></button>
         <button type="button" data-go="community"><span class="more-icon violet">👥</span><span><strong>Community</strong><small>Coming Soon</small></span><span class="note-arrow">›</span></button>
         <button type="button" data-go="profile"><span class="more-icon blue">◉</span><span><strong>Profile &amp; Attendance</strong><small>Your settings and attendance tracker</small></span><span class="note-arrow">›</span></button>
         <button type="button" id="moreThemeBtn"><span class="more-icon amber">☼</span><span><strong>Appearance</strong><small>Switch light or dark theme</small></span><span class="note-arrow">›</span></button>
@@ -2047,9 +2430,156 @@ body.light-mode,
       </div>
     </section>
 
-    <section class="page-view coming-page" data-page="lostfound">
-      <button class="back-link" type="button" data-go="more">← Back to More</button>
-      <div class="empty-state coming-card"><span class="coming-emoji">⌖</span><span class="coming-pill">COMING SOON</span><h2>Lost &amp; Found</h2><p>We’re building a place to help students report and find lost belongings around campus.</p><button type="button" class="primary-action" data-go="home">Back to Home</button></div>
+    <section class="page-view lf-page" data-page="lostfound">
+      <div class="lf-top-bar">
+        <button class="back-link" type="button" data-go="more">← Back to More</button>
+        <span class="lf-sync-pill" id="lfSyncStatus">● Campus Live Board</span>
+      </div>
+
+      <div class="screen-title">
+        <span class="screen-icon">📍</span>
+        <div>
+          <h2>Lost &amp; Found</h2>
+          <p>Report lost or found belongings across LNJPIT campus</p>
+        </div>
+        <button type="button" class="primary-action" id="lfToggleFormBtn" style="margin-left:auto;">+ Report Item</button>
+      </div>
+
+      <!-- Summary Counters -->
+      <div class="lf-stats-grid" aria-label="Lost and Found Summary">
+        <div class="lf-stat-card">
+          <strong id="lfCountTotal">0</strong>
+          <small>Total Posts</small>
+        </div>
+        <div class="lf-stat-card lost-stat">
+          <strong id="lfCountLost">0</strong>
+          <small>Lost (Kho Gaya)</small>
+        </div>
+        <div class="lf-stat-card found-stat">
+          <strong id="lfCountFound">0</strong>
+          <small>Found (Mil Gaya)</small>
+        </div>
+        <div class="lf-stat-card resolved-stat">
+          <strong id="lfCountResolved">0</strong>
+          <small>Resolved</small>
+        </div>
+      </div>
+
+      <!-- Report Lost / Found Form -->
+      <div class="lf-form-card" id="lfFormWrap" hidden>
+        <div class="lf-form-header">
+          <h3>📝 Post a Lost or Found Report</h3>
+          <button type="button" class="lf-btn-sm alt" id="lfCloseFormBtn">Close ✕</button>
+        </div>
+
+        <form id="lfForm">
+          <input type="hidden" id="lfType" value="lost">
+          <div class="lf-type-switch" role="group" aria-label="Report Type">
+            <button type="button" class="lf-type-btn active-lost" data-lf-type="lost">🔍 I Lost Something (Kho Gaya)</button>
+            <button type="button" class="lf-type-btn" data-lf-type="found">🎉 I Found Something (Mil Gaya)</button>
+          </div>
+
+          <div class="lf-form-grid">
+            <div class="lf-field">
+              <label for="lfTitle">Item Name *</label>
+              <input type="text" id="lfTitle" placeholder="e.g. College ID Card, Casio Calculator, Keys" maxlength="70" required>
+            </div>
+
+            <div class="lf-field">
+              <label for="lfCategory">Category *</label>
+              <select id="lfCategory" required>
+                <option value="ID &amp; Docs">🪪 ID Card &amp; Documents</option>
+                <option value="Electronics">📱 Electronics &amp; Gadgets</option>
+                <option value="Books &amp; Notes">📚 Books, Notes &amp; Stationery</option>
+                <option value="Keys &amp; Wallet">🔑 Keys, Wallet &amp; Bag</option>
+                <option value="Other">📦 Other Belongings</option>
+              </select>
+            </div>
+
+            <div class="lf-field">
+              <label for="lfLocation">Campus Location *</label>
+              <input type="text" id="lfLocation" list="lfLocationsList" placeholder="e.g. Library, Room 2, Canteen, Hostel" maxlength="60" required>
+              <datalist id="lfLocationsList">
+                <option value="Academic Building · Ground Floor">
+                <option value="Room 2 (CSE-A)">
+                <option value="Room 14 (CSE-B)">
+                <option value="Central Library">
+                <option value="Computer / PPS Lab">
+                <option value="Campus Canteen">
+                <option value="Boys Hostel">
+                <option value="Girls Hostel">
+                <option value="Main Gate / Sports Ground">
+              </datalist>
+            </div>
+
+            <div class="lf-field">
+              <label for="lfDate">Date *</label>
+              <input type="date" id="lfDate" required>
+            </div>
+
+            <div class="lf-field">
+              <label for="lfReporter">Your Name &amp; Branch *</label>
+              <input type="text" id="lfReporter" placeholder="e.g. Aman Kumar (CSE 1st Sem)" maxlength="50" required>
+            </div>
+
+            <div class="lf-field">
+              <label for="lfContact">Contact (Phone / Room / Roll No) *</label>
+              <input type="text" id="lfContact" placeholder="e.g. 9876543210 or Hostel Room 104" maxlength="50" required>
+            </div>
+
+            <div class="lf-field lf-full">
+              <label for="lfDesc">Description / Identifying Marks *</label>
+              <textarea id="lfDesc" placeholder="Color, brand, या कोई पहचान बताएं ताकि सही owner या finder संपर्क कर सके..." maxlength="280" required></textarea>
+            </div>
+
+            <div class="lf-field lf-full">
+              <label for="lfPhoto">Item Photo (Optional)</label>
+              <div class="lf-photo-row">
+                <input type="file" id="lfPhoto" accept="image/*" style="flex:1;">
+                <img id="lfPhotoPreview" class="lf-photo-preview" alt="Item preview" hidden>
+                <button type="button" id="lfClearPhotoBtn" class="lf-btn-sm alt" hidden>Remove Photo</button>
+              </div>
+            </div>
+
+            <div class="lf-field lf-full">
+              <button type="submit" class="att-btn" id="lfSubmitBtn" style="width:100%;">🚀 Publish Report on Campus Board</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Search and Filters -->
+      <div class="notes-search">
+        <span>⌕</span>
+        <input type="search" id="lfSearch" placeholder="Search lost/found items, location, branch..." aria-label="Search lost and found items">
+      </div>
+
+      <div class="note-filters" role="group" aria-label="Filter Lost and Found by status">
+        <button class="note-filter active" type="button" data-lf-filter="all">All Items</button>
+        <button class="note-filter" type="button" data-lf-filter="lost">🔍 Lost</button>
+        <button class="note-filter" type="button" data-lf-filter="found">🎉 Found</button>
+        <button class="note-filter" type="button" data-lf-filter="ID & Docs">🪪 ID &amp; Docs</button>
+        <button class="note-filter" type="button" data-lf-filter="Electronics">📱 Electronics</button>
+        <button class="note-filter" type="button" data-lf-filter="Books & Notes">📚 Books</button>
+        <button class="note-filter" type="button" data-lf-filter="resolved">✅ Resolved</button>
+      </div>
+
+      <p id="lfFeedbackMsg" class="att-message" aria-live="polite" style="margin:6px 0 10px;">
+        Reports are saved on this device and synced live with Firebase Firestore when online.
+      </p>
+
+      <div id="lfList" class="lf-list"></div>
+
+      <div class="empty-state notice-empty" id="lfEmpty" hidden>
+        <span class="coming-emoji">⌖</span>
+        <span class="coming-pill">CAMPUS BOARD</span>
+        <h3>No matching items found</h3>
+        <p>Koi item kho gaya hai ya mila hai? "+ Report Item" button daba kar turant post karein.</p>
+      </div>
+
+      <div style="margin-top:16px;display:flex;justify-content:center;">
+        <button type="button" class="primary-action" data-go="home">Back to Home</button>
+      </div>
     </section>
 
     <section class="page-view coming-page" data-page="community">
@@ -2059,7 +2589,7 @@ body.light-mode,
 
     <section class="page-view profile-intro" data-page="profile">
       <div class="screen-title"><span class="screen-icon">◉</span><div><h2>Profile</h2><p>Personal settings &amp; attendance</p></div></div>
-      <div class="profile-card"><img src="icons/icon-192.png" alt="LNJPIT crest"><div><strong>LNJPIT Student</strong><span>Lok Nayak Jai Prakash Institute of Technology</span></div><button type="button" class="profile-edit" aria-label="Edit profile">✎</button></div>
+      <div class="profile-card"><img src="icons/icon-192.png" alt="LNJPIT crest"><div><strong id="profileStudentName">LNJPIT Student</strong><span>Lok Nayak Jai Prakash Institute of Technology</span><div id="profileEditWrap" hidden style="margin-top:8px;display:none;gap:6px;align-items:center;flex-wrap:wrap;"><input type="text" id="profileNameInput" placeholder="Enter your name" maxlength="40" style="padding:6px 10px;border-radius:8px;border:1px solid rgba(148,163,184,0.35);background:rgba(15,23,42,0.5);color:inherit;font-size:0.85rem;"><button type="button" id="profileNameSave" class="att-btn" style="padding:6px 12px;font-size:0.8rem;min-height:auto;">Save</button></div></div><button type="button" class="profile-edit" id="profileEditBtn" aria-label="Edit profile">✎</button></div>
       <div class="profile-actions"><button type="button" id="profileThemeBtn">☼ <span>Change theme</span><span class="note-arrow">›</span></button><button type="button" id="profileNotifBtn">♧ <span>Notification settings</span><span class="note-arrow">›</span></button><button type="button" id="profileInstallBtn">⇩ <span>Install app</span><span class="note-arrow">›</span></button></div>
     </section>
   </main>
@@ -2291,7 +2821,7 @@ body.light-mode,
     ];
 
     /* ---- State & Helpers ---- */
-    window.$ = window.$ || (id => document.getElementById(id));
+    const $ = id => document.getElementById(id);
     const esc = s => String(s)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -2778,6 +3308,7 @@ body.light-mode,
     import { getMessaging, getToken, isSupported, onMessage } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging.js";
     import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
     import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-functions.js";
+    import { getFirestore, doc, setDoc, deleteDoc, collection, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyD1VQ6LxMrKaMl0AuxEA9mRc1SpdDopck4",
@@ -2790,10 +3321,20 @@ body.light-mode,
 
     const VAPID_PUBLIC_KEY = "BJCMjMtR-goDJA3VSb7El9HJRJ9te7VoR0LTwNpM2gHjOp1sbr9zqEn_8lFjlFqVX_pQp4rSljur47OcTHRaA3k";
     const FUNCTIONS_REGION = "asia-south1";
+    const BRANCH_NAMES = [
+      "Electrical and Electronics Engineering",
+      "Computer Science & Engineering (Section-A)",
+      "Computer Science & Engineering (Section-B)",
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Mathematics & Computing",
+      "Food Processing & Preservation"
+    ];
 
     const $ = id => document.getElementById(id);
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
     const functions = getFunctions(app, FUNCTIONS_REGION);
     const registerReminderDevice = httpsCallable(functions, "registerReminderDevice");
     let messaging = null;
@@ -2803,8 +3344,21 @@ body.light-mode,
     let fcmToken = "";
 
     const hasVapidKey = () => VAPID_PUBLIC_KEY.trim().length > 0;
-    const setStatus = message => { $('notice').textContent = message; };
-    const updateTokenButton = () => { $('copyToken').hidden = !fcmToken; };
+    const setStatus = message => { if ($('notice')) $('notice').textContent = message; };
+    const updateTokenButton = () => { if ($('copyToken')) $('copyToken').hidden = !fcmToken; };
+
+    function getFallbackDeviceId() {
+      try {
+        let id = localStorage.getItem('lnjpit_device_id');
+        if (!id) {
+          id = 'dev_' + (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+          localStorage.setItem('lnjpit_device_id', id);
+        }
+        return id;
+      } catch (e) {
+        return 'dev_' + (fcmToken ? fcmToken.slice(0, 24) : String(Date.now()));
+      }
+    }
 
     async function setupMessaging() {
       if (messaging) return;
@@ -2823,8 +3377,8 @@ body.light-mode,
           const data = payload.data || {};
           dispatchEvent(new CustomEvent('fcm-message', {
             detail: {
-              title: notification.title || data.title || 'LNJPIT Timetable',
-              body: notification.body || data.body || 'You have a new timetable notification.',
+              title: notification.title || data.title || 'LNJPIT Connect',
+              body: notification.body || data.body || 'You have a new campus notification.',
               url: data.url || payload.fcmOptions?.link || './'
             }
           }));
@@ -2852,19 +3406,53 @@ body.light-mode,
 
     async function syncReminderDevice({ quiet = false } = {}) {
       if (!fcmToken) return false;
+      const branchIndex = Number($('br')?.value || 0);
+      const groupFilter = $('grp')?.value || 'all';
+      let userUid = null;
+
       try {
-        await ensureAnonymousUser();
-        await registerReminderDevice({
-          token: fcmToken,
-          branchIndex: Number($('br').value),
-          groupFilter: $('grp').value || 'all'
-        });
-        return true;
-      } catch (error) {
-        console.warn('Could not register this device for scheduled reminders.', error);
-        if (!quiet) setStatus('Notifications enabled. Closed-app reminders will activate once the Firebase backend is deployed.');
-        return false;
+        const user = await ensureAnonymousUser();
+        userUid = user?.uid || null;
+      } catch (authErr) {
+        console.warn('Anonymous Auth not enabled or unavailable; using fallback device ID.', authErr);
       }
+
+      const deviceDocId = userUid || getFallbackDeviceId();
+      let synced = false;
+
+      // 1. Direct Firestore registration (works immediately on Firebase Spark/Free plan)
+      try {
+        await setDoc(doc(db, "reminderDevices", deviceDocId), {
+          fcmToken: fcmToken.trim(),
+          branchIndex,
+          branchName: BRANCH_NAMES[branchIndex] || "",
+          groupFilter,
+          enabled: true,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        synced = true;
+      } catch (firestoreErr) {
+        console.warn('Direct Firestore device registration failed:', firestoreErr);
+      }
+
+      // 2. Cloud Function registration (when Cloud Functions are deployed)
+      if (userUid) {
+        try {
+          await registerReminderDevice({
+            token: fcmToken,
+            branchIndex,
+            groupFilter
+          });
+          synced = true;
+        } catch (fnErr) {
+          console.warn('Cloud Function registerReminderDevice unavailable:', fnErr);
+        }
+      }
+
+      if (!synced && !quiet) {
+        setStatus('Notifications enabled. Deploy Firestore rules or Cloud Functions to sync closed-app reminders.');
+      }
+      return synced;
     }
 
     async function refreshFcmToken({ quiet = false } = {}) {
@@ -2886,45 +3474,231 @@ body.light-mode,
       const scheduled = await syncReminderDevice({ quiet });
       if (!quiet) {
         setStatus(scheduled
-          ? 'Notifications active! Registered for 5-minute class reminders.'
-          : 'Notifications active. Copy FCM token for console testing; backend reminders require functions deployment.');
+          ? '✅ Firebase Notifications active! Device registered for 5-minute class reminders.'
+          : 'Notifications active • FCM token ready (copy token to test in Firebase Console).');
+      }
+      if (typeof toast === 'function' && !quiet) {
+        toast('🔔 Firebase Connected', 'Push notifications & 5-minute class reminders are active.');
       }
       return token;
     }
 
     async function enableFirebaseNotifications() {
       const button = $('perm');
-      button.disabled = true;
+      if (button) button.disabled = true;
       try {
         await refreshFcmToken();
       } catch (error) {
-        setStatus(`Browser notifications enabled, but FCM setup failed: ${error.message}`);
+        setStatus(`Browser notifications enabled (local 5-min alerts active). Firebase push note: ${error.message}`);
+        if (typeof toast === 'function') {
+          toast('🔔 Local Reminders Active', 'In-app 5-minute class alerts are enabled.');
+        }
       } finally {
-        button.disabled = false;
+        if (button) button.disabled = false;
       }
+    }
+
+    function copyTextFallback(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (!ok) throw new Error('Copy command failed');
     }
 
     async function copyFcmToken() {
       if (!fcmToken) { setStatus('Enable notifications first to generate an FCM token.'); return; }
       try {
-        await navigator.clipboard.writeText(fcmToken);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(fcmToken);
+        } else {
+          copyTextFallback(fcmToken);
+        }
         const btn = $('copyToken');
         const orig = btn.textContent;
         btn.textContent = '✅ Token Copied!';
         setTimeout(() => { btn.textContent = orig; }, 2500);
         setStatus('FCM token copied to clipboard for Firebase Console testing.');
       } catch (error) {
-        setStatus('Token ready, but clipboard copy was blocked. Use HTTPS and try again.');
+        try {
+          copyTextFallback(fcmToken);
+          setStatus('FCM token copied to clipboard for Firebase Console testing.');
+        } catch (err) {
+          setStatus('Token ready, but clipboard copy was blocked.');
+        }
       }
     }
 
+    // Live Campus Notices listener via Firebase Firestore ("notices" collection)
+    let liveNotices = [];
+    let activeNoticeCat = 'all';
+    let seenNoticeIds = new Set();
+    let initialNoticesLoaded = false;
+
+    function renderLiveNotices() {
+      const listEl = $('noticeList');
+      const emptyEl = $('noticeEmpty');
+      if (!listEl || !emptyEl) return;
+      const q = ($('noticeSearch')?.value || '').trim().toLowerCase();
+      const filtered = liveNotices.filter(item => {
+        const catMatch = activeNoticeCat === 'all' || (item.category || 'General').toLowerCase() === activeNoticeCat.toLowerCase();
+        const textMatch = !q || `${item.title || ''} ${item.body || ''} ${item.category || ''}`.toLowerCase().includes(q);
+        return catMatch && textMatch;
+      });
+
+      if (!filtered.length) {
+        listEl.hidden = true;
+        emptyEl.hidden = false;
+        const heading = emptyEl.querySelector('h3');
+        const message = emptyEl.querySelector('p');
+        if (heading && message) {
+          if (q || activeNoticeCat !== 'all') {
+            heading.textContent = 'No matching notices';
+            message.textContent = 'There are no campus notices matching this filter right now.';
+          } else {
+            heading.textContent = 'No notices yet';
+            message.textContent = 'Official campus updates added to Firebase Firestore (notices collection) appear here live.';
+          }
+        }
+        return;
+      }
+
+      emptyEl.hidden = true;
+      listEl.hidden = false;
+      listEl.innerHTML = filtered.map(item => {
+        const safeTitle = String(item.title || 'Campus Notice').replace(/</g, '&lt;');
+        const safeBody = String(item.body || '').replace(/</g, '&lt;');
+        const safeCat = String(item.category || 'General').replace(/</g, '&lt;');
+        const safeDate = String(item.dateLabel || 'Just now').replace(/</g, '&lt;');
+        return `<div class="note-row" style="cursor:default;"><span class="note-file amber">🔔</span><span><strong>${safeTitle}</strong><small>${safeCat} · ${safeDate}${safeBody ? ' — ' + safeBody : ''}</small></span></div>`;
+      }).join('');
+    }
+
+    try {
+      const noticesQuery = query(collection(db, "notices"), orderBy("createdAt", "desc"), limit(25));
+      onSnapshot(noticesQuery, snapshot => {
+        const items = [];
+        snapshot.forEach(docSnap => {
+          const d = docSnap.data() || {};
+          const dt = d.createdAt?.toDate ? d.createdAt.toDate() : null;
+          items.push({
+            id: docSnap.id,
+            title: d.title || 'Campus Update',
+            body: d.body || '',
+            category: d.category || 'General',
+            dateLabel: dt ? dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : (d.date || 'Recent')
+          });
+          if (initialNoticesLoaded && !seenNoticeIds.has(docSnap.id)) {
+            dispatchEvent(new CustomEvent('fcm-message', {
+              detail: {
+                title: `🔔 New Notice: ${d.title || 'Campus Update'}`,
+                body: d.body || 'Tap to view the latest notice.',
+                url: './#notices'
+              }
+            }));
+          }
+          seenNoticeIds.add(docSnap.id);
+        });
+        initialNoticesLoaded = true;
+        liveNotices = items;
+        renderLiveNotices();
+      }, () => {});
+    } catch (e) {}
+
+    document.querySelectorAll('[data-notice-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        activeNoticeCat = button.dataset.noticeFilter || 'all';
+        renderLiveNotices();
+      });
+    });
+    $('noticeSearch')?.addEventListener('input', renderLiveNotices);
+
+    // Live Campus Lost & Found sync via Firebase Firestore ("lostFoundItems" collection)
+    let seenLfIds = new Set();
+    let initialLfLoaded = false;
+
+    try {
+      const lfQuery = query(collection(db, "lostFoundItems"), orderBy("createdAtMs", "desc"), limit(50));
+      onSnapshot(lfQuery, snapshot => {
+        const remoteItems = [];
+        snapshot.forEach(docSnap => {
+          const d = docSnap.data() || {};
+          remoteItems.push({
+            id: docSnap.id,
+            type: d.type === 'found' ? 'found' : 'lost',
+            status: d.status === 'resolved' ? 'resolved' : 'active',
+            title: d.title || 'Campus Item',
+            category: d.category || 'Other',
+            location: d.location || 'Campus',
+            date: d.date || '',
+            reporter: d.reporter || 'LNJPIT Student',
+            contact: d.contact || '',
+            desc: d.desc || '',
+            photoData: d.photoData || '',
+            createdAtMs: Number(d.createdAtMs || Date.now())
+          });
+          if (initialLfLoaded && !seenLfIds.has(docSnap.id)) {
+            const badge = d.type === 'found' ? '🎉 Found on Campus' : '🔍 Lost on Campus';
+            dispatchEvent(new CustomEvent('fcm-message', {
+              detail: {
+                title: `${badge}: ${d.title || 'Item'}`,
+                body: `${d.location || 'LNJPIT Campus'} — Reported by ${d.reporter || 'Student'}`,
+                url: './#lostfound'
+              }
+            }));
+          }
+          seenLfIds.add(docSnap.id);
+        });
+        initialLfLoaded = true;
+        const syncEl = $('lfSyncStatus');
+        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
+        dispatchEvent(new CustomEvent('lf-remote-sync', { detail: { items: remoteItems } }));
+      }, () => {
+        const syncEl = $('lfSyncStatus');
+        if (syncEl) syncEl.textContent = '● Local Campus Board';
+      });
+    } catch (e) {}
+
+    addEventListener('lf-save-item', async event => {
+      const item = event.detail;
+      if (!item || !item.id) return;
+      try {
+        await ensureAnonymousUser().catch(() => {});
+        seenLfIds.add(item.id);
+        await setDoc(doc(db, "lostFoundItems", item.id), {
+          ...item,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        const syncEl = $('lfSyncStatus');
+        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
+      } catch (err) {
+        console.warn('Firestore lostFoundItems save fallback to local storage:', err);
+      }
+    });
+
+    addEventListener('lf-delete-item', async event => {
+      const id = event.detail?.id;
+      if (!id) return;
+      try {
+        await ensureAnonymousUser().catch(() => {});
+        await deleteDoc(doc(db, "lostFoundItems", id));
+      } catch (err) {
+        console.warn('Firestore lostFoundItems delete fallback:', err);
+      }
+    });
+
+
     addEventListener('fcm-permission-granted', () => { void enableFirebaseNotifications(); });
     addEventListener('timetable-branch-changed', () => { void syncReminderDevice({ quiet: true }); });
-    $('copyToken').addEventListener('click', copyFcmToken);
+    $('copyToken')?.addEventListener('click', copyFcmToken);
 
     if ('Notification' in window && Notification.permission === 'granted') {
       refreshFcmToken({ quiet: true }).then(() => {
-        if (fcmToken) setStatus('Notifications active • FCM token ready.');
+        if (fcmToken) setStatus('✅ Firebase Notifications active • FCM token ready.');
       }).catch(() => { });
     }
   </script>
@@ -3211,7 +3985,15 @@ body.light-mode,
 
     const id = button.dataset.delete;
 
-    if (!confirm("Is attendance record ko delete karna hai?")) {
+    if (button.dataset.confirmDelete !== "1") {
+      button.dataset.confirmDelete = "1";
+      button.textContent = "Confirm?";
+      setTimeout(() => {
+        if (button.isConnected) {
+          delete button.dataset.confirmDelete;
+          button.textContent = "Delete";
+        }
+      }, 3000);
       return;
     }
 
@@ -3265,13 +4047,56 @@ body.light-mode,
     document.getElementById('moreThemeBtn')?.addEventListener('click', () => themeButton?.click());
     document.getElementById('profileThemeBtn')?.addEventListener('click', () => themeButton?.click());
     document.getElementById('morePrintBtn')?.addEventListener('click', () => document.getElementById('printBtn')?.click());
-    document.getElementById('headerNotifBtn')?.addEventListener('click', () => go('profile'));
-    document.getElementById('profileNotifBtn')?.addEventListener('click', () => go('schedule'));
+    const openNotifControls = () => {
+      go('schedule');
+      const permBtn = document.getElementById('perm');
+      if (permBtn) {
+        setTimeout(() => {
+          permBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if ('Notification' in window && Notification.permission !== 'granted') {
+            permBtn.click();
+          } else if (typeof toast === 'function') {
+            toast('🔔 Notifications Active', 'Firebase & 5-minute class reminders are enabled for your selected branch.');
+          }
+        }, 180);
+      }
+    };
+    document.getElementById('headerNotifBtn')?.addEventListener('click', openNotifControls);
+    document.getElementById('profileNotifBtn')?.addEventListener('click', openNotifControls);
     document.getElementById('profileInstallBtn')?.addEventListener('click', () => {
       const installButton = document.getElementById('instBtn');
       if (installButton && getComputedStyle(document.getElementById('inst')).display !== 'none') installButton.click();
       else if (typeof toast === 'function') toast('Install app', 'Use your browser menu to install LNJPIT Connect.');
-      else alert('Use your browser menu to install LNJPIT Connect.');
+    });
+
+    const profileNameEl = document.getElementById('profileStudentName');
+    const profileEditBtn = document.getElementById('profileEditBtn');
+    const profileEditWrap = document.getElementById('profileEditWrap');
+    const profileNameInput = document.getElementById('profileNameInput');
+    const profileNameSave = document.getElementById('profileNameSave');
+    try {
+      const savedName = localStorage.getItem('lnjpit_student_name');
+      if (savedName && profileNameEl) profileNameEl.textContent = savedName;
+    } catch (e) {}
+    profileEditBtn?.addEventListener('click', () => {
+      if (!profileEditWrap) return;
+      const isHidden = profileEditWrap.hidden;
+      profileEditWrap.hidden = !isHidden;
+      profileEditWrap.style.display = isHidden ? 'flex' : 'none';
+      if (isHidden && profileNameInput && profileNameEl) {
+        profileNameInput.value = profileNameEl.textContent || '';
+        profileNameInput.focus();
+      }
+    });
+    profileNameSave?.addEventListener('click', () => {
+      const val = (profileNameInput?.value || '').trim() || 'LNJPIT Student';
+      if (profileNameEl) profileNameEl.textContent = val;
+      try { localStorage.setItem('lnjpit_student_name', val); } catch (e) {}
+      if (profileEditWrap) {
+        profileEditWrap.hidden = true;
+        profileEditWrap.style.display = 'none';
+      }
+      if (typeof toast === 'function') toast('Profile Updated', `Welcome, ${val}!`);
     });
 
     let noteBranch = 'all';
@@ -3319,6 +4144,410 @@ body.light-mode,
     };
     window.setInterval(syncOverview, 1000);
     syncOverview();
+  })();
+</script>
+
+
+<script>
+  // Campus Lost & Found Feature Controller (Local Storage + Firebase Firestore Live Sync)
+  (() => {
+    "use strict";
+
+    const LF_STORAGE_KEY = "lnjpit_lostfound_v1";
+    const $ = id => document.getElementById(id);
+
+    const formWrap = $("lfFormWrap");
+    const toggleFormBtn = $("lfToggleFormBtn");
+    const closeFormBtn = $("lfCloseFormBtn");
+    const form = $("lfForm");
+    if (!form) return;
+
+    const typeInput = $("lfType");
+    const titleInput = $("lfTitle");
+    const catInput = $("lfCategory");
+    const locInput = $("lfLocation");
+    const dateInput = $("lfDate");
+    const reporterInput = $("lfReporter");
+    const contactInput = $("lfContact");
+    const descInput = $("lfDesc");
+    const photoInput = $("lfPhoto");
+    const photoPreview = $("lfPhotoPreview");
+    const clearPhotoBtn = $("lfClearPhotoBtn");
+    const searchInput = $("lfSearch");
+    const listEl = $("lfList");
+    const emptyEl = $("lfEmpty");
+    const feedbackMsg = $("lfFeedbackMsg");
+
+    let activeFilter = "all";
+    let currentPhotoData = "";
+
+    const todayStr = () => {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    };
+    dateInput.value = todayStr();
+
+    // Pre-fill student name from profile if available
+    try {
+      const savedName = localStorage.getItem("lnjpit_student_name");
+      if (savedName && !reporterInput.value) reporterInput.value = savedName;
+    } catch (e) {}
+
+    const starterItems = [
+      {
+        id: "lf_sample_1",
+        type: "lost",
+        status: "active",
+        title: "Casio fx-991CW Scientific Calculator",
+        category: "Electronics",
+        location: "Academic Building · Room 2 (CSE-A)",
+        date: todayStr(),
+        reporter: "Rohit Kumar (CSE-A)",
+        contact: "9123456780",
+        desc: "Black scientific calculator with 'RK-CSE' sticker on the back cover. Left on the 3rd row desk after Math-I lecture.",
+        photoData: "",
+        createdAtMs: Date.now() - 7200000
+      },
+      {
+        id: "lf_sample_2",
+        type: "found",
+        status: "active",
+        title: "Blue Lanyard Student ID Card & Hostel Key",
+        category: "ID & Docs",
+        location: "Central Library Reading Table",
+        date: todayStr(),
+        reporter: "Priya Singh (ECE)",
+        contact: "Library Reception / 9876501234",
+        desc: "Found a blue LNJPIT lanyard with a key ring near the reference section. Deposited safely; contact to verify and collect.",
+        photoData: "",
+        createdAtMs: Date.now() - 3600000
+      }
+    ];
+
+    let items = [];
+    try {
+      const raw = localStorage.getItem(LF_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      items = Array.isArray(parsed) && parsed.length ? parsed : starterItems;
+    } catch (e) {
+      items = starterItems.slice();
+    }
+
+    function saveLocal() {
+      try {
+        localStorage.setItem(LF_STORAGE_KEY, JSON.stringify(items));
+      } catch (e) {}
+    }
+
+    function escHtml(str) {
+      return String(str || "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[c]);
+    }
+
+    function setType(type) {
+      const isFound = type === "found";
+      typeInput.value = isFound ? "found" : "lost";
+      document.querySelectorAll("[data-lf-type]").forEach(btn => {
+        const t = btn.dataset.lfType;
+        btn.classList.toggle("active-lost", t === "lost" && !isFound);
+        btn.classList.toggle("active-found", t === "found" && isFound);
+      });
+    }
+
+    document.querySelectorAll("[data-lf-type]").forEach(btn => {
+      btn.addEventListener("click", () => setType(btn.dataset.lfType));
+    });
+
+    toggleFormBtn?.addEventListener("click", () => {
+      const willShow = formWrap.hidden;
+      formWrap.hidden = !willShow;
+      toggleFormBtn.textContent = willShow ? "Close Form ✕" : "+ Report Item";
+      if (willShow) {
+        try {
+          const savedName = localStorage.getItem("lnjpit_student_name");
+          if (savedName && !reporterInput.value) reporterInput.value = savedName;
+        } catch (e) {}
+        titleInput.focus();
+      }
+    });
+
+    closeFormBtn?.addEventListener("click", () => {
+      formWrap.hidden = true;
+      if (toggleFormBtn) toggleFormBtn.textContent = "+ Report Item";
+    });
+
+    // Compress uploaded image via Canvas so it fits smoothly in Firestore & localStorage
+    photoInput?.addEventListener("change", event => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const maxDim = 320;
+          let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; }
+          else if (h >= w && h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, w, h);
+          currentPhotoData = canvas.toDataURL("image/jpeg", 0.72);
+          if (photoPreview) {
+            photoPreview.src = currentPhotoData;
+            photoPreview.hidden = false;
+          }
+          if (clearPhotoBtn) clearPhotoBtn.hidden = false;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    clearPhotoBtn?.addEventListener("click", () => {
+      currentPhotoData = "";
+      if (photoInput) photoInput.value = "";
+      if (photoPreview) { photoPreview.src = ""; photoPreview.hidden = true; }
+      clearPhotoBtn.hidden = true;
+    });
+
+    function updateCounters() {
+      const total = items.length;
+      const lost = items.filter(i => i.type === "lost" && i.status !== "resolved").length;
+      const found = items.filter(i => i.type === "found" && i.status !== "resolved").length;
+      const resolved = items.filter(i => i.status === "resolved").length;
+
+      if ($("lfCountTotal")) $("lfCountTotal").textContent = total;
+      if ($("lfCountLost")) $("lfCountLost").textContent = lost;
+      if ($("lfCountFound")) $("lfCountFound").textContent = found;
+      if ($("lfCountResolved")) $("lfCountResolved").textContent = resolved;
+
+      const homeBadge = $("homeLfBadge");
+      if (homeBadge) {
+        const activeCount = lost + found;
+        homeBadge.textContent = activeCount > 0 ? `${activeCount} Active Posts` : "Report & Find";
+      }
+    }
+
+    function renderItems() {
+      updateCounters();
+      const q = (searchInput?.value || "").trim().toLowerCase();
+
+      const filtered = items
+        .filter(item => {
+          if (activeFilter === "lost") return item.type === "lost" && item.status !== "resolved";
+          if (activeFilter === "found") return item.type === "found" && item.status !== "resolved";
+          if (activeFilter === "resolved") return item.status === "resolved";
+          if (activeFilter !== "all") return (item.category || "").toLowerCase() === activeFilter.toLowerCase();
+          return true;
+        })
+        .filter(item => {
+          if (!q) return true;
+          const hay = `${item.title} ${item.category} ${item.location} ${item.reporter} ${item.desc} ${item.contact}`.toLowerCase();
+          return hay.includes(q);
+        })
+        .sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+
+      if (!filtered.length) {
+        listEl.innerHTML = "";
+        emptyEl.hidden = false;
+        return;
+      }
+
+      emptyEl.hidden = true;
+      listEl.innerHTML = filtered.map(item => {
+        const isResolved = item.status === "resolved";
+        const isFound = item.type === "found";
+        const cardClass = isResolved ? "is-resolved" : (isFound ? "is-found" : "is-lost");
+        const badgeClass = isResolved ? "resolved" : (isFound ? "found" : "lost");
+        const badgeText = isResolved
+          ? "✅ Resolved / Claimed"
+          : (isFound ? "🎉 Found (Mil Gaya)" : "🔍 Lost (Kho Gaya)");
+
+        const phoneDigits = String(item.contact || "").replace(/[^0-9+]/g, "");
+        const hasPhone = phoneDigits.length >= 10;
+
+        return `
+          <article class="lf-card ${cardClass}" data-lf-id="${escHtml(item.id)}">
+            <div class="lf-card-top">
+              <div class="lf-badges">
+                <span class="lf-badge ${badgeClass}">${badgeText}</span>
+                <span class="lf-cat-tag">${escHtml(item.category || "Other")}</span>
+              </div>
+              <span class="lf-date">📅 ${escHtml(item.date || "Recent")}</span>
+            </div>
+
+            <div class="lf-card-body">
+              ${item.photoData ? `<img class="lf-thumb" src="${escHtml(item.photoData)}" alt="${escHtml(item.title)}">` : ""}
+              <div class="lf-card-content">
+                <h4>${escHtml(item.title)}</h4>
+                <p>${escHtml(item.desc)}</p>
+                <div class="lf-meta-row">
+                  <span>📍 <strong>Location:</strong> ${escHtml(item.location)}</span>
+                  <span>👤 <strong>By:</strong> ${escHtml(item.reporter)}</span>
+                  <span>📞 <strong>Contact:</strong> ${escHtml(item.contact)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lf-card-actions">
+              <div class="lf-action-group">
+                ${hasPhone
+                  ? `<a class="lf-btn-sm lf-btn-contact" href="tel:${escHtml(phoneDigits)}">📞 Call / Contact</a>`
+                  : `<button type="button" class="lf-btn-sm lf-btn-contact" data-lf-copy="${escHtml(item.contact)}">📋 Copy Contact</button>`
+                }
+                <button type="button" class="lf-btn-sm lf-btn-resolve" data-lf-resolve="${escHtml(item.id)}">
+                  ${isResolved ? "↩ Reopen Post" : "✓ Mark Resolved"}
+                </button>
+              </div>
+              <button type="button" class="lf-btn-sm lf-btn-delete" data-lf-delete="${escHtml(item.id)}">Delete</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const title = titleInput.value.trim();
+      const category = catInput.value;
+      const location = locInput.value.trim();
+      const date = dateInput.value || todayStr();
+      const reporter = reporterInput.value.trim() || "LNJPIT Student";
+      const contact = contactInput.value.trim();
+      const desc = descInput.value.trim();
+      const type = typeInput.value === "found" ? "found" : "lost";
+
+      if (!title || !location || !contact || !desc) {
+        feedbackMsg.textContent = "Please fill in item name, location, contact info, and description.";
+        return;
+      }
+
+      const newItem = {
+        id: "lf_" + (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2, 8)),
+        type,
+        status: "active",
+        title,
+        category,
+        location,
+        date,
+        reporter,
+        contact,
+        desc,
+        photoData: currentPhotoData || "",
+        createdAtMs: Date.now()
+      };
+
+      items.unshift(newItem);
+      saveLocal();
+      renderItems();
+
+      // Sync to Firebase Firestore
+      dispatchEvent(new CustomEvent("lf-save-item", { detail: newItem }));
+
+      // Reset form fields
+      titleInput.value = "";
+      locInput.value = "";
+      descInput.value = "";
+      currentPhotoData = "";
+      if (photoInput) photoInput.value = "";
+      if (photoPreview) { photoPreview.src = ""; photoPreview.hidden = true; }
+      if (clearPhotoBtn) clearPhotoBtn.hidden = true;
+      formWrap.hidden = true;
+      if (toggleFormBtn) toggleFormBtn.textContent = "+ Report Item";
+
+      const actionLabel = type === "found" ? "Found item" : "Lost item";
+      feedbackMsg.textContent = `✅ ${actionLabel} "${title}" posted on the Campus Lost & Found board!`;
+      if (typeof toast === "function") {
+        toast(`📍 ${actionLabel} Posted`, `${title} (${location}) is now live on the campus board.`);
+      }
+    });
+
+    listEl.addEventListener("click", event => {
+      const copyBtn = event.target.closest("[data-lf-copy]");
+      if (copyBtn) {
+        const contactText = copyBtn.dataset.lfCopy || "";
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(contactText).catch(() => {});
+        }
+        copyBtn.textContent = "✓ Copied!";
+        setTimeout(() => { if (copyBtn.isConnected) copyBtn.textContent = "📋 Copy Contact"; }, 2000);
+        if (typeof toast === "function") toast("Contact Copied", `Contact info: ${contactText}`);
+        return;
+      }
+
+      const resolveBtn = event.target.closest("[data-lf-resolve]");
+      if (resolveBtn) {
+        const id = resolveBtn.dataset.lfResolve;
+        const target = items.find(i => i.id === id);
+        if (!target) return;
+        target.status = target.status === "resolved" ? "active" : "resolved";
+        saveLocal();
+        renderItems();
+        dispatchEvent(new CustomEvent("lf-save-item", { detail: target }));
+        feedbackMsg.textContent = target.status === "resolved"
+          ? `🎉 Marked "${target.title}" as Resolved / Claimed!`
+          : `Reopened post "${target.title}".`;
+        if (typeof toast === "function") {
+          toast(
+            target.status === "resolved" ? "✅ Marked Resolved" : "↩ Post Reopened",
+            `${target.title} status updated.`
+          );
+        }
+        return;
+      }
+
+      const deleteBtn = event.target.closest("[data-lf-delete]");
+      if (deleteBtn) {
+        const id = deleteBtn.dataset.lfDelete;
+        if (deleteBtn.dataset.confirmDelete !== "1") {
+          deleteBtn.dataset.confirmDelete = "1";
+          deleteBtn.textContent = "Confirm?";
+          setTimeout(() => {
+            if (deleteBtn.isConnected) {
+              delete deleteBtn.dataset.confirmDelete;
+              deleteBtn.textContent = "Delete";
+            }
+          }, 3000);
+          return;
+        }
+        items = items.filter(i => i.id !== id);
+        saveLocal();
+        renderItems();
+        dispatchEvent(new CustomEvent("lf-delete-item", { detail: { id } }));
+        feedbackMsg.textContent = "Post deleted from Lost & Found board.";
+      }
+    });
+
+    document.querySelectorAll("[data-lf-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.lfFilter || "all";
+        document.querySelectorAll("[data-lf-filter]").forEach(b => b.classList.toggle("active", b === btn));
+        renderItems();
+      });
+    });
+
+    searchInput?.addEventListener("input", renderItems);
+
+    // Merge remote Firestore items with local items
+    addEventListener("lf-remote-sync", event => {
+      const remoteItems = event.detail?.items;
+      if (!Array.isArray(remoteItems) || !remoteItems.length) return;
+      const map = new Map();
+      items.forEach(item => map.set(item.id, item));
+      remoteItems.forEach(rItem => map.set(rItem.id, rItem));
+      items = Array.from(map.values()).sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+      saveLocal();
+      renderItems();
+    });
+
+    renderItems();
   })();
 </script>
 
