@@ -2171,6 +2171,324 @@ html[data-theme="light"] .lf-card-content h4 {
   }
 }
 
+  
+/* ===== Campus Community Feature Styles ===== */
+.comm-page {
+  padding-bottom: 20px;
+}
+
+.comm-clubs-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.comm-club-card {
+  background: #0a2238;
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  border-radius: 13px;
+  padding: 10px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comm-club-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.comm-club-icon {
+  font-size: 1.15rem;
+}
+
+.comm-join-btn {
+  width: auto;
+  min-height: 24px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+}
+
+.comm-join-btn.joined {
+  background: rgba(16, 185, 129, 0.2);
+  color: #5bdbad;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.comm-club-card strong {
+  font-size: 0.74rem;
+  line-height: 1.2;
+}
+
+.comm-club-card small {
+  font-size: 0.61rem;
+  color: var(--text-muted);
+}
+
+.comm-card {
+  background: #0a2238;
+  border: 1px solid rgba(88, 153, 205, 0.22);
+  border-radius: 15px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comm-card.pinned {
+  border-left: 4px solid #8b5cf6;
+}
+
+.comm-author-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comm-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.comm-author-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.comm-author-meta strong {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.comm-author-meta small {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+.comm-topic-badge {
+  font-size: 0.64rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.18);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  white-space: nowrap;
+}
+
+.comm-post-title {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.comm-post-body {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.48;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.comm-post-img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(88, 153, 205, 0.25);
+}
+
+.comm-actions-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(88, 153, 205, 0.16);
+}
+
+.comm-btn {
+  width: auto;
+  min-height: 30px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #0b2943;
+  color: var(--text-secondary);
+  border: 1px solid rgba(88, 153, 205, 0.24);
+}
+
+.comm-btn.liked {
+  background: rgba(244, 63, 94, 0.2);
+  color: #ff8299;
+  border-color: rgba(244, 63, 94, 0.45);
+}
+
+.comm-replies-box {
+  background: #071b2e;
+  border: 1px solid rgba(88, 153, 205, 0.18);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comm-reply-item {
+  padding: 7px 9px;
+  border-radius: 9px;
+  background: rgba(12, 41, 67, 0.75);
+  border: 1px solid rgba(88, 153, 205, 0.14);
+  font-size: 0.73rem;
+}
+
+.comm-reply-item strong {
+  color: #80b9ff;
+  font-size: 0.71rem;
+}
+
+.comm-reply-item span {
+  color: var(--text-muted);
+  font-size: 0.62rem;
+  margin-left: 6px;
+}
+
+.comm-reply-item p {
+  margin: 3px 0 0;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.comm-reply-form {
+  display: flex;
+  gap: 6px;
+}
+
+.comm-reply-form input {
+  flex: 1;
+  min-height: 34px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(88, 153, 205, 0.28);
+  background: #0b2943;
+  color: #f3f8ff;
+  font-size: 0.74rem;
+}
+
+html[data-theme="light"] .comm-club-card,
+html[data-theme="light"] .comm-card {
+  background: #ffffff;
+  color: #12243a;
+  border-color: #d9e4ee;
+}
+
+html[data-theme="light"] .comm-replies-box {
+  background: #f8fafc;
+  border-color: #d9e4ee;
+}
+
+html[data-theme="light"] .comm-reply-item {
+  background: #ffffff;
+  border-color: #e2e8f0;
+}
+
+html[data-theme="light"] .comm-btn,
+html[data-theme="light"] .comm-reply-form input {
+  background: #f1f5f9;
+  color: #12243a;
+  border-color: #cbd5e1;
+}
+
+@media (max-width: 520px) {
+  .comm-clubs-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+  
+.comm-identity-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: #0a2238;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 13px;
+  padding: 9px 12px;
+  margin-bottom: 12px;
+}
+
+.comm-identity-bar label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #c4b5fd;
+  white-space: nowrap;
+}
+
+.comm-identity-bar input {
+  flex: 1;
+  min-width: 140px;
+  min-height: 34px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(88, 153, 205, 0.3);
+  background: #0b2943;
+  color: #f3f8ff;
+  font-size: 0.76rem;
+}
+
+.comm-reply-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.comm-reply-form .comm-reply-name-input {
+  flex: 0 0 135px;
+  min-width: 115px;
+}
+
+.comm-reply-form .comm-reply-text-input {
+  flex: 1;
+  min-width: 160px;
+}
+
+html[data-theme="light"] .comm-identity-bar {
+  background: #ffffff;
+  border-color: #d9e4ee;
+}
+
+html[data-theme="light"] .comm-identity-bar label {
+  color: #6d28d9;
+}
+
+html[data-theme="light"] .comm-identity-bar input {
+  background: #f1f5f9;
+  color: #12243a;
+  border-color: #cbd5e1;
+}
+
   </style>
 </head>
 
@@ -2212,7 +2530,7 @@ html[data-theme="light"] .lf-card-content h4 {
       <div class="home-hero">
         <div class="hero-copy">
           <span class="eyebrow">LNJPIT · CHAPRA</span>
-          <h2>Welcome back,<br><strong>Student 👋</strong></h2>
+          <h2>Welcome back,<br><strong id="homeWelcomeName">Student 👋</strong></h2>
           <p>Your campus, classes and study resources in one place.</p>
           <button class="hero-cta" type="button" data-go="schedule">Open timetable <span>→</span></button>
         </div>
@@ -2229,7 +2547,7 @@ html[data-theme="light"] .lf-card-content h4 {
         <button class="quick-card" type="button" data-go="notes"><span class="quick-icon green">▤</span><span>Study Notes</span></button>
         <button class="quick-card" type="button" data-go="notices"><span class="quick-icon amber">🔔</span><span>Notices</span></button>
         <button class="quick-card" type="button" data-go="lostfound"><span class="quick-icon rose">📍</span><span>Lost &amp; Found</span><small id="homeLfBadge">Report &amp; Find</small></button>
-        <button class="quick-card" type="button" data-go="community"><span class="quick-icon violet">👥</span><span>Community</span><small>Coming Soon</small></button>
+        <button class="quick-card" type="button" data-go="community"><span class="quick-icon violet">👥</span><span>Community</span><small id="homeCommBadge">Clubs &amp; Doubts</small></button>
         <button class="quick-card" type="button" data-go="more"><span class="quick-icon teal">⊞</span><span>More</span></button>
       </div>
       <div class="section-heading overview-heading"><div><h2>Today's Overview</h2><p>Your classes at a glance</p></div><button class="text-action" type="button" data-go="schedule">View schedule <span>→</span></button></div>
@@ -2423,7 +2741,7 @@ html[data-theme="light"] .lf-card-content h4 {
       <div class="screen-title"><span class="screen-icon">⊞</span><div><h2>More</h2><p>More ways to stay connected</p></div></div>
       <div class="more-list">
         <button type="button" data-go="lostfound"><span class="more-icon rose">📍</span><span><strong>Lost &amp; Found</strong><small>Report lost or found belongings on campus</small></span><span class="note-arrow">›</span></button>
-        <button type="button" data-go="community"><span class="more-icon violet">👥</span><span><strong>Community</strong><small>Coming Soon</small></span><span class="note-arrow">›</span></button>
+        <button type="button" data-go="community"><span class="more-icon violet">👥</span><span><strong>Community</strong><small>Student discussions, clubs &amp; study doubts</small></span><span class="note-arrow">›</span></button>
         <button type="button" data-go="profile"><span class="more-icon blue">◉</span><span><strong>Profile &amp; Attendance</strong><small>Your settings and attendance tracker</small></span><span class="note-arrow">›</span></button>
         <button type="button" id="moreThemeBtn"><span class="more-icon amber">☼</span><span><strong>Appearance</strong><small>Switch light or dark theme</small></span><span class="note-arrow">›</span></button>
         <button type="button" id="morePrintBtn"><span class="more-icon blue">▤</span><span><strong>Print schedule</strong><small>Print or save the timetable as PDF</small></span><span class="note-arrow">›</span></button>
@@ -2582,9 +2900,173 @@ html[data-theme="light"] .lf-card-content h4 {
       </div>
     </section>
 
-    <section class="page-view coming-page" data-page="community">
-      <button class="back-link" type="button" data-go="more">← Back to More</button>
-      <div class="empty-state coming-card"><span class="coming-emoji">♧</span><span class="coming-pill">COMING SOON</span><h2>Community</h2><p>A campus space for student discussions, clubs and shared interests is coming soon.</p><button type="button" class="primary-action" data-go="home">Back to Home</button></div>
+    <section class="page-view comm-page" data-page="community">
+      <div class="lf-top-bar">
+        <button class="back-link" type="button" data-go="more">← Back to More</button>
+        <span class="lf-sync-pill" id="commSyncStatus">● Campus Live Feed</span>
+      </div>
+
+      <div class="screen-title">
+        <span class="screen-icon">👥</span>
+        <div>
+          <h2>Campus Community</h2>
+          <p>Discussions, study doubts, coding clubs &amp; campus events</p>
+        </div>
+        <button type="button" class="primary-action" id="commToggleFormBtn" style="margin-left:auto;">+ New Post</button>
+      </div>
+
+      <!-- Student Name Bar for Posting & Replying -->
+      <div class="comm-identity-bar">
+        <label for="commQuickName">👤 Your Name:</label>
+        <input type="text" id="commQuickName" placeholder="Apna naam type karein (e.g. Aman Kumar)" maxlength="45">
+      </div>
+
+      <!-- Summary Stats -->
+      <div class="lf-stats-grid" aria-label="Community Summary">
+        <div class="lf-stat-card">
+          <strong id="commCountPosts">0</strong>
+          <small>Total Posts</small>
+        </div>
+        <div class="lf-stat-card resolved-stat">
+          <strong id="commCountDoubts">0</strong>
+          <small>Doubts &amp; Q&amp;A</small>
+        </div>
+        <div class="lf-stat-card found-stat">
+          <strong id="commCountClubs">3</strong>
+          <small>Active Clubs</small>
+        </div>
+        <div class="lf-stat-card lost-stat">
+          <strong id="commCountReplies">0</strong>
+          <small>Likes &amp; Replies</small>
+        </div>
+      </div>
+
+      <!-- Featured Campus Clubs Strip -->
+      <div class="comm-clubs-strip" aria-label="Campus Clubs">
+        <div class="comm-club-card">
+          <div class="comm-club-top">
+            <span class="comm-club-icon">💻</span>
+            <button type="button" class="comm-join-btn" data-club-join="coding">Join Club</button>
+          </div>
+          <strong>Coding &amp; AI Club</strong>
+          <small>Hackathons, DSA, Web &amp; App Dev</small>
+        </div>
+        <div class="comm-club-card">
+          <div class="comm-club-top">
+            <span class="comm-club-icon">🎭</span>
+            <button type="button" class="comm-join-btn" data-club-join="cultural">Join Club</button>
+          </div>
+          <strong>Cultural &amp; Literary</strong>
+          <small>Techfest, Debates, Music &amp; Art</small>
+        </div>
+        <div class="comm-club-card">
+          <div class="comm-club-top">
+            <span class="comm-club-icon">🏆</span>
+            <button type="button" class="comm-join-btn" data-club-join="sports">Join Club</button>
+          </div>
+          <strong>Sports, NCC &amp; NSS</strong>
+          <small>Cricket, Volleyball &amp; Drives</small>
+        </div>
+      </div>
+
+      <!-- Create Community Post Form -->
+      <div class="lf-form-card" id="commFormWrap" hidden>
+        <div class="lf-form-header">
+          <h3>💬 Create a Campus Post or Ask a Doubt</h3>
+          <button type="button" class="lf-btn-sm alt" id="commCloseFormBtn">Close ✕</button>
+        </div>
+
+        <form id="commForm">
+          <div class="lf-form-grid">
+            <div class="lf-field">
+              <label for="commAuthor">Your Name *</label>
+              <input type="text" id="commAuthor" placeholder="e.g. Aman Kumar" maxlength="45" required>
+            </div>
+
+            <div class="lf-field">
+              <label for="commBranch">Branch &amp; Sem *</label>
+              <select id="commBranch" required>
+                <option value="CSE-A · 1st Sem">CSE-A · 1st Sem</option>
+                <option value="CSE-B · 1st Sem">CSE-B · 1st Sem</option>
+                <option value="EEE · 1st Sem">EEE · 1st Sem</option>
+                <option value="Civil · 1st Sem">Civil · 1st Sem</option>
+                <option value="Mechanical · 1st Sem">Mechanical · 1st Sem</option>
+                <option value="Math &amp; Computing">Math &amp; Computing</option>
+                <option value="Food Processing">Food Processing</option>
+                <option value="All Branches">All Branches / Senior</option>
+              </select>
+            </div>
+
+            <div class="lf-field">
+              <label for="commCategory">Channel / Topic *</label>
+              <select id="commCategory" required>
+                <option value="Study &amp; Doubts">❓ Study &amp; Doubts</option>
+                <option value="Coding &amp; Tech">💻 Coding &amp; Tech Club</option>
+                <option value="General">💬 General Discussion</option>
+                <option value="Events &amp; Clubs">🎭 Cultural &amp; Events</option>
+                <option value="Sports &amp; NSS">🏆 Sports, NCC &amp; NSS</option>
+                <option value="Placements">🚀 Internships &amp; Career</option>
+              </select>
+            </div>
+
+            <div class="lf-field">
+              <label for="commTitle">Post Title / Question *</label>
+              <input type="text" id="commTitle" placeholder="e.g. PPS Lab Viva Questions or Hackathon Team" maxlength="85" required>
+            </div>
+
+            <div class="lf-field lf-full">
+              <label for="commBody">Details / Message *</label>
+              <textarea id="commBody" placeholder="Apna doubt, club update, ya discussion yahan detail me likho..." maxlength="500" required></textarea>
+            </div>
+
+            <div class="lf-field lf-full">
+              <label for="commPhoto">Attach Screenshot / Poster (Optional)</label>
+              <div class="lf-photo-row">
+                <input type="file" id="commPhoto" accept="image/*" style="flex:1;">
+                <img id="commPhotoPreview" class="lf-photo-preview" alt="Post preview" hidden>
+                <button type="button" id="commClearPhotoBtn" class="lf-btn-sm alt" hidden>Remove Image</button>
+              </div>
+            </div>
+
+            <div class="lf-field lf-full">
+              <button type="submit" class="att-btn" style="width:100%;">🚀 Publish to LNJPIT Community</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Search and Channel Filters -->
+      <div class="notes-search">
+        <span>⌕</span>
+        <input type="search" id="commSearch" placeholder="Search discussions, doubts, clubs, branches..." aria-label="Search community posts">
+      </div>
+
+      <div class="note-filters" role="group" aria-label="Filter community posts by channel">
+        <button class="note-filter active" type="button" data-comm-filter="all">All Feed</button>
+        <button class="note-filter" type="button" data-comm-filter="Study & Doubts">❓ Study &amp; Doubts</button>
+        <button class="note-filter" type="button" data-comm-filter="Coding & Tech">💻 Coding &amp; Tech</button>
+        <button class="note-filter" type="button" data-comm-filter="General">💬 General</button>
+        <button class="note-filter" type="button" data-comm-filter="Events & Clubs">🎭 Events &amp; Clubs</button>
+        <button class="note-filter" type="button" data-comm-filter="Sports & NSS">🏆 Sports &amp; NSS</button>
+        <button class="note-filter" type="button" data-comm-filter="Placements">🚀 Career</button>
+      </div>
+
+      <p id="commFeedbackMsg" class="att-message" aria-live="polite" style="margin:6px 0 10px;">
+        Community posts, likes and replies sync live with Firebase Firestore across campus devices.
+      </p>
+
+      <div id="commList" class="lf-list"></div>
+
+      <div class="empty-state notice-empty" id="commEmpty" hidden>
+        <span class="coming-emoji">♧</span>
+        <span class="coming-pill">COMMUNITY</span>
+        <h3>No posts in this channel yet</h3>
+        <p>Koi study doubt puchna hai ya club update share karna hai? "+ New Post" button daba kar shuru karein!</p>
+      </div>
+
+      <div style="margin-top:16px;display:flex;justify-content:center;">
+        <button type="button" class="primary-action" data-go="home">Back to Home</button>
+      </div>
     </section>
 
     <section class="page-view profile-intro" data-page="profile">
@@ -2821,7 +3303,7 @@ html[data-theme="light"] .lf-card-content h4 {
     ];
 
     /* ---- State & Helpers ---- */
-    const $ = id => document.getElementById(id);
+    const getById = id => document.getElementById(id);
     const esc = s => String(s)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -3691,6 +4173,79 @@ html[data-theme="light"] .lf-card-content h4 {
       }
     });
 
+    // Live Campus Community sync via Firebase Firestore ("communityPosts" collection)
+    let seenCommIds = new Set();
+    let initialCommLoaded = false;
+
+    try {
+      const commQuery = query(collection(db, "communityPosts"), orderBy("createdAtMs", "desc"), limit(50));
+      onSnapshot(commQuery, snapshot => {
+        const remotePosts = [];
+        snapshot.forEach(docSnap => {
+          const d = docSnap.data() || {};
+          remotePosts.push({
+            id: docSnap.id,
+            author: d.author || 'LNJPIT Student',
+            branch: d.branch || 'All Branches',
+            category: d.category || 'General',
+            title: d.title || 'Campus Discussion',
+            body: d.body || '',
+            photoData: d.photoData || '',
+            likes: Number(d.likes || 0),
+            replies: Array.isArray(d.replies) ? d.replies : [],
+            dateLabel: d.dateLabel || 'Recent',
+            createdAtMs: Number(d.createdAtMs || Date.now())
+          });
+          if (initialCommLoaded && !seenCommIds.has(docSnap.id)) {
+            dispatchEvent(new CustomEvent('fcm-message', {
+              detail: {
+                title: `👥 Community (${d.category || 'Post'}): ${d.title || 'New Discussion'}`,
+                body: `Posted by ${d.author || 'Student'} (${d.branch || 'LNJPIT'})`,
+                url: './#community'
+              }
+            }));
+          }
+          seenCommIds.add(docSnap.id);
+        });
+        initialCommLoaded = true;
+        const syncEl = $('commSyncStatus');
+        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
+        dispatchEvent(new CustomEvent('comm-remote-sync', { detail: { posts: remotePosts } }));
+      }, () => {
+        const syncEl = $('commSyncStatus');
+        if (syncEl) syncEl.textContent = '● Local Campus Feed';
+      });
+    } catch (e) {}
+
+    addEventListener('comm-save-post', async event => {
+      const post = event.detail;
+      if (!post || !post.id) return;
+      try {
+        await ensureAnonymousUser().catch(() => {});
+        seenCommIds.add(post.id);
+        await setDoc(doc(db, "communityPosts", post.id), {
+          ...post,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        const syncEl = $('commSyncStatus');
+        if (syncEl) syncEl.textContent = '● Firebase Live Synced';
+      } catch (err) {
+        console.warn('Firestore communityPosts save fallback to local storage:', err);
+      }
+    });
+
+    addEventListener('comm-delete-post', async event => {
+      const id = event.detail?.id;
+      if (!id) return;
+      try {
+        await ensureAnonymousUser().catch(() => {});
+        await deleteDoc(doc(db, "communityPosts", id));
+      } catch (err) {
+        console.warn('Firestore communityPosts delete fallback:', err);
+      }
+    });
+
+
 
     addEventListener('fcm-permission-granted', () => { void enableFirebaseNotifications(); });
     addEventListener('timetable-branch-changed', () => { void syncReminderDevice({ quiet: true }); });
@@ -4189,8 +4744,8 @@ html[data-theme="light"] .lf-card-content h4 {
 
     // Pre-fill student name from profile if available
     try {
-      const savedName = localStorage.getItem("lnjpit_student_name");
-      if (savedName && !reporterInput.value) reporterInput.value = savedName;
+      const savedName = (localStorage.getItem("lnjpit_student_name") || "").trim();
+      if (savedName && savedName.toLowerCase() !== "lnjpit student" && !reporterInput.value) reporterInput.value = savedName;
     } catch (e) {}
 
     const starterItems = [
@@ -4548,6 +5103,572 @@ html[data-theme="light"] .lf-card-content h4 {
     });
 
     renderItems();
+  })();
+</script>
+
+
+<script>
+  // Campus Community Feature Controller (Discussions, Clubs, Likes, Replies + Firebase Firestore Sync)
+  (() => {
+    "use strict";
+
+    const COMM_STORAGE_KEY = "lnjpit_community_v1";
+    const COMM_LIKES_KEY = "lnjpit_community_likes_v1";
+    const COMM_CLUBS_KEY = "lnjpit_community_clubs_v1";
+    const $ = id => document.getElementById(id);
+
+    const formWrap = $("commFormWrap");
+    const toggleFormBtn = $("commToggleFormBtn");
+    const closeFormBtn = $("commCloseFormBtn");
+    const form = $("commForm");
+    if (!form) return;
+
+    const quickNameInput = $("commQuickName");
+    const authorInput = $("commAuthor");
+    const branchInput = $("commBranch");
+    const catInput = $("commCategory");
+    const titleInput = $("commTitle");
+    const bodyInput = $("commBody");
+    const photoInput = $("commPhoto");
+    const photoPreview = $("commPhotoPreview");
+    const clearPhotoBtn = $("commClearPhotoBtn");
+    const searchInput = $("commSearch");
+    const listEl = $("commList");
+    const emptyEl = $("commEmpty");
+    const feedbackMsg = $("commFeedbackMsg");
+
+    let activeFilter = "all";
+    let currentPhotoData = "";
+    const openReplyBoxes = new Set();
+
+    function isPlaceholderName(val) {
+      const clean = String(val || "").trim().toLowerCase();
+      return !clean || clean === "lnjpit student" || clean === "student";
+    }
+
+    function getStudentName() {
+      const fromAuthor = (authorInput?.value || "").trim();
+      if (!isPlaceholderName(fromAuthor)) return fromAuthor;
+      const fromQuick = (quickNameInput?.value || "").trim();
+      if (!isPlaceholderName(fromQuick)) return fromQuick;
+      try {
+        const saved = (localStorage.getItem("lnjpit_student_name") || "").trim();
+        if (!isPlaceholderName(saved)) return saved;
+      } catch (e) {}
+      return "";
+    }
+
+    function syncStudentNameEverywhere(rawName) {
+      const clean = String(rawName || "").trim();
+      if (isPlaceholderName(clean)) return;
+      try {
+        localStorage.setItem("lnjpit_student_name", clean);
+      } catch (e) {}
+      if (quickNameInput && quickNameInput.value.trim() !== clean) {
+        quickNameInput.value = clean;
+      }
+      if (authorInput && authorInput.value.trim() !== clean) {
+        authorInput.value = clean;
+      }
+      const lfReporter = $("lfReporter");
+      if (lfReporter && isPlaceholderName(lfReporter.value)) {
+        lfReporter.value = clean;
+      }
+      const profileNameEl = $("profileStudentName");
+      if (profileNameEl) {
+        profileNameEl.textContent = clean;
+      }
+      const homeWelcomeEl = $("homeWelcomeName");
+      if (homeWelcomeEl) {
+        homeWelcomeEl.textContent = `${clean} 👋`;
+      }
+      document.querySelectorAll("[data-comm-reply-name]").forEach(inp => {
+        if (isPlaceholderName(inp.value)) inp.value = clean;
+      });
+    }
+
+    // Initialize student name on load (clearing any old "LNJPIT Student" placeholder from inputs)
+    const initialName = getStudentName();
+    if (initialName) {
+      syncStudentNameEverywhere(initialName);
+    } else {
+      if (authorInput && isPlaceholderName(authorInput.value)) authorInput.value = "";
+      if (quickNameInput && isPlaceholderName(quickNameInput.value)) quickNameInput.value = "";
+    }
+
+    quickNameInput?.addEventListener("input", () => {
+      const val = quickNameInput.value.trim();
+      if (!isPlaceholderName(val)) {
+        try { localStorage.setItem("lnjpit_student_name", val); } catch (e) {}
+        if (authorInput) authorInput.value = val;
+        const profileNameEl = $("profileStudentName");
+        if (profileNameEl) profileNameEl.textContent = val;
+        const homeWelcomeEl = $("homeWelcomeName");
+        if (homeWelcomeEl) homeWelcomeEl.textContent = `${val} 👋`;
+        document.querySelectorAll("[data-comm-reply-name]").forEach(inp => {
+          inp.value = val;
+        });
+      }
+    });
+
+    authorInput?.addEventListener("input", () => {
+      const val = authorInput.value.trim();
+      if (!isPlaceholderName(val)) {
+        try { localStorage.setItem("lnjpit_student_name", val); } catch (e) {}
+        if (quickNameInput) quickNameInput.value = val;
+        const profileNameEl = $("profileStudentName");
+        if (profileNameEl) profileNameEl.textContent = val;
+        const homeWelcomeEl = $("homeWelcomeName");
+        if (homeWelcomeEl) homeWelcomeEl.textContent = `${val} 👋`;
+        document.querySelectorAll("[data-comm-reply-name]").forEach(inp => {
+          inp.value = val;
+        });
+      }
+    });
+
+    // Club membership state
+    let joinedClubs = {};
+    try {
+      joinedClubs = JSON.parse(localStorage.getItem(COMM_CLUBS_KEY) || "{}") || {};
+    } catch (e) {
+      joinedClubs = {};
+    }
+
+    function updateClubButtons() {
+      document.querySelectorAll("[data-club-join]").forEach(btn => {
+        const clubId = btn.dataset.clubJoin;
+        const isJoined = Boolean(joinedClubs[clubId]);
+        btn.classList.toggle("joined", isJoined);
+        btn.textContent = isJoined ? "✓ Joined" : "Join Club";
+      });
+    }
+
+    document.querySelectorAll("[data-club-join]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const clubId = btn.dataset.clubJoin;
+        joinedClubs[clubId] = !joinedClubs[clubId];
+        try { localStorage.setItem(COMM_CLUBS_KEY, JSON.stringify(joinedClubs)); } catch (e) {}
+        updateClubButtons();
+        if (typeof toast === "function") {
+          toast(
+            joinedClubs[clubId] ? "🎉 Joined Campus Club" : "Club Updated",
+            joinedClubs[clubId] ? "You will receive updates from this club in the Community feed." : "Left club notifications."
+          );
+        }
+      });
+    });
+    updateClubButtons();
+
+    // Liked posts tracking per device
+    let likedMap = {};
+    try {
+      likedMap = JSON.parse(localStorage.getItem(COMM_LIKES_KEY) || "{}") || {};
+    } catch (e) {
+      likedMap = {};
+    }
+
+    const starterPosts = [
+      {
+        id: "comm_sample_1",
+        author: "Aarav Verma",
+        branch: "CSE-A · 1st Sem",
+        category: "Coding & Tech",
+        title: "🚀 Smart India Hackathon & Web/App Dev Study Group",
+        body: "Hum log LNJPIT 1st & 2nd year students ke liye ek Web + Firebase + AI project group bana rahe hain. Jo students weekend coding sessions join karna chahte hain niche reply me apna branch aur GitHub/topic drop karein!",
+        photoData: "",
+        likes: 14,
+        replies: [
+          { author: "Sneha Gupta (CSE-B)", text: "Count me in! Main Frontend aur Firebase seekh rahi hoon.", time: "2h ago" },
+          { author: "Rohan Raj (M&C)", text: "Interested for Python & AI/ML track!", time: "1h ago" }
+        ],
+        dateLabel: "Today",
+        createdAtMs: Date.now() - 10800000
+      },
+      {
+        id: "comm_sample_2",
+        author: "Neha Kumari",
+        branch: "EEE · 1st Sem",
+        category: "Study & Doubts",
+        title: "❓ Engineering Mathematics-I Matrices & Eigenvalues Notes?",
+        body: "Kisi ke paas Math-I module 2 ke solved examples aur previous year BEU semester questions ka PDF link hai? Agar kisi ne solve kiya hai toh please batao.",
+        photoData: "",
+        likes: 9,
+        replies: [
+          { author: "Vikash Kumar (Civil)", text: "App ke 'Study Notes' tab me Mathematics & Physics resource link check karo, wahan poora module mil jayega!", time: "45m ago" }
+        ],
+        dateLabel: "Today",
+        createdAtMs: Date.now() - 5400000
+      },
+      {
+        id: "comm_sample_3",
+        author: "Prashant Singh",
+        branch: "Mechanical · 1st Sem",
+        category: "Sports & NSS",
+        title: "🏆 Evening Friendly Cricket & Volleyball Practice at Campus Ground",
+        body: "Aaj shaam 4:30 PM class khatam hone ke baad sports ground me inter-branch practice match hai. Sabhi branches ke players welcome hain!",
+        photoData: "",
+        likes: 11,
+        replies: [],
+        dateLabel: "Today",
+        createdAtMs: Date.now() - 1800000
+      }
+    ];
+
+    let posts = [];
+    try {
+      const raw = localStorage.getItem(COMM_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      posts = Array.isArray(parsed) && parsed.length ? parsed : starterPosts;
+    } catch (e) {
+      posts = starterPosts.slice();
+    }
+
+    function saveLocal() {
+      try {
+        localStorage.setItem(COMM_STORAGE_KEY, JSON.stringify(posts));
+      } catch (e) {}
+    }
+
+    function escHtml(str) {
+      return String(str || "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[c]);
+    }
+
+    toggleFormBtn?.addEventListener("click", () => {
+      const willShow = formWrap.hidden;
+      formWrap.hidden = !willShow;
+      toggleFormBtn.textContent = willShow ? "Close Form ✕" : "+ New Post";
+      if (willShow) {
+        const currentName = getStudentName();
+        if (currentName && isPlaceholderName(authorInput.value)) {
+          authorInput.value = currentName;
+        }
+        if (!authorInput.value.trim()) authorInput.focus();
+        else titleInput.focus();
+      }
+    });
+
+    closeFormBtn?.addEventListener("click", () => {
+      formWrap.hidden = true;
+      if (toggleFormBtn) toggleFormBtn.textContent = "+ New Post";
+    });
+
+    photoInput?.addEventListener("change", event => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const maxDim = 420;
+          let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; }
+          else if (h >= w && h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, w, h);
+          currentPhotoData = canvas.toDataURL("image/jpeg", 0.72);
+          if (photoPreview) {
+            photoPreview.src = currentPhotoData;
+            photoPreview.hidden = false;
+          }
+          if (clearPhotoBtn) clearPhotoBtn.hidden = false;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    clearPhotoBtn?.addEventListener("click", () => {
+      currentPhotoData = "";
+      if (photoInput) photoInput.value = "";
+      if (photoPreview) { photoPreview.src = ""; photoPreview.hidden = true; }
+      clearPhotoBtn.hidden = true;
+    });
+
+    function updateCounters() {
+      const total = posts.length;
+      const doubts = posts.filter(p => (p.category || "").toLowerCase().includes("doubt")).length;
+      const interactions = posts.reduce((acc, p) => acc + Number(p.likes || 0) + (Array.isArray(p.replies) ? p.replies.length : 0), 0);
+
+      if ($("commCountPosts")) $("commCountPosts").textContent = total;
+      if ($("commCountDoubts")) $("commCountDoubts").textContent = doubts;
+      if ($("commCountReplies")) $("commCountReplies").textContent = interactions;
+
+      const homeBadge = $("homeCommBadge");
+      if (homeBadge) {
+        homeBadge.textContent = total > 0 ? `${total} Active Posts` : "Clubs & Doubts";
+      }
+    }
+
+    function renderPosts() {
+      updateCounters();
+      const q = (searchInput?.value || "").trim().toLowerCase();
+      const defaultReplyName = getStudentName();
+
+      const filtered = posts
+        .filter(post => {
+          if (activeFilter === "all") return true;
+          return (post.category || "").toLowerCase() === activeFilter.toLowerCase();
+        })
+        .filter(post => {
+          if (!q) return true;
+          const replyText = (post.replies || []).map(r => `${r.author} ${r.text}`).join(" ");
+          const hay = `${post.title} ${post.body} ${post.author} ${post.branch} ${post.category} ${replyText}`.toLowerCase();
+          return hay.includes(q);
+        })
+        .sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+
+      if (!filtered.length) {
+        listEl.innerHTML = "";
+        emptyEl.hidden = false;
+        return;
+      }
+
+      emptyEl.hidden = true;
+      listEl.innerHTML = filtered.map(post => {
+        const initials = String(post.author || "S").trim().slice(0, 2).toUpperCase();
+        const isLiked = Boolean(likedMap[post.id]);
+        const replies = Array.isArray(post.replies) ? post.replies : [];
+        const isReplyOpen = openReplyBoxes.has(post.id);
+
+        return `
+          <article class="comm-card pinned" data-comm-id="${escHtml(post.id)}">
+            <div class="comm-author-row">
+              <div class="comm-avatar">${escHtml(initials)}</div>
+              <div class="comm-author-meta">
+                <strong>${escHtml(post.author)}</strong>
+                <small>${escHtml(post.branch)} · ${escHtml(post.dateLabel || "Just now")}</small>
+              </div>
+              <span class="comm-topic-badge">${escHtml(post.category)}</span>
+            </div>
+
+            <h4 class="comm-post-title">${escHtml(post.title)}</h4>
+            <p class="comm-post-body">${escHtml(post.body)}</p>
+            ${post.photoData ? `<img class="comm-post-img" src="${escHtml(post.photoData)}" alt="${escHtml(post.title)}">` : ""}
+
+            <div class="comm-actions-bar">
+              <div class="lf-action-group">
+                <button type="button" class="comm-btn ${isLiked ? "liked" : ""}" data-comm-like="${escHtml(post.id)}">
+                  ${isLiked ? "❤️" : "🤍"} Like (${Number(post.likes || 0)})
+                </button>
+                <button type="button" class="comm-btn" data-comm-toggle-reply="${escHtml(post.id)}">
+                  💬 Replies (${replies.length})
+                </button>
+              </div>
+              <button type="button" class="lf-btn-sm lf-btn-delete" data-comm-delete="${escHtml(post.id)}">Delete</button>
+            </div>
+
+            <div class="comm-replies-box" id="commReplies_${escHtml(post.id)}" ${isReplyOpen ? "" : "hidden"}>
+              ${replies.length
+                ? replies.map(r => `
+                    <div class="comm-reply-item">
+                      <strong>👤 ${escHtml(r.author || "Student")}</strong>
+                      <span>${escHtml(r.time || "Just now")}</span>
+                      <p>${escHtml(r.text)}</p>
+                    </div>
+                  `).join("")
+                : `<p style="margin:0;font-size:0.72rem;color:var(--text-muted);">No replies yet. Be the first to reply!</p>`
+              }
+              <div class="comm-reply-form">
+                <input type="text" class="comm-reply-name-input" placeholder="Your Name *" maxlength="45" value="${escHtml(defaultReplyName)}" data-comm-reply-name="${escHtml(post.id)}">
+                <input type="text" class="comm-reply-text-input" placeholder="Write a reply or answer..." maxlength="220" data-comm-reply-input="${escHtml(post.id)}">
+                <button type="button" class="lf-btn-sm lf-btn-resolve" data-comm-reply-send="${escHtml(post.id)}">Reply</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const typedAuthor = (authorInput.value || "").trim() || (quickNameInput?.value || "").trim() || getStudentName();
+      if (!typedAuthor) {
+        feedbackMsg.textContent = "Please enter your name before publishing.";
+        authorInput.focus();
+        return;
+      }
+      syncStudentNameEverywhere(typedAuthor);
+
+      const branch = branchInput.value;
+      const category = catInput.value;
+      const title = titleInput.value.trim();
+      const body = bodyInput.value.trim();
+
+      if (!title || !body) {
+        feedbackMsg.textContent = "Please enter both a post title and message.";
+        return;
+      }
+
+      const newPost = {
+        id: "comm_" + (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2, 8)),
+        author: typedAuthor,
+        branch,
+        category,
+        title,
+        body,
+        photoData: currentPhotoData || "",
+        likes: 1,
+        replies: [],
+        dateLabel: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
+        createdAtMs: Date.now()
+      };
+
+      likedMap[newPost.id] = true;
+      try { localStorage.setItem(COMM_LIKES_KEY, JSON.stringify(likedMap)); } catch (e) {}
+
+      posts.unshift(newPost);
+      saveLocal();
+      renderPosts();
+
+      // Sync to Firebase Firestore
+      dispatchEvent(new CustomEvent("comm-save-post", { detail: newPost }));
+
+      // Reset form (keep student name filled)
+      titleInput.value = "";
+      bodyInput.value = "";
+      currentPhotoData = "";
+      if (photoInput) photoInput.value = "";
+      if (photoPreview) { photoPreview.src = ""; photoPreview.hidden = true; }
+      if (clearPhotoBtn) clearPhotoBtn.hidden = true;
+      formWrap.hidden = true;
+      if (toggleFormBtn) toggleFormBtn.textContent = "+ New Post";
+
+      feedbackMsg.textContent = `✅ Published "${title}" by ${typedAuthor} in ${category}!`;
+      if (typeof toast === "function") {
+        toast("👥 Community Post Live", `Posted by ${typedAuthor}: "${title}"`);
+      }
+    });
+
+    function submitReplyForPost(id) {
+      const nameEl = listEl.querySelector(`[data-comm-reply-name="${id}"]`);
+      const inputEl = listEl.querySelector(`[data-comm-reply-input="${id}"]`);
+      const text = (inputEl?.value || "").trim();
+      if (!text) {
+        inputEl?.focus();
+        return;
+      }
+      const typedReplier = (nameEl?.value || "").trim() || (quickNameInput?.value || "").trim() || (authorInput?.value || "").trim() || getStudentName();
+      if (!typedReplier) {
+        feedbackMsg.textContent = "Please enter your name in the reply box so students know who replied.";
+        nameEl?.focus();
+        return;
+      }
+      syncStudentNameEverywhere(typedReplier);
+
+      const target = posts.find(p => p.id === id);
+      if (!target) return;
+      if (!Array.isArray(target.replies)) target.replies = [];
+      target.replies.push({
+        author: typedReplier,
+        text,
+        time: "Just now"
+      });
+      openReplyBoxes.add(id);
+      saveLocal();
+      renderPosts();
+      dispatchEvent(new CustomEvent("comm-save-post", { detail: target }));
+      feedbackMsg.textContent = `💬 Reply posted by ${typedReplier} on "${target.title}"!`;
+    }
+
+    listEl.addEventListener("click", event => {
+      const likeBtn = event.target.closest("[data-comm-like]");
+      if (likeBtn) {
+        const id = likeBtn.dataset.commLike;
+        const target = posts.find(p => p.id === id);
+        if (!target) return;
+        if (likedMap[id]) {
+          delete likedMap[id];
+          target.likes = Math.max(0, Number(target.likes || 1) - 1);
+        } else {
+          likedMap[id] = true;
+          target.likes = Number(target.likes || 0) + 1;
+        }
+        try { localStorage.setItem(COMM_LIKES_KEY, JSON.stringify(likedMap)); } catch (e) {}
+        saveLocal();
+        renderPosts();
+        dispatchEvent(new CustomEvent("comm-save-post", { detail: target }));
+        return;
+      }
+
+      const toggleReplyBtn = event.target.closest("[data-comm-toggle-reply]");
+      if (toggleReplyBtn) {
+        const id = toggleReplyBtn.dataset.commToggleReply;
+        if (openReplyBoxes.has(id)) openReplyBoxes.delete(id);
+        else openReplyBoxes.add(id);
+        renderPosts();
+        return;
+      }
+
+      const sendReplyBtn = event.target.closest("[data-comm-reply-send]");
+      if (sendReplyBtn) {
+        const id = sendReplyBtn.dataset.commReplySend;
+        submitReplyForPost(id);
+        return;
+      }
+
+      const deleteBtn = event.target.closest("[data-comm-delete]");
+      if (deleteBtn) {
+        const id = deleteBtn.dataset.commDelete;
+        if (deleteBtn.dataset.confirmDelete !== "1") {
+          deleteBtn.dataset.confirmDelete = "1";
+          deleteBtn.textContent = "Confirm?";
+          setTimeout(() => {
+            if (deleteBtn.isConnected) {
+              delete deleteBtn.dataset.confirmDelete;
+              deleteBtn.textContent = "Delete";
+            }
+          }, 3000);
+          return;
+        }
+        posts = posts.filter(p => p.id !== id);
+        saveLocal();
+        renderPosts();
+        dispatchEvent(new CustomEvent("comm-delete-post", { detail: { id } }));
+        feedbackMsg.textContent = "Community post removed.";
+      }
+    });
+
+    listEl.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        const replyInput = event.target.closest("[data-comm-reply-input]");
+        if (replyInput) {
+          event.preventDefault();
+          submitReplyForPost(replyInput.dataset.commReplyInput);
+        }
+      }
+    });
+
+    document.querySelectorAll("[data-comm-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.commFilter || "all";
+        document.querySelectorAll("[data-comm-filter]").forEach(b => b.classList.toggle("active", b === btn));
+        renderPosts();
+      });
+    });
+
+    searchInput?.addEventListener("input", renderPosts);
+
+    addEventListener("comm-remote-sync", event => {
+      const remotePosts = event.detail?.posts;
+      if (!Array.isArray(remotePosts) || !remotePosts.length) return;
+      const map = new Map();
+      posts.forEach(p => map.set(p.id, p));
+      remotePosts.forEach(rp => map.set(rp.id, rp));
+      posts = Array.from(map.values()).sort((a, b) => (b.createdAtMs || 0) - (a.createdAtMs || 0));
+      saveLocal();
+      renderPosts();
+    });
+
+    renderPosts();
   })();
 </script>
 

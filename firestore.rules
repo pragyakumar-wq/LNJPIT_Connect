@@ -11,6 +11,9 @@ service cloud.firestore {
     match /lostFoundItems/{itemId} {
       allow read, write: if true;
     }
+    match /communityPosts/{postId} {
+      allow read, write: if true;
+    }
     match /sentReminders/{reminderId} {
       allow read, write: if false;
     }
