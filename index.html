@@ -3720,7 +3720,7 @@ service cloud.firestore {
     ];
 
     /* ---- State & Helpers ---- */
-    const getEl = id => document.getElementById(id);
+    const $ = id => document.getElementById(id);
     const esc = s => String(s)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
